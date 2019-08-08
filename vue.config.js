@@ -14,6 +14,7 @@ module.exports = {
     //忽略的打包文件
     config.externals({
       'vue': 'Vue',
+      'element-ui': 'ElementUI',
     })
   },
 }

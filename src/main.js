@@ -3,9 +3,6 @@ import App from './App'
 
 import 'normalize.css/normalize.css'
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-
 import "@/styles/index.scss"
 
 import { loadCss } from "./utils";
@@ -16,7 +13,7 @@ iconfont.forEach(i => loadCss(i));
 
 import Config from './components/config'
 
-Vue.use(ElementUI, { size: 'small' })
+Vue.prototype.$ELEMENT = { size: 'small' };
 Vue.use(window.AVUE)
 Vue.use(Config)
 
