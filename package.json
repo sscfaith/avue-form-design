@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^2.6.5",
-    "vue": "^2.6.10"
+    "element-ui": "^2.11.1",
+    "normalize.css": "^8.0.1",
+    "v-jsoneditor": "^1.2.1",
+    "vue": "^2.6.10",
+    "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
@@ -31,7 +35,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
