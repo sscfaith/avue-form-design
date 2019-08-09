@@ -10,6 +10,8 @@ import Checkbox from './checkbox.vue'
 import Select from './select.vue'
 import Cascader from './cascader.vue'
 import Tree from './tree.vue'
+import Date from './date.vue'
+import UEditor from './ueditor.vue'
 
 const components = [
   Input,
@@ -23,7 +25,9 @@ const components = [
   Checkbox,
   Select,
   Cascader,
-  Tree
+  Tree,
+  Date,
+  UEditor
 ]
 
 const Config = {

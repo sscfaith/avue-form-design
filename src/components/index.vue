@@ -49,7 +49,7 @@
         </el-main>
       </el-container>
       <!-- 右侧配置 -->
-      <el-aside class="widget-config-container" width="350px">
+      <el-aside class="widget-config-container" width="380px">
         <el-tabs v-model="configTab" stretch>
           <el-tab-pane label="字段属性" name="widget" style="padding: 0 10px;">
             <widget-config :data="widgetFormSelect"></widget-config>

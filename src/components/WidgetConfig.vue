@@ -8,6 +8,9 @@
 </template>
 
 <script>
+  const dateArr = [
+    'year', 'month', 'week', 'date', 'datetime', 'time', 'daterange', 'timerange', 'datetimerange', 'dates'
+  ]
 
   export default {
     name: 'widget-config',
@@ -18,7 +21,8 @@
         const { type } = this.data
         let result = 'input'
 
-        if (['input', 'password'].includes(type)) result = "input"
+        if (['input', 'password'].includes(type)) result = 'input'
+        else if (dateArr.includes(type)) result = 'date'
         else result = type
 
         return prefix + result
