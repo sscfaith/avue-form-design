@@ -5,9 +5,11 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwn(obj, key) {
   return hasOwnProperty.call(obj, key);
 }
+
 export function getFixed(val, len = 2) {
   return Number(val.toFixed(len));
 }
+
 export function dataURLtoFile(dataurl, filename) {
   let arr = dataurl.split(','),
     mime = arr[0].match(/:(.*?);/)[1],
@@ -21,6 +23,7 @@ export function dataURLtoFile(dataurl, filename) {
     type: mime
   });
 }
+
 export function randomId() {
   let $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
   let maxPos = $chars.length;
@@ -30,9 +33,10 @@ export function randomId() {
   }
   return id;
 }
+
 export const getObjType = obj => {
-  var toString = Object.prototype.toString;
-  var map = {
+  let toString = Object.prototype.toString;
+  let map = {
     '[object Boolean]': 'boolean',
     '[object Number]': 'number',
     '[object String]': 'string',
@@ -55,11 +59,7 @@ export const getObjType = obj => {
 
 export const isJson = str => {
   if (Array.isArray(str)) {
-    if (str[0] instanceof Object) {
-      return true;
-    } else {
-      return false;
-    }
+    return str[0] instanceof Object;
   } else if (str instanceof Object) {
     return true;
   }
@@ -69,8 +69,8 @@ export const isJson = str => {
  * 对象深拷贝
  */
 export const deepClone = data => {
-  var type = getObjType(data);
-  var obj;
+  let type = getObjType(data);
+  let obj;
   if (type === 'array') {
     obj = [];
   } else if (type === 'object') {
@@ -80,13 +80,13 @@ export const deepClone = data => {
     return data;
   }
   if (type === 'array') {
-    for (var i = 0, len = data.length; i < len; i++) {
+    for (let i = 0, len = data.length; i < len; i++) {
       data[i] = data[i] || {};
       delete data[i].$parent;
       obj.push(deepClone(data[i]));
     }
   } else if (type === 'object') {
-    for (var key in data) {
+    for (let key in data) {
       delete data.$parent;
       obj[key] = deepClone(data[key]);
     }

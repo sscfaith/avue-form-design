@@ -3,25 +3,40 @@
     <el-container>
       <!-- 左侧字段 -->
       <el-aside width="270px">
-        <div class="components-list">
+        <div class="fields-list">
           <div v-for="(field, index) in fields" :key="index">
-            <div class="widget-cate">{{field.title}}</div>
-            <draggable tag="ul" :list="field.list"
-                       :group="{ name: 'people', pull: 'clone', put: false }"
-                       ghost-class="ghost" :sort="false">
-              <li class="form-edit-widget-label" v-for="(item, index) in field.list" :key="index">
-                <a>
-                  <i class="icon iconfont" :class="item.icon"></i>
-                  <span>{{item.label}}</span>
-                </a>
-              </li>
-            </draggable>
+            <div v-if="!field.disabled">
+              <div class="field-title">{{field.title}}</div>
+              <draggable tag="ul" :list="field.list"
+                         :group="{ name: 'people', pull: 'clone', put: false }"
+                         ghost-class="ghost" :sort="false">
+                <li class="field-label" v-for="(item, index) in field.list" :key="index">
+                  <a>
+                    <i class="icon iconfont" :class="item.icon"></i>
+                    <span>{{item.label}}</span>
+                  </a>
+                </li>
+              </draggable>
+            </div>
+            <div v-else>
+              <div class="field-title">{{field.title}}
+                <span class="danger">（开发中）</span>
+              </div>
+              <ul>
+                <li class="field-label-disabled" v-for="(item, index) in field.list" :key="index">
+                  <a>
+                    <i class="icon iconfont" :class="item.icon"></i>
+                    <span>{{item.label}}</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </el-aside>
       <!-- 中间主布局 -->
-      <el-container class="center-container" direction="vertical">
-        <el-header class="btn-bar" style="height: 45px;">
+      <el-container class="widget-container" direction="vertical">
+        <el-header class="widget-container-header" style="height: 45px;">
           <el-button type="text" size="medium" icon="el-icon-upload2" @click="importJsonVisible = true">导入JSON
           </el-button>
           <el-button type="text" size="medium" icon="el-icon-download" @click="generateJsonVisible = true">生成JSON
@@ -61,7 +76,7 @@
         </div>
       </el-drawer>
       <!-- 预览 -->
-      <el-drawer title="预览" :visible.sync="previewVisible" size="70%" :before-close="handleBeforeClose">
+      <el-drawer title="预览" :visible.sync="previewVisible" size="50%" :before-close="handleBeforeClose">
         <avue-form v-if="previewVisible" ref="form" class="preview-form" :option="widgetForm"
                    v-model="widgetModels"></avue-form>
         <div class="drawer-foot">
@@ -91,7 +106,7 @@
         widgetForm: {
           column: [],
           labelPosition: 'left',
-          labelWidth: 100,
+          labelWidth: 120,
           gutter: 0,
           menuBtn: false,
           submitBtn: false,

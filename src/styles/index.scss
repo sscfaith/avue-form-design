@@ -7,10 +7,6 @@ $primary-background-color: #ecf5ff;
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-}
-
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,55 +16,15 @@ html, body {
   height: 100%;
 }
 
-.fa-icon {
-  width: auto;
-  height: 1em; /* 或任意其它字体大小相对值 */
-
-  /* 要在 Safari 中正常工作，需要再引入如下两行代码 */
-  max-width: 100%;
-  max-height: 100%;
-  vertical-align: middle;
-}
-
 .form-designer {
   height: 100%;
 
-  .widget-empty {
-    background: url('../assets/form_empty.png') no-repeat 50%;
-  }
-
-  .el-container {
-    height: 100%;
-  }
-
-  .el-tabs__item {
-    padding: 0;
-  }
-
-  .center-container {
-    border-left: 1px solid #e0e0e0;
-    border-right: 1px solid #e0e0e0;
-
-    .btn-bar {
-      height: 45px;
-      line-height: 45px;
-      font-size: 18px;
-      border-bottom: solid 2px #e4e7ed;
-      text-align: right;
-    }
-
-    .el-main {
-      padding: 0;
-      position: relative;
-    }
-  }
-
-  .components-list {
+  .fields-list {
     padding: 10px 0;
     width: 100%;
     height: 100%;
 
-    .widget-cate {
+    .field-title {
       padding: 8px 12px;
       font-size: 13px;
     }
@@ -80,7 +36,7 @@ html, body {
       margin: 0;
     }
 
-    .form-edit-widget-label {
+    .field-label {
       font-size: 12px;
       display: block;
       width: 48%;
@@ -119,6 +75,69 @@ html, body {
           vertical-align: middle;
         }
       }
+    }
+
+    .field-label-disabled {
+      font-size: 12px;
+      display: block;
+      width: 48%;
+      line-height: 26px;
+      position: relative;
+      float: left;
+      left: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 1%;
+      color: #333;
+      border: 1px solid #F4F6FC;
+
+      &:hover {
+        color: gray;
+        border: 1px dashed gray;
+      }
+
+      & > a {
+        display: block;
+        cursor: not-allowed;
+        background: #F4F6FC;
+        border: 1px solid #F4F6FC;
+
+        .icon {
+          margin-right: 6px;
+          margin-left: 8px;
+          font-size: 14px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        span {
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .widget-container {
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+
+    .widget-container-header {
+      height: 45px;
+      line-height: 45px;
+      font-size: 18px;
+      border-bottom: solid 2px #e4e7ed;
+      text-align: right;
+    }
+
+    .el-main {
+      padding: 0;
+      position: relative;
+    }
+
+    .widget-empty {
+      background: url('../assets/widget-empty.png') no-repeat 50%;
     }
   }
 
@@ -197,7 +216,6 @@ html, body {
     }
   }
 
-
   .widget-config-container {
     padding-top: 5px;
     position: relative;
@@ -268,6 +286,10 @@ html, body {
     .dic-input {
       width: 130px;
     }
+  }
+
+  .el-container {
+    height: 100%;
   }
 
   .danger {

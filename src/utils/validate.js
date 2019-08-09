@@ -4,12 +4,8 @@ import Schema from 'async-validator';
  * 判断是否为空
  */
 export function validatenull(val) {
-  if (typeof val === 'boolean') {
-    return false;
-  }
-  if (typeof val === 'number') {
-    return false;
-  }
+  if (typeof val === 'boolean') return false
+  if (typeof val === 'number') return false;
   if (val instanceof Array) {
     if (val.length === 0) return true;
   } else if (val instanceof Object) {
@@ -24,14 +20,12 @@ export function validatenull(val) {
   return false;
 }
 
-export const asyncValidator = (rules, form, option = {}) =>
+export const asyncValidator = (rules, form, option = {}) => {
   new Promise((resolve, reject) => {
     const schema = new Schema(rules);
     schema.validate(form, option, errors => {
-      if (errors) {
-        reject(errors);
-      } else {
-        resolve();
-      }
-    });
-  });
+      if (errors) reject(errors);
+      else resolve();
+    })
+  })
+}
