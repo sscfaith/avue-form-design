@@ -39,10 +39,10 @@
     <el-form-item label="是否可见">
       <el-switch v-model="data.display"></el-switch>
     </el-form-item>
-    <el-form-item label="校验">
-      是否必填
+    <el-form-item label="校验"><br>
+      是否必填：
       <el-switch v-model="data.required"></el-switch>
-      <el-input v-model.lazy="data.pattern" placeholder="填写正则表达式"></el-input>
+      <el-input v-model.lazy="data.pattern" placeholder="正则表达式"></el-input>
     </el-form-item>
   </div>
 </template>
