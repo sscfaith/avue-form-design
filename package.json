@@ -1,9 +1,10 @@
 {
-  "name": "form-designer",
-  "version": "0.1.0",
+  "name": "avue-form",
+  "author": "SSC",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

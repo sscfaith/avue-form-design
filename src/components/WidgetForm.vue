@@ -8,7 +8,7 @@
       <el-row :gutter="data.gutter">
         <draggable class="widget-form-list"
                    :list="data.column"
-                   :group="{ name: 'people' }"
+                   :group="{ name: 'form' }"
                    ghost-class="ghost"
                    @add="handleWidgetAdd">
           <template v-for="(column, index) in data.column">

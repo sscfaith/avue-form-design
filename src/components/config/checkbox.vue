@@ -17,7 +17,9 @@
       <el-tabs v-model="dicOption" stretch @tab-click="handleTabClick">
         <el-tab-pane label="静态数据" name="1">
           <draggable tag="ul" :list="data.dicData"
-                     v-bind="{group: { name:'options'}, ghostClass: 'ghost', handle: '.drag-item'}">
+                     :group="{ name: 'dic' }"
+                     ghost-class="ghost"
+                     handle=".drag-item">
             <li v-for="(item, index) in data.dicData" :key="index">
               <i class="drag-item el-icon-s-operation" style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
               <el-input style="margin-right: 5px;" size="mini" v-model="item.label"

@@ -8,7 +8,7 @@
             <div v-if="!field.disabled">
               <div class="field-title">{{field.title}}</div>
               <draggable tag="ul" :list="field.list"
-                         :group="{ name: 'people', pull: 'clone', put: false }"
+                         :group="{ name: 'form', pull: 'clone', put: false }"
                          ghost-class="ghost" :sort="false">
                 <li class="field-label" v-for="(item, index) in field.list" :key="index">
                   <a>

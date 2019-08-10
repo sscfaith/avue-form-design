@@ -1,8 +1,5 @@
 module.exports = {
   productionSourceMap: false,
-  css: {
-    extract: false
-  },
   // configureWebpack: (config) => {
   //   if (process.env.NODE_ENV === 'production') {
   //     config.optimization.minimizer[0].options.terserOptions.compress.warnings = false
@@ -11,10 +8,12 @@ module.exports = {
   //   }
   // },
   chainWebpack: (config) => {
-    //忽略的打包文件
     config.externals({
       'vue': 'Vue',
       'element-ui': 'ElementUI',
     })
   },
+  devServer: {
+    open: true
+  }
 }
