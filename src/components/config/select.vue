@@ -30,9 +30,9 @@
                      v-bind="{group: { name:'options'}, ghostClass: 'ghost', handle: '.drag-item'}">
             <li v-for="(item, index) in data.dicData" :key="index">
               <i class="drag-item el-icon-s-operation" style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
-              <el-input class="dic-input" style="margin-right: 5px;" size="mini" v-model="item.label"
+              <el-input style="margin-right: 5px;" size="mini" v-model="item.label"
                         placeholder="label"></el-input>
-              <el-input class="dic-input" size="mini" v-model="item.value" placeholder="value"></el-input>
+              <el-input size="mini" v-model="item.value" placeholder="value"></el-input>
               <el-button @click="handleRemoveFields(index)" circle plain type="danger" size="mini"
                          icon="el-icon-minus" style="padding: 4px;margin-left: 5px;"></el-button>
             </li>

@@ -1497,6 +1497,16 @@ autoprefixer@^9.5.1:
     postcss "^7.0.17"
     postcss-value-parser "^4.0.0"
 
+avue-plugin-map@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npm.taobao.org/avue-plugin-map/download/avue-plugin-map-0.0.5.tgz#b6e8f20c72d5fe804d9335a71b59d727f94baeb3"
+  integrity sha1-tujyDHLV/oBNkzWnG1nXJ/lLrrM=
+  dependencies:
+    axios "^0.18.0"
+    element-ui "^2.4.6"
+    vue "^2.5.17"
+    vue-router "^3.0.1"
+
 avue-plugin-ueditor@^0.0.5:
   version "0.0.5"
   resolved "https://registry.npm.taobao.org/avue-plugin-ueditor/download/avue-plugin-ueditor-0.0.5.tgz?cache=0&sync_timestamp=1564922511413&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Favue-plugin-ueditor%2Fdownload%2Favue-plugin-ueditor-0.0.5.tgz#0e5a7fb6f97bde973561f04b2e13da4304d707e8"
@@ -3036,7 +3046,7 @@ electron-to-chromium@^1.3.191:
   resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.214.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron-to-chromium%2Fdownload%2Felectron-to-chromium-1.3.214.tgz#8b5b9a0415fd41b69c61f694007597cb8c8eb7e8"
   integrity sha1-i1uaBBX9QbacYfaUAHWXy4yOt+g=
 
-element-ui@^2.11.1:
+element-ui@^2.11.1, element-ui@^2.4.6:
   version "2.11.1"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.11.1.tgz#2b67f9eee3eda2e6884873c1c589cbe30d9a9d60"
   integrity sha1-K2f57uPtouaISHPBxYnL4w2anWA=

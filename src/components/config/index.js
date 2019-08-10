@@ -11,7 +11,9 @@ import Select from './select.vue'
 import Cascader from './cascader.vue'
 import Tree from './tree.vue'
 import Date from './date.vue'
+import Upload from './upload.vue'
 import UEditor from './ueditor.vue'
+import Map from './map.vue'
 
 const components = [
   Input,
@@ -27,7 +29,9 @@ const components = [
   Cascader,
   Tree,
   Date,
-  UEditor
+  UEditor,
+  Upload,
+  Map
 ]
 
 const Config = {

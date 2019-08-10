@@ -116,8 +116,13 @@ export default [
       icon: 'icon-upload',
       span: 24,
       display: true,
+      showFileList: true,
+      multiple: true,
+      limit: 10,
+      props: {},
+      propsHttp: {},
+      canvasOption: {}
     }],
-    disabled: true
   },
   {
     title: '日期时间字段',
@@ -144,7 +149,6 @@ export default [
       span: 24,
       display: true,
       format: 'yyyy 第 WW 周',
-      valueFormat: 'yyyy 第 WW 周'
     }, {
       type: 'date',
       label: '日期',
@@ -207,6 +211,13 @@ export default [
       props: {},
       ali: {},
       qiniu: {}
+    }, {
+      type: 'map',
+      component: 'map',
+      label: '坐标拾取器',
+      icon: 'icon-map',
+      span: 24,
+      display: true,
     }],
   },
   {

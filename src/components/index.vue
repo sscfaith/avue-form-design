@@ -36,7 +36,7 @@
       </el-aside>
       <!-- 中间主布局 -->
       <el-container class="widget-container" direction="vertical">
-        <el-header class="widget-container-header" style="height: 45px;">
+        <el-header class="widget-container-header">
           <el-button type="text" size="medium" icon="el-icon-upload2" @click="importJsonVisible = true">导入JSON
           </el-button>
           <el-button type="text" size="medium" icon="el-icon-download" @click="generateJsonVisible = true">生成JSON
@@ -157,7 +157,7 @@
       },
       handlePreviewSubmit() {
         this.$refs.form.validate((valid) => {
-          if (valid) this.$alert(this.widgetModels)
+          if (valid) this.$alert(this.widgetModels).catch(() => {})
         })
       },
       handleCopy() {

@@ -7,18 +7,20 @@ import "@/styles/index.scss"
 
 import { loadCss } from "./utils";
 
-const iconfont = ['//at.alicdn.com/t/font_1254447_jiujt5k4lge.css']
+const iconfont = ['//at.alicdn.com/t/font_1254447_ctkrtb6uksu.css']
 
 iconfont.forEach(i => loadCss(i));
 
 import Config from './components/config'
 
 import AvueUeditor from 'avue-plugin-ueditor'
+import AvueMap from 'avue-plugin-map'
 
 Vue.prototype.$ELEMENT = { size: 'small' };
 Vue.use(window.AVUE)
 Vue.use(Config)
 Vue.use(AvueUeditor)
+Vue.use(AvueMap)
 
 Vue.config.productionTip = false
 

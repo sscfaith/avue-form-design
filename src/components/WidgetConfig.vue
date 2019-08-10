@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="widget-config">
     <el-form label-suffix="：" v-if="this.data && Object.keys(this.data).length > 0">
       <component :is="getComponent" :data="data"></component>
     </el-form>

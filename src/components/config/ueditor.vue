@@ -20,7 +20,7 @@
       <el-input v-model="data.props.url" placeholder="返回结构体图片地址字段"></el-input>
     </el-form-item>
     <el-form-item label="oss">
-      <el-select v-model="data.oss" placeholder="oss不写则为普通上传">
+      <el-select v-model="data.oss" placeholder="oss不写则为普通上传" clearable>
         <el-option label="阿里" value="ali"></el-option>
         <el-option label="七牛" value="qiniu"></el-option>
       </el-select>
