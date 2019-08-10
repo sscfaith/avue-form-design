@@ -20,7 +20,8 @@
       <el-switch v-model="data.display"></el-switch>
     </el-form-item>
     <el-form-item label="校验">
-      是否必填<el-switch v-model="data.required"></el-switch>
+      是否必填
+      <el-switch v-model="data.required"></el-switch>
     </el-form-item>
   </div>
 </template>

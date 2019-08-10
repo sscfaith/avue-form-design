@@ -31,9 +31,9 @@
     <el-form-item label="显示输入框">
       <el-switch v-model="data.showInput"></el-switch>
     </el-form-item>
-<!--    <el-form-item label="范围滑块">-->
-<!--      <el-switch v-model="data.range"></el-switch>-->
-<!--    </el-form-item>-->
+    <!--    <el-form-item label="范围滑块">-->
+    <!--      <el-switch v-model="data.range"></el-switch>-->
+    <!--    </el-form-item>-->
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
     </el-form-item>

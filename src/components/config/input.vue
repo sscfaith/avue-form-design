@@ -16,6 +16,12 @@
       <el-input-number v-model="data.span" controls-position="right" placeholder="表单栅格" :min="6"
                        :max="24"></el-input-number>
     </el-form-item>
+    <el-form-item label="前缀">
+      <el-input v-model="data.prepend" placeholder="前缀"></el-input>
+    </el-form-item>
+    <el-form-item label="后缀">
+      <el-input v-model="data.append" placeholder="后缀"></el-input>
+    </el-form-item>
     <el-form-item label="最大长度">
       <el-input-number v-model="data.maxlength" controls-position="right" placeholder="最大长度"></el-input-number>
     </el-form-item>
@@ -57,7 +63,6 @@
           if (this.validator[key]) rules.push(this.validator[key])
         })
         this.data.rules = rules
-
       },
     },
     watch: {

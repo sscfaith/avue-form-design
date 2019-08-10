@@ -157,7 +157,8 @@
       },
       handlePreviewSubmit() {
         this.$refs.form.validate((valid) => {
-          if (valid) this.$alert(this.widgetModels).catch(() => {})
+          if (valid) this.$alert(this.widgetModels).catch(() => {
+          })
         })
       },
       handleCopy() {

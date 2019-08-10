@@ -63,7 +63,6 @@
           if (this.validator[key]) rules.push(this.validator[key])
         })
         this.data.rules = rules
-
       },
     },
     watch: {

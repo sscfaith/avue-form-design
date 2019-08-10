@@ -26,7 +26,8 @@
       <el-input-number v-model="data.step" controls-position="right" placeholder="步长"></el-input-number>
     </el-form-item>
     <el-form-item label="数值精度">
-      <el-input-number v-model="data.precision" controls-position="right" placeholder="数值精度" :min="0" :max="10"></el-input-number>
+      <el-input-number v-model="data.precision" controls-position="right" placeholder="数值精度" :min="0"
+                       :max="10"></el-input-number>
     </el-form-item>
     <el-form-item label="控制器位置">
       <el-radio v-model="data.controlsPosition" label="">默认</el-radio>

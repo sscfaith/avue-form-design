@@ -12,9 +12,8 @@
                    ghost-class="ghost"
                    @add="handleWidgetAdd">
           <template v-for="(column, index) in data.column">
-            <transition name="el-fade-in" mode="in-out">
-              <el-col :key="index"
-                      :md="column.span || 12"
+            <transition name="el-fade-in" :key="index">
+              <el-col :md="column.span || 12"
                       :xs="24"
                       :offset="column.offset || 0">
                 <el-form-item class="widget-form-item"
