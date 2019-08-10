@@ -7,7 +7,7 @@ import "@/styles/index.scss"
 
 import { loadCss } from "./utils";
 
-const iconfont = ['//at.alicdn.com/t/font_1254447_ctkrtb6uksu.css']
+const iconfont = ['//at.alicdn.com/t/font_1254447_dlwdie9ju6e.css']
 
 iconfont.forEach(i => loadCss(i));
 

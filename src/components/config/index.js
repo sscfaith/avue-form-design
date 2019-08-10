@@ -1,6 +1,7 @@
 import Input from './input.vue'
 import Textarea from './textarea.vue'
 import Number from './number.vue'
+import Dynamic from './dynamic.vue'
 import Switch from './switch.vue'
 import Rate from './rate.vue'
 import Slider from './slider.vue'
@@ -19,6 +20,7 @@ const components = [
   Input,
   Textarea,
   Number,
+  Dynamic,
   Switch,
   Rate,
   Slider,

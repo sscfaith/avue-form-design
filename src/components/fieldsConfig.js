@@ -25,6 +25,12 @@ export default [
       icon: 'icon-number',
       span: 24,
       display: true
+    }, {
+      type: 'dynamic',
+      label: '动态输入框',
+      icon: 'icon-dynamic',
+      span: 24,
+      display: true,
     }]
   },
   {
