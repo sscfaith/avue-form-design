@@ -1,16 +1,14 @@
 {
-  "name": "avue-form",
+  "name": "avue-form-design",
   "author": "SSC",
-  "version": "1.0.0",
-  "private": true,
+  "version": "1.0.3",
+  "main": "packages/index.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "avue-plugin-map": "^0.0.5",
-    "avue-plugin-ueditor": "^0.0.5",
     "core-js": "^2.6.5",
     "element-ui": "^2.11.1",
     "normalize.css": "^8.0.1",
@@ -29,6 +27,11 @@
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.10"
   },
+  "files": [
+    "packages",
+    "README.md",
+    "LICENSE"
+  ],
   "eslintConfig": {
     "root": true,
     "env": {

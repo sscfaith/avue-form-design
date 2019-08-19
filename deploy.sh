@@ -1,5 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash 
 
-yarn run build
+echo "打包文件"
+yarn build
+echo "传输文件"
+scp -r ./dist/** root@106.52.181.90:/data/avue/avue-form
 
-scp -r -P 2233 ./dist/* root@112.74.43.150:/data/wwwroot/default
+echo "部署成功"

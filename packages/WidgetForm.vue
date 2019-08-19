@@ -12,7 +12,8 @@
                    ghost-class="ghost"
                    @add="handleWidgetAdd">
           <template v-for="(column, index) in data.column">
-            <transition name="el-fade-in" :key="index">
+            <transition name="el-fade-in"
+                        :key="index">
               <el-col :md="column.span || 12"
                       :xs="24"
                       :offset="column.offset || 0">
@@ -110,12 +111,22 @@
                              v-model="form[column.prop]"
                              :allow-create="column.allowCreate"
                              :default-first-option="column.defaultFirstOption"></component>
-                  <el-button title="删除" @click.stop="handleWidgetDelete(index)" class="widget-action-delete"
-                             v-if="selectWidget.prop == column.prop" circle plain type="danger">
+                  <el-button title="删除"
+                             @click.stop="handleWidgetDelete(index)"
+                             class="widget-action-delete"
+                             v-if="selectWidget.prop == column.prop"
+                             circle
+                             plain
+                             type="danger">
                     <i class="iconfont icon-delete"></i>
                   </el-button>
-                  <el-button title="复制" @click.stop="handleWidgetClone(index)" class="widget-action-clone"
-                             v-if="selectWidget.prop == column.prop" circle plain type="primary">
+                  <el-button title="复制"
+                             @click.stop="handleWidgetClone(index)"
+                             class="widget-action-clone"
+                             v-if="selectWidget.prop == column.prop"
+                             circle
+                             plain
+                             type="primary">
                     <i class="iconfont icon-copy"></i>
                   </el-button>
                 </el-form-item>
@@ -129,63 +140,117 @@
 </template>
 
 <script>
-  import Draggable from 'vuedraggable'
-  import { getComponent, getPlaceholder } from "@/utils/dataformat";
-  import { deepClone } from "@/utils/util";
+import Draggable from 'vuedraggable'
 
-  export default {
-    name: 'widget-form',
-    components: { Draggable },
-    props: ['data', 'select'],
-    data() {
-      return {
-        selectWidget: this.select,
-        form: {}
+export default {
+  name: 'widget-form',
+  components: { Draggable },
+  props: ['data', 'select'],
+  data () {
+    return {
+      selectWidget: this.select,
+      form: {}
+    }
+  },
+  methods: {
+    getComponent (type, component) {
+      let KEY_COMPONENT_NAME = 'avue-';
+      let result = 'input';
+      if (!this.validatenull(component)) {
+        result = component;
+      } else if (type === 'select') {
+        result = 'select';
+      } else if (type === 'radio') {
+        result = 'radio';
+      } else if (type === 'checkbox') {
+        result = 'checkbox';
+      } else if (['time', 'timerange'].includes(type)) {
+        result = 'time';
+      } else if (
+        [
+          'dates',
+          'date',
+          'datetime',
+          'datetimerange',
+          'daterange',
+          'week',
+          'month',
+          'dategrpup',
+          'year'
+        ].includes(type)
+      ) {
+        result = 'date';
+      } else if (type === 'cascader') {
+        result = 'cascader';
+      } else if (type === 'number') {
+        result = 'input-number';
+      } else if (type === 'password') {
+        result = 'input';
+      } else if (type === 'switch') {
+        result = 'switch';
+      } else if (type === 'rate') {
+        result = 'rate';
+      } else if (type === 'upload') {
+        result = 'upload';
+      } else if (type === 'silder') {
+        result = 'silder';
+      } else if (type === 'dynamic') {
+        result = 'dynamic';
+      } else if (type === 'icon-select') {
+        result = 'icon-select';
+      } else if (type === 'color') {
+        result = 'color';
+      }
+      return KEY_COMPONENT_NAME + result;
+    },
+    getPlaceholder (column) {
+      const label = column.label;
+      if (['select', 'checkbox', 'radio', 'tree', 'color', 'date', 'time'].includes(column.type)) {
+        return `请选择${label}`;
+      } else {
+        return `请输入${label}`;
       }
     },
-    methods: {
-      getComponent,
-      getPlaceholder,
-      handleSelectWidget(index) {
-        this.selectWidget = this.data.column[index]
-      },
-      handleWidgetAdd(evt) {
-        const newIndex = evt.newIndex;
-        const data = deepClone(this.data.column[newIndex]);
-        data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
-        delete data.icon
-        this.$set(this.data.column, newIndex, { ...data })
-        this.handleSelectWidget(newIndex)
-      },
-      handleWidgetDelete(index) {
-        if (this.data.column.length - 1 === index) {
-          if (index === 0) this.selectWidget = {}
-          else this.handleSelectWidget(index - 1)
-        } else this.handleSelectWidget(index + 1)
-
-        this.$nextTick(() => {
-          this.data.column.splice(index, 1)
-        })
-      },
-      handleWidgetClone(index) {
-        let cloneData = deepClone(this.data.column[index])
-        cloneData.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
-        this.data.column.splice(index, 0, cloneData)
-        this.$nextTick(() => {
-          this.handleSelectWidget(index + 1)
-        })
-      }
+    handleSelectWidget (index) {
+      this.selectWidget = this.data.column[index]
     },
-    watch: {
-      select(val) {
-        this.selectWidget = val
+    handleWidgetAdd (evt) {
+      const newIndex = evt.newIndex;
+      const data = this.deepClone(this.data.column[newIndex]);
+      data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+      delete data.icon
+      this.$set(this.data.column, newIndex, { ...data })
+      this.handleSelectWidget(newIndex)
+    },
+    handleWidgetDelete (index) {
+      if (this.data.column.length - 1 === index) {
+        if (index === 0) this.selectWidget = {}
+        else this.handleSelectWidget(index - 1)
+      } else this.handleSelectWidget(index + 1)
+
+      this.$nextTick(() => {
+        this.data.column.splice(index, 1)
+      })
+    },
+    handleWidgetClone (index) {
+      let cloneData = this.deepClone(this.data.column[index])
+      cloneData.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+      this.data.column.splice(index, 0, cloneData)
+      this.$nextTick(() => {
+        this.handleSelectWidget(index + 1)
+      })
+    }
+  },
+  watch: {
+    select (val) {
+      this.selectWidget = val
+    },
+    selectWidget: {
+      handler (val) {
+        this.$emit('update:select', val)
       },
-      selectWidget: {
-        handler(val) {
-          this.$emit('update:select', val)
-        },
-        deep: true
-      }
+      deep: true
     }
   }
+}
 </script>
