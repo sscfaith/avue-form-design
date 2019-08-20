@@ -46,19 +46,19 @@
 </template>
 
 <script>
-  export default {
-    name: "config-switch",
-    props: ['data'],
-    methods: {
-      handleDicClear() {
-        this.data.dicData = [{ label: '', value: '0' }, { label: '', value: '1' }]
-      }
-    },
-  }
+export default {
+  name: "config-switch",
+  props: ['data'],
+  methods: {
+    handleDicClear () {
+      this.data.dicData = [{ label: '', value: '0' }, { label: '', value: '1' }]
+    }
+  },
+}
 </script>
 <style lang="scss" scoped>
-  .dic {
-    display: flex;
-    margin-bottom: 5px;
-  }
+.dic {
+  display: flex;
+  margin-bottom: 5px;
+}
 </style>

@@ -58,8 +58,8 @@
 </template>
 
 <script>
-  export default {
-    name: "config-silder",
-    props: ['data']
-  }
+export default {
+  name: "config-silder",
+  props: ['data']
+}
 </script>

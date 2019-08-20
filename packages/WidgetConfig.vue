@@ -27,39 +27,39 @@
 </template>
 
 <script>
-  const dateArr = [
-    'year', 'month', 'week', 'date', 'datetime', 'time', 'daterange', 'timerange', 'datetimerange', 'dates'
-  ]
+const dateArr = [
+  'year', 'month', 'week', 'date', 'datetime', 'time', 'daterange', 'timerange', 'datetimerange', 'dates'
+]
 
-  export default {
-    name: 'widget-config',
-    props: ['data'],
-    computed: {
-      getComponent() {
-        const prefix = 'config-'
-        const { type } = this.data
-        let result = 'input'
+export default {
+  name: 'widget-config',
+  props: ['data'],
+  computed: {
+    getComponent () {
+      const prefix = 'config-'
+      const { type } = this.data
+      let result = 'input'
 
-        if ([undefined, 'input', 'password'].includes(type)) result = 'input'
-        else if (dateArr.includes(type)) result = 'date'
-        else result = type
+      if ([undefined, 'input', 'password'].includes(type)) result = 'input'
+      else if (dateArr.includes(type)) result = 'date'
+      else result = type
 
-        return prefix + result
-      }
-    },
-    methods: {
-      async handleChangeType(type) {
-        if (type) {
-          const config = await this.getConfigByType(type);
-          config.prop = this.data.prop;
-          for (let key in config) {
-            if (config.hasOwnProperty(key) && !['icon', 'label'].includes(key)) {
-              const val = config[key]
-              this.$set(this.data, key, val);
-            }
+      return prefix + result
+    }
+  },
+  methods: {
+    async handleChangeType (type) {
+      if (type) {
+        const config = await this.getConfigByType(type);
+        config.prop = this.data.prop;
+        for (let key in config) {
+          if (config.hasOwnProperty(key) && !['icon', 'label'].includes(key)) {
+            const val = config[key]
+            this.$set(this.data, key, val);
           }
         }
       }
     }
   }
+}
 </script>

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-  export default {
-    name: "config-dynamic",
-    props: ['data']
-  }
+export default {
+  name: "config-dynamic",
+  props: ['data']
+}
 </script>

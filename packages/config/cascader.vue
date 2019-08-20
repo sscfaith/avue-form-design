@@ -138,118 +138,118 @@
 </template>
 <script>
 
-  export default {
-    name: "config-cascader",
-    props: ['data'],
-    data() {
-      return {
-        validator: {
-          type: null,
-          required: null,
-          pattern: null,
-          length: null
-        },
-        dicOption: '1',
-        dicCopy: this.deepClone(this.data.dicData),
-        dialogForm: {},
-        dialogVisible: false,
-        dialogRules: {
-          label: { required: true, message: '请输入label' },
-          value: { required: true, message: '请输入value' },
-        },
-        dialogStatus: 'add',
-        selectData: undefined,
-        dialogInputType: 'text'
+export default {
+  name: "config-cascader",
+  props: ['data'],
+  data () {
+    return {
+      validator: {
+        type: null,
+        required: null,
+        pattern: null,
+        length: null
+      },
+      dicOption: '1',
+      dicCopy: this.deepClone(this.data.dicData),
+      dialogForm: {},
+      dialogVisible: false,
+      dialogRules: {
+        label: { required: true, message: '请输入label' },
+        value: { required: true, message: '请输入value' },
+      },
+      dialogStatus: 'add',
+      selectData: undefined,
+      dialogInputType: 'text'
+    }
+  },
+  methods: {
+    generateRule () {
+      const rules = [];
+      Object.keys(this.validator).forEach(key => {
+        if (this.validator[key]) rules.push(this.validator[key])
+      })
+      this.data.rules = rules
+    },
+    handleTabClick (tab) {
+      const { name } = tab;
+      if (name == '1') {
+        delete this.data.dicUrl
+        delete this.data.dicMethod
+        if (this.data.dicData.length == 0)
+          this.data.dicData = this.dicCopy
+      } else {
+        this.data.dicData = []
+        this.data.dicUrl = ''
       }
     },
-    methods: {
-      generateRule() {
-        const rules = [];
-        Object.keys(this.validator).forEach(key => {
-          if (this.validator[key]) rules.push(this.validator[key])
-        })
-        this.data.rules = rules
-      },
-      handleTabClick(tab) {
-        const { name } = tab;
-        if (name == '1') {
-          delete this.data.dicUrl
-          delete this.data.dicMethod
-          if (this.data.dicData.length == 0)
-            this.data.dicData = this.dicCopy
-        } else {
-          this.data.dicData = []
-          this.data.dicUrl = ''
-        }
-      },
-      handleParentNodeAdd() {
-        this.selectData = undefined
-        this.dialogStatus = 'add';
-        this.dialogVisible = true;
-      },
-      handleNodeAdd(data) {
-        this.selectData = data;
-        this.dialogStatus = 'add';
-        this.dialogVisible = true;
-      },
-      handleNodeRemove(node, data) {
-        const parent = node.parent;
-        const children = parent.data.children || parent.data;
-        const index = children.findIndex(d => d.id === data.id);
-        children.splice(index, 1);
-      },
-      handleDialogAdd() {
-        this.$refs.dialogForm.validate((valid) => {
-          if (valid) {
-            const { label, value } = this.dialogForm;
-            const node = this.$refs.tree.getNode(value)
-            if (node) this.$message.error("value重复")
-            else {
-              const data = this.selectData
-              const newNode = {
-                label,
-                value: this.dialogInputType == 'number' ? Number(value) : value,
-              }
-              if (data) {
-                if (!data.children) this.$set(data, 'children', [])
-                data.children.push(newNode)
-              } else {
-                this.$set(this.data.dicData, this.data.dicData.length, newNode)
-              }
-              this.beforeClose()
+    handleParentNodeAdd () {
+      this.selectData = undefined
+      this.dialogStatus = 'add';
+      this.dialogVisible = true;
+    },
+    handleNodeAdd (data) {
+      this.selectData = data;
+      this.dialogStatus = 'add';
+      this.dialogVisible = true;
+    },
+    handleNodeRemove (node, data) {
+      const parent = node.parent;
+      const children = parent.data.children || parent.data;
+      const index = children.findIndex(d => d.id === data.id);
+      children.splice(index, 1);
+    },
+    handleDialogAdd () {
+      this.$refs.dialogForm.validate((valid) => {
+        if (valid) {
+          const { label, value } = this.dialogForm;
+          const node = this.$refs.tree.getNode(value)
+          if (node) this.$message.error("value重复")
+          else {
+            const data = this.selectData
+            const newNode = {
+              label,
+              value: this.dialogInputType == 'number' ? Number(value) : value,
             }
+            if (data) {
+              if (!data.children) this.$set(data, 'children', [])
+              data.children.push(newNode)
+            } else {
+              this.$set(this.data.dicData, this.data.dicData.length, newNode)
+            }
+            this.beforeClose()
           }
-        })
-      },
-      beforeClose() {
-        this.$refs.dialogForm.clearValidate()
-        this.dialogForm = {}
-        this.dialogVisible = false
-      }
+        }
+      })
     },
-    watch: {
-      'data.required': function(val) {
-        if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
-        else this.validator.required = null
+    beforeClose () {
+      this.$refs.dialogForm.clearValidate()
+      this.dialogForm = {}
+      this.dialogVisible = false
+    }
+  },
+  watch: {
+    'data.required': function (val) {
+      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
+      else this.validator.required = null
 
-        this.generateRule()
+      this.generateRule()
+    },
+    'data.dicData': {
+      handler (val) {
+        if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
       },
-      'data.dicData': {
-        handler(val) {
-          if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
-        },
-        deep: true
-      }
+      deep: true
     }
   }
+}
 </script>
 <style lang="scss" scoped>
-  .custom-tree-node {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    padding-right: 8px;
-  }
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
+}
 </style>

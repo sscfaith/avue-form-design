@@ -37,7 +37,7 @@ const components = [
 ]
 
 const Config = {
-  install(Vue) {
+  install (Vue) {
     if (this.installed) return
     this.installed = true
 
