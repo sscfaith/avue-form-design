@@ -176,26 +176,144 @@ $primary-background-color: #ECF8FF;
 
         &:hover {
           background: $primary-background-color;
+          cursor: move;
         }
 
         &.active {
           border-left: 3px solid $primary-color;
           background: $primary-active-color;
         }
+
+        .widget-action-delete {
+          position: absolute;
+          right: 10px;
+          bottom: -32px;
+          z-index: 1002;
+        }
+
+        .widget-action-clone {
+          position: absolute;
+          right: 50px;
+          bottom: -32px;
+          z-index: 1002;
+        }
       }
 
-      .widget-action-delete {
-        position: absolute;
-        right: 10px;
-        bottom: -32px;
-        z-index: 1002;
-      }
+      .widget-form-table {
+        position: relative;
+        padding: 2px;
+        float: left;
+        width: 100%;
 
-      .widget-action-clone {
-        position: absolute;
-        right: 50px;
-        bottom: -32px;
-        z-index: 1002;
+        &__content {
+          display: flex;
+          padding: 10px 5px;
+          width: 100%;
+          height: 100%;
+          overflow-y: hidden;
+          outline: 1px dashed #ccc;
+          outline-offset: -1px;
+          min-height: 103px;
+
+          .ghost {
+            background: white;
+            border-left: 5px solid $primary-color;
+            box-sizing: border-box;
+            font-size: 0;
+            content: '';
+            overflow: hidden;
+            padding: 0 !important;
+            position: relative;
+            outline: none 0;
+            height: 100%;
+            min-height: 90px;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin: 0 2px;
+          }
+        }
+
+        &__item {
+          position: relative;
+          min-width: 50%;
+          padding: 1px;
+          height: 100%;
+
+          &.active {
+            outline: 1px solid $primary-color;
+            outline-offset: -1px;
+          }
+
+          &:hover {
+            outline: 1px solid $primary-color;
+            outline-offset: -1px;
+            cursor: move;
+          }
+
+          &:after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: block;
+            content: "";
+            z-index: 1001;
+          }
+
+          .widget-table-action-delete {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            z-index: 1002;
+          }
+
+          .widget-table-action-clone {
+            position: absolute;
+            right: 30px;
+            bottom: 0;
+            z-index: 1002;
+
+            i {
+              font-size: 10px;
+            }
+          }
+
+          .el-button--small.is-circle {
+            padding: 5px;
+          }
+        }
+
+        &.active {
+          border-left: 3px solid $primary-color;
+          background: $primary-active-color;
+        }
+
+        &:hover {
+          background: $primary-background-color;
+          cursor: move;
+        }
+
+        .widget-action-delete {
+          position: absolute;
+          right: 10px;
+          bottom: -12px;
+          z-index: 1001;
+        }
+
+        .widget-action-clear {
+          position: absolute;
+          right: 50px;
+          bottom: -12px;
+          z-index: 1001;
+        }
+
+        .widget-action-clone {
+          position: absolute;
+          right: 90px;
+          bottom: -12px;
+          z-index: 1001;
+        }
       }
 
       .iconfont {
@@ -207,14 +325,19 @@ $primary-background-color: #ECF8FF;
       }
     }
 
-    li.ghost {
-      height: 40px;
-      list-style: none;
-      font-size: 1px;
-      float: left;
-      padding: 5px;
-      border: 1px dashed $primary-color;
+    .ghost {
+      background: white;
+      border-top: 5px solid $primary-color;
+      box-sizing: border-box;
+      font-size: 0;
+      content: '';
+      overflow: hidden;
+      padding: 0 !important;
+      position: relative;
+      outline: none 0;
+      height: 0 !important;
       width: 100%;
+      margin: 2px 0;
     }
   }
 
@@ -283,4 +406,3 @@ $primary-background-color: #ECF8FF;
     color: #E6A23C
   }
 }
-

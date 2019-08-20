@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -34,7 +20,7 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="最小值">
@@ -61,9 +47,11 @@
     </el-form-item>
     <el-form-item label="控制器位置">
       <el-radio v-model="data.controlsPosition"
-                label="">默认</el-radio>
+                label="">默认
+      </el-radio>
       <el-radio v-model="data.controlsPosition"
-                label="right">右</el-radio>
+                label="right">右
+      </el-radio>
     </el-form-item>
     <el-form-item label="是否只读">
       <el-switch v-model="data.readonly"></el-switch>
@@ -81,41 +69,41 @@
 </template>
 
 <script>
-export default {
-  name: "config-number",
-  props: ['data'],
-  data () {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
+  export default {
+    name: "config-number",
+    props: ['data'],
+    data() {
+      return {
+        validator: {
+          type: null,
+          required: null,
+          pattern: null,
+          length: null
+        }
+      }
+    },
+    methods: {
+      generateRule() {
+        this.data.rules.clear()
+        Object.keys(this.validator).forEach(key => {
+          if (this.validator[key]) this.data.rules.push(this.validator[key])
+        })
+      },
+    },
+    watch: {
+      'data.required': function(val) {
+        if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
+        else this.validator.required = null
+
+        this.generateRule()
+      },
+      'data.pattern': function(val) {
+        if (val) this.validator.pattern = { pattern: new RegExp(val), message: `${this.data.label}格式不匹配` }
+        else this.validator.pattern = null
+
+        // delete this.data.pattern
+        this.generateRule()
       }
     }
-  },
-  methods: {
-    generateRule () {
-      this.data.rules.clear()
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) this.data.rules.push(this.validator[key])
-      })
-    },
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-    'data.pattern': function (val) {
-      if (val) this.validator.pattern = { pattern: new RegExp(val), message: `${this.data.label}格式不匹配` }
-      else this.validator.pattern = null
-
-      // delete this.data.pattern
-      this.generateRule()
-    }
   }
-}
 </script>

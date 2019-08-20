@@ -7,26 +7,33 @@
 
 <script>
 
-export default {
-  name: 'app',
-  data () {
-    return {
-      option: {
-        column: [{
-          label: '姓名',
-          prop: 'name'
-        }, {
-          label: '密码',
-          prop: 'password',
-          type: 'password'
-        }]
+  export default {
+    name: 'app',
+    data() {
+      return {
+        option: {
+          column: [{
+            type: 'input',
+            label: '用户名',
+            prop: 'name',
+            icon: 'icon-input',
+            span: 24,
+            display: true
+          }, {
+            type: 'password',
+            label: '密码',
+            prop: 'password',
+            icon: 'icon-password',
+            span: 24,
+            display: true
+          }]
+        }
       }
-    }
-  },
-  methods: {
-    handleSubmit (option) {
-      console.log(option);
     },
+    methods: {
+      handleSubmit(option) {
+        console.log(option);
+      },
+    }
   }
-}
 </script>

@@ -131,6 +131,17 @@ export default [
     }],
   },
   {
+    title: '复杂字段',
+    list: [{
+      type: 'table',
+      label: '表格',
+      icon: 'icon-table',
+      display: true,
+      tableColumn: []
+    }],
+    disabled: true
+  },
+  {
     title: '日期时间字段',
     list: [{
       type: 'year',
@@ -196,7 +207,7 @@ export default [
       format: 'HH:mm:ss',
       valueFormat: 'HH:mm:ss'
     }, {
-      type: 'timerange',
+      type: 'datetimerange',
       label: '日期时间范围',
       icon: 'icon-datetime-range',
       span: 24,

@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -26,7 +12,7 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="图片上传地址">
@@ -99,38 +85,38 @@
 </template>
 
 <script>
-export default {
-  name: "config-ueditor",
-  props: ['data'],
-  data () {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
+  export default {
+    name: "config-ueditor",
+    props: ['data'],
+    data() {
+      return {
+        validator: {
+          type: null,
+          required: null,
+          pattern: null,
+          length: null
+        }
+      }
+    },
+    methods: {
+      generateRule() {
+        const rules = [];
+        Object.keys(this.validator).forEach(key => {
+          if (this.validator[key]) rules.push(this.validator[key])
+        })
+        this.data.rules = rules
+      },
+    },
+    watch: {
+      'data.required': function(val) {
+        if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
+        else this.validator.required = null
+        this.generateRule()
+      },
+      'data.oss': function(val) {
+        if (val == 'ali') this.data.qiniu = {}
+        else if (val == 'qiniu') this.data.ali = {}
       }
     }
-  },
-  methods: {
-    generateRule () {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
-    },
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
-      else this.validator.required = null
-      this.generateRule()
-    },
-    'data.oss': function (val) {
-      if (val == 'ali') this.data.qiniu = {}
-      else if (val == 'qiniu') this.data.ali = {}
-    }
   }
-}
 </script>

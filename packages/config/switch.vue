@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -30,13 +16,14 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="自定义">
       <el-button type="text"
                  @click="handleDicClear"
-                 class="danger">清空</el-button>
+                 class="danger">清空
+      </el-button>
       <div class="dic"
            v-for="(item, index) in data.dicData"
            :key="index">
@@ -59,19 +46,19 @@
 </template>
 
 <script>
-export default {
-  name: "config-switch",
-  props: ['data'],
-  methods: {
-    handleDicClear () {
-      this.data.dicData = [{ label: '', value: '0' }, { label: '', value: '1' }]
-    }
-  },
-}
+  export default {
+    name: "config-switch",
+    props: ['data'],
+    methods: {
+      handleDicClear() {
+        this.data.dicData = [{ label: '', value: '0' }, { label: '', value: '1' }]
+      }
+    },
+  }
 </script>
 <style lang="scss" scoped>
-.dic {
-  display: flex;
-  margin-bottom: 5px;
-}
+  .dic {
+    display: flex;
+    margin-bottom: 5px;
+  }
 </style>

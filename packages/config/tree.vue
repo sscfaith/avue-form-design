@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -34,7 +20,7 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="字典配置"><br>
@@ -69,7 +55,8 @@
           </el-tree>
           <div style="margin-left: 22px;">
             <el-button type="text"
-                       @click="handleParentNodeAdd">添加父级</el-button>
+                       @click="handleParentNodeAdd">添加父级
+            </el-button>
           </div>
         </el-tab-pane>
         <el-tab-pane label="远端数据"
@@ -142,122 +129,122 @@
 <script>
 
 
-export default {
-  name: "config-tree",
-  props: ['data'],
-  data () {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
-      },
-      dicOption: '1',
-      dicCopy: this.deepClone(this.data.dicData),
-      dialogForm: {},
-      dialogVisible: false,
-      dialogRules: {
-        label: { required: true, message: '请输入label' },
-        value: { required: true, message: '请输入value' },
-      },
-      dialogStatus: 'add',
-      selectData: undefined,
-      dialogInputType: 'text'
-    }
-  },
-  methods: {
-    generateRule () {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
-    },
-    handleTabClick (tab) {
-      const { name } = tab;
-      if (name == '1') {
-        delete this.data.dicUrl
-        delete this.data.dicMethod
-        if (this.data.dicData.length == 0)
-          this.data.dicData = this.dicCopy
-      } else {
-        this.data.dicData = []
-        this.data.dicUrl = ''
+  export default {
+    name: "config-tree",
+    props: ['data'],
+    data() {
+      return {
+        validator: {
+          type: null,
+          required: null,
+          pattern: null,
+          length: null
+        },
+        dicOption: '1',
+        dicCopy: this.deepClone(this.data.dicData),
+        dialogForm: {},
+        dialogVisible: false,
+        dialogRules: {
+          label: { required: true, message: '请输入label' },
+          value: { required: true, message: '请输入value' },
+        },
+        dialogStatus: 'add',
+        selectData: undefined,
+        dialogInputType: 'text'
       }
     },
-    handleParentNodeAdd () {
-      this.selectData = undefined
-      this.dialogStatus = 'add';
-      this.dialogVisible = true;
-    },
-    handleNodeAdd (data) {
-      this.selectData = data;
-      this.dialogStatus = 'add';
-      this.dialogVisible = true;
-    },
-    handleNodeRemove (node, data) {
-      const parent = node.parent;
-      const children = parent.data.children || parent.data;
-      const index = children.findIndex(d => d.id === data.id);
-      children.splice(index, 1);
-    },
-    handleDialogAdd () {
-      this.$refs.dialogForm.validate((valid) => {
-        if (valid) {
-          const { label, value } = this.dialogForm;
-          const node = this.$refs.tree.getNode(value)
-          if (node) this.$message.error("value重复")
-          else {
-            const data = this.selectData
-            const newNode = {
-              label,
-              value: this.dialogInputType == 'number' ? new Number(value) : value,
-            }
-            if (data) {
-              if (!data.children) this.$set(data, 'children', [])
-              data.children.push(newNode)
-            } else {
-              this.$set(this.data.dicData, this.data.dicData.length, newNode)
-            }
-            this.beforeClose()
-          }
-        }
-      })
-    },
-    beforeClose () {
-      this.$refs.dialogForm.clearValidate()
-      this.dialogForm = {}
-      this.dialogVisible = false
-    }
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-    'data.dicData': {
-      handler (val) {
-        if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
+    methods: {
+      generateRule() {
+        const rules = [];
+        Object.keys(this.validator).forEach(key => {
+          if (this.validator[key]) rules.push(this.validator[key])
+        })
+        this.data.rules = rules
       },
-      deep: true
+      handleTabClick(tab) {
+        const { name } = tab;
+        if (name == '1') {
+          delete this.data.dicUrl
+          delete this.data.dicMethod
+          if (this.data.dicData.length == 0)
+            this.data.dicData = this.dicCopy
+        } else {
+          this.data.dicData = []
+          this.data.dicUrl = ''
+        }
+      },
+      handleParentNodeAdd() {
+        this.selectData = undefined
+        this.dialogStatus = 'add';
+        this.dialogVisible = true;
+      },
+      handleNodeAdd(data) {
+        this.selectData = data;
+        this.dialogStatus = 'add';
+        this.dialogVisible = true;
+      },
+      handleNodeRemove(node, data) {
+        const parent = node.parent;
+        const children = parent.data.children || parent.data;
+        const index = children.findIndex(d => d.id === data.id);
+        children.splice(index, 1);
+      },
+      handleDialogAdd() {
+        this.$refs.dialogForm.validate((valid) => {
+          if (valid) {
+            const { label, value } = this.dialogForm;
+            const node = this.$refs.tree.getNode(value)
+            if (node) this.$message.error("value重复")
+            else {
+              const data = this.selectData
+              const newNode = {
+                label,
+                value: this.dialogInputType == 'number' ? new Number(value) : value,
+              }
+              if (data) {
+                if (!data.children) this.$set(data, 'children', [])
+                data.children.push(newNode)
+              } else {
+                this.$set(this.data.dicData, this.data.dicData.length, newNode)
+              }
+              this.beforeClose()
+            }
+          }
+        })
+      },
+      beforeClose() {
+        this.$refs.dialogForm.clearValidate()
+        this.dialogForm = {}
+        this.dialogVisible = false
+      }
     },
-    'data.multiple': function (val) {
-      if (val) this.data.defaultValue = []
-      else delete this.data.defaultValue
+    watch: {
+      'data.required': function(val) {
+        if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
+        else this.validator.required = null
+
+        this.generateRule()
+      },
+      'data.dicData': {
+        handler(val) {
+          if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
+        },
+        deep: true
+      },
+      'data.multiple': function(val) {
+        if (val) this.data.defaultValue = []
+        else delete this.data.defaultValue
+      }
     }
   }
-}
 </script>
 <style lang="scss" scoped>
-.custom-tree-node {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-  padding-right: 8px;
-}
+  .custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+  }
 </style>

@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -30,7 +16,7 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="最大星数">
@@ -46,7 +32,8 @@
       <el-tag :key="index"
               v-for="(tag,index) in data.texts"
               closable
-              @close="handleTextClose(tag)">{{tag}}</el-tag>
+              @close="handleTextClose(tag)">{{tag}}
+      </el-tag>
       <el-input class="input-new-tag"
                 v-if="textVisible"
                 v-model="textValue"
@@ -101,96 +88,96 @@
 </template>
 
 <script>
-export default {
-  name: "config-rate",
-  props: ['data'],
-  data () {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
+  export default {
+    name: "config-rate",
+    props: ['data'],
+    data() {
+      return {
+        validator: {
+          type: null,
+          required: null,
+          pattern: null,
+          length: null
+        },
+        textVisible: false,
+        textValue: '',
+        colorVisible: false,
+        colorValue: '',
+        iconVisible: false,
+        iconValue: ''
+      }
+    },
+    methods: {
+      generateRule() {
+        const rules = [];
+        Object.keys(this.validator).forEach(key => {
+          if (this.validator[key]) rules.push(this.validator[key])
+        })
+        this.data.rules = rules
       },
-      textVisible: false,
-      textValue: '',
-      colorVisible: false,
-      colorValue: '',
-      iconVisible: false,
-      iconValue: ''
-    }
-  },
-  methods: {
-    generateRule () {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
+      handleTextClose(tag) {
+        this.data.texts.splice(this.data.texts.indexOf(tag), 1);
+      },
+      showTextInput() {
+        this.textVisible = true;
+        this.$nextTick(() => {
+          this.$refs.textTag.$refs.input.focus();
+        });
+      },
+      handleTextConfirm() {
+        if (this.textValue) this.data.texts.push(this.textValue);
+        this.textVisible = false;
+        this.textValue = '';
+      },
+      handleColorClose(tag) {
+        this.data.colors.splice(this.data.colors.indexOf(tag), 1);
+      },
+      handleColorConfirm() {
+        if (this.colorValue) this.data.colors.push(this.colorValue);
+        this.colorValue = '';
+      },
+      // handleIconClose(tag) {
+      //   this.data.iconClasses.splice(this.data.iconClasses.indexOf(tag), 1);
+      // },
+      // showIconInput() {
+      //   this.iconVisible = true;
+      //   this.$nextTick(() => {
+      //     this.$refs.iconTag.$refs.input.focus();
+      //   });
+      // },
+      // handleIconConfirm() {
+      //   if (this.iconValue) this.data.iconClasses.push(this.iconValue);
+      //   this.iconVisible = false;
+      //   this.iconValue = '';
+      // }
     },
-    handleTextClose (tag) {
-      this.data.texts.splice(this.data.texts.indexOf(tag), 1);
-    },
-    showTextInput () {
-      this.textVisible = true;
-      this.$nextTick(() => {
-        this.$refs.textTag.$refs.input.focus();
-      });
-    },
-    handleTextConfirm () {
-      if (this.textValue) this.data.texts.push(this.textValue);
-      this.textVisible = false;
-      this.textValue = '';
-    },
-    handleColorClose (tag) {
-      this.data.colors.splice(this.data.colors.indexOf(tag), 1);
-    },
-    handleColorConfirm () {
-      if (this.colorValue) this.data.colors.push(this.colorValue);
-      this.colorValue = '';
-    },
-    // handleIconClose(tag) {
-    //   this.data.iconClasses.splice(this.data.iconClasses.indexOf(tag), 1);
-    // },
-    // showIconInput() {
-    //   this.iconVisible = true;
-    //   this.$nextTick(() => {
-    //     this.$refs.iconTag.$refs.input.focus();
-    //   });
-    // },
-    // handleIconConfirm() {
-    //   if (this.iconValue) this.data.iconClasses.push(this.iconValue);
-    //   this.iconVisible = false;
-    //   this.iconValue = '';
-    // }
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
-      else this.validator.required = null
+    watch: {
+      'data.required': function(val) {
+        if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
+        else this.validator.required = null
 
-      this.generateRule()
-    },
+        this.generateRule()
+      },
+    }
   }
-}
 </script>
 <style lang="scss" scoped>
-.el-tag {
-  vertical-align: top;
-}
+  .el-tag {
+    vertical-align: top;
+  }
 
-.el-tag + .el-tag {
-  margin-left: 5px;
-}
+  .el-tag + .el-tag {
+    margin-left: 5px;
+  }
 
-.input-new-tag {
-  width: 90px;
-  margin-left: 5px;
-  vertical-align: bottom;
-}
+  .input-new-tag {
+    width: 90px;
+    margin-left: 5px;
+    vertical-align: bottom;
+  }
 
-.color-picker {
-  left: 10px;
-  vertical-align: top;
-}
+  .color-picker {
+    left: 10px;
+    vertical-align: top;
+  }
 </style>

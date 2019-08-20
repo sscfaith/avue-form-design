@@ -60,14 +60,16 @@
           <el-button type="text"
                      size="medium"
                      icon="el-icon-view"
-                     @click="handlePreview">预览</el-button>
+                     @click="handlePreview">预览
+          </el-button>
           <el-button class="danger"
                      type="text"
                      size="medium"
                      icon="el-icon-delete"
-                     @click="handleClear">清空</el-button>
+                     @click="handleClear">清空
+          </el-button>
         </el-header>
-        <el-main :style="{'background:': widgetForm.column.length == 0?'':'url('+widgetEmpty+') no-repeat 50%'}">
+        <el-main :style="{background: widgetForm.column.length == 0 ? `url(${widgetEmpty}) no-repeat 50%`: ''}">
           <widget-form ref="widgetForm"
                        :data="widgetForm"
                        :select.sync="widgetFormSelect"></widget-form>
@@ -102,10 +104,12 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="handleImportJsonSubmit">确定</el-button>
+                     @click="handleImportJsonSubmit">确定
+          </el-button>
           <el-button size="medium"
                      type="danger"
-                     @click="importJsonVisible = false">取消</el-button>
+                     @click="importJsonVisible = false">取消
+          </el-button>
         </div>
       </el-drawer>
       <!-- 生成JSON -->
@@ -118,10 +122,12 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="$emit('submit',widgetForm)">生成</el-button>
+                     @click="$emit('submit',widgetForm)">生成
+          </el-button>
           <el-button size="medium"
                      type="primary"
-                     @click="handleCopy">复制</el-button>
+                     @click="handleCopy">复制
+          </el-button>
         </div>
       </el-drawer>
       <!-- 预览 -->
@@ -137,10 +143,12 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="handlePreviewSubmit">确定</el-button>
+                     @click="handlePreviewSubmit">确定
+          </el-button>
           <el-button size="medium"
                      type="danger"
-                     @click="handleBeforeClose">取消</el-button>
+                     @click="handleBeforeClose">取消
+          </el-button>
         </div>
       </el-drawer>
     </el-container>
@@ -148,146 +156,148 @@
 </template>
 
 <script>
-import Draggable from 'vuedraggable'
-import VJsonEditor from 'v-jsoneditor'
-import fields from './fieldsConfig.js'
-import WidgetForm from './WidgetForm'
-import FormConfig from './FormConfig'
-import WidgetConfig from './WidgetConfig'
-import widgetEmpty from './assets/widget-empty.png'
-export default {
-  name: "FormDesign",
-  components: { Draggable, VJsonEditor, WidgetForm, FormConfig, WidgetConfig },
-  props: {
-    option: {
-      type: Object,
-      default: () => {
-        return {}
-      }
-    }
-  },
-  watch: {
-    option: {
-      handler (value) {
-        this.importJson = this.deepClone(value);
-        this.handleImportJsonSubmit();
-      },
-      deep: true,
-      immediate: true
-    }
-  },
-  data () {
-    return {
-      widgetEmpty: widgetEmpty,
-      fields,
-      widgetForm: {
-        column: [],
-        labelPosition: 'left',
-        labelWidth: 120,
-        gutter: 0,
-        menuBtn: false,
-        submitBtn: false,
-        submitSize: 'medium',
-        submitText: '提交',
-        emptyBtn: false,
-        emptySize: 'medium',
-        emptyText: '清空',
-        menuPostion: 'center'
-      },
-      configTab: 'widget',
-      widgetFormSelect: {},
-      previewVisible: false,
-      generateJsonVisible: false,
-      importJsonVisible: false,
-      importJson: undefined,
-      widgetModels: {},
-      configOption: {},
-    }
-  },
-  mounted () {
-    this.handleLoadCss();
-  },
-  methods: {
-    handleLoadCss () {
-      const url = '//at.alicdn.com/t/font_1254447_dlwdie9ju6e.css'
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = url;
-      window.document.head.appendChild(link)
-    },
-    handleImportJsonSubmit () {
-      try {
-        this.setJSON(this.importJson)
-        this.importJsonVisible = false
-      } catch (e) {
-        this.$message.error(e.message)
+  import Draggable from 'vuedraggable'
+  import VJsonEditor from 'v-jsoneditor'
+  import fields from './fieldsConfig.js'
+  import WidgetForm from './WidgetForm'
+  import FormConfig from './FormConfig'
+  import WidgetConfig from './WidgetConfig'
+  import widgetEmpty from './assets/widget-empty.png'
+
+  export default {
+    name: "FormDesign",
+    components: { Draggable, VJsonEditor, WidgetForm, FormConfig, WidgetConfig },
+    props: {
+      option: {
+        type: Object,
+        default: () => {
+          return {}
+        }
       }
     },
-    handleBeforeClose () {
-      this.$refs.form.resetForm();
-      this.previewVisible = false
+    watch: {
+      option: {
+        handler(value) {
+          this.importJson = this.deepClone(value);
+          this.handleImportJsonSubmit();
+        },
+        deep: true,
+        immediate: true
+      }
     },
-    handlePreview () {
-      if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
-      else this.previewVisible = true
+    data() {
+      return {
+        widgetEmpty: widgetEmpty,
+        fields,
+        widgetForm: {
+          column: [],
+          labelPosition: 'left',
+          labelWidth: 120,
+          gutter: 0,
+          menuBtn: false,
+          submitBtn: false,
+          submitSize: 'medium',
+          submitText: '提交',
+          emptyBtn: false,
+          emptySize: 'medium',
+          emptyText: '清空',
+          menuPostion: 'center'
+        },
+        configTab: 'widget',
+        widgetFormSelect: {},
+        previewVisible: false,
+        generateJsonVisible: false,
+        importJsonVisible: false,
+        importJson: undefined,
+        widgetModels: {},
+        configOption: {},
+      }
     },
-    handleClear () {
-      if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
-        this.$confirm('确定要清空吗？', '警告', {
-          type: 'warning'
+    mounted() {
+      this.handleLoadCss();
+    },
+    methods: {
+      handleLoadCss() {
+        const url = '//at.alicdn.com/t/font_1254447_dpcsvgkhila.css'
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = url;
+        window.document.head.appendChild(link)
+      },
+      handleImportJsonSubmit() {
+        try {
+          this.setJSON(this.importJson)
+          this.importJsonVisible = false
+        } catch (e) {
+          this.$message.error(e.message)
+        }
+      },
+      handleBeforeClose() {
+        this.$refs.form.resetForm();
+        this.previewVisible = false
+      },
+      handlePreview() {
+        if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
+        else this.previewVisible = true
+      },
+      handleClear() {
+        if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
+          this.$confirm('确定要清空吗？', '警告', {
+            type: 'warning'
+          }).then(() => {
+            this.widgetForm = { column: [] }
+            this.widgetFormSelect = {}
+          }).catch(() => {
+          })
+        } else this.$message.error("没有需要清空的内容")
+      },
+      handlePreviewSubmit() {
+        this.$refs.form.validate((valid) => {
+          if (valid) this.$alert(this.widgetModels).catch(() => {
+          })
+        })
+      },
+      handleCopy() {
+        this.$Clipboard({
+          text: JSON.stringify(this.widgetForm, null, 2)
         }).then(() => {
-          this.widgetForm = { column: [] }
-          this.widgetFormSelect = {}
+          this.$message.success('复制成功')
         }).catch(() => {
-        })
-      } else this.$message.error("没有需要清空的内容")
-    },
-    handlePreviewSubmit () {
-      this.$refs.form.validate((valid) => {
-        if (valid) this.$alert(this.widgetModels).catch(() => {
-        })
-      })
-    },
-    handleCopy () {
-      this.$Clipboard({
-        text: JSON.stringify(this.widgetForm, null, 2)
-      }).then(() => {
-        this.$message.success('复制成功')
-      }).catch(() => {
-        this.$message.error('复制失败')
-      });
-    },
-    setJSON (json) {
-      this.widgetForm = json
-      if (json.column && json.column.length > 0) this.widgetFormSelect = json.column[0]
+          this.$message.error('复制失败')
+        });
+      },
+      setJSON(json) {
+        this.widgetForm = json
+        if (json.column && json.column.length > 0) this.widgetFormSelect = json.column[0]
+      }
     }
   }
-}
 </script>
 
 <style lang="scss">
-@import "./styles/index.scss";
-.drawer-foot {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  display: flex;
+  @import "./styles/index.scss";
 
-  button {
-    width: 50%;
+  .drawer-foot {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+
+    button {
+      width: 50%;
+    }
   }
-}
 
-.preview-form {
-  overflow-y: scroll;
-  height: 83vh;
-}
-
-.widget-config-container {
-  .avue-group__item {
-    padding: 0;
+  .preview-form {
+    overflow-y: scroll;
+    height: 83vh;
   }
-}
+
+  .widget-config-container {
+    .avue-group__item {
+      padding: 0;
+    }
+  }
 </style>

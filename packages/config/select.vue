@@ -1,19 +1,5 @@
 <template>
   <div>
-    <el-form-item label="类型">
-      <el-select v-model="data.type"
-                 placeholder="请选择类型">
-        <el-option-group v-for="group in fields"
-                         :key="group.title"
-                         :label="group.title">
-          <el-option v-for="item in group.list"
-                     :key="item.type"
-                     :label="item.label"
-                     :value="item.type">
-          </el-option>
-        </el-option-group>
-      </el-select>
-    </el-form-item>
     <el-form-item label="属性值">
       <el-input v-model="data.prop"
                 placeholder="属性值"></el-input>
@@ -34,7 +20,7 @@
       <el-input-number v-model="data.span"
                        controls-position="right"
                        placeholder="表单栅格"
-                       :min="6"
+                       :min="8"
                        :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="是否多选">
@@ -81,7 +67,8 @@
           </draggable>
           <div style="margin-left: 22px;">
             <el-button type="text"
-                       @click="handleAddFields">添加列</el-button>
+                       @click="handleAddFields">添加列
+            </el-button>
           </div>
         </el-tab-pane>
         <el-tab-pane label="远端数据"
@@ -127,66 +114,66 @@
   </div>
 </template>
 <script>
-import Draggable from 'vuedraggable'
+  import Draggable from 'vuedraggable'
 
 
-export default {
-  name: "config-select",
-  props: ['data'],
-  components: { Draggable },
-  data () {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
+  export default {
+    name: "config-select",
+    props: ['data'],
+    components: { Draggable },
+    data() {
+      return {
+        validator: {
+          type: null,
+          required: null,
+          pattern: null,
+          length: null
+        },
+        dicOption: '1',
+        dicCopy: this.deepClone(this.data.dicData)
+      }
+    },
+    methods: {
+      generateRule() {
+        const rules = [];
+        Object.keys(this.validator).forEach(key => {
+          if (this.validator[key]) rules.push(this.validator[key])
+        })
+        this.data.rules = rules
       },
-      dicOption: '1',
-      dicCopy: this.deepClone(this.data.dicData)
-    }
-  },
-  methods: {
-    generateRule () {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
+      handleRemoveFields(index) {
+        this.data.dicData.splice(index, 1)
+      },
+      handleAddFields() {
+        const i = Math.ceil(Math.random() * 99999)
+        this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
+      },
+      handleTabClick(tab) {
+        const { name } = tab;
+        if (name == '1') {
+          delete this.data.dicUrl
+          delete this.data.dicMethod
+          if (this.data.dicData.length == 0)
+            this.data.dicData = this.dicCopy
+        } else {
+          this.data.dicData = []
+          this.data.dicUrl = ''
+        }
+      }
     },
-    handleRemoveFields (index) {
-      this.data.dicData.splice(index, 1)
-    },
-    handleAddFields () {
-      const i = Math.ceil(Math.random() * 99999)
-      this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
-    },
-    handleTabClick (tab) {
-      const { name } = tab;
-      if (name == '1') {
-        delete this.data.dicUrl
-        delete this.data.dicMethod
-        if (this.data.dicData.length == 0)
-          this.data.dicData = this.dicCopy
-      } else {
-        this.data.dicData = []
-        this.data.dicUrl = ''
+    watch: {
+      'data.required': function(val) {
+        if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
+        else this.validator.required = null
+
+        this.generateRule()
+      },
+      'data.dicData': {
+        handler(val) {
+          if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
+        },
+        deep: true
       }
     }
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-    'data.dicData': {
-      handler (val) {
-        if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
-      },
-      deep: true
-    }
   }
-}
 </script>
