@@ -345,7 +345,6 @@ export default {
           'daterange',
           'week',
           'month',
-          'dategrpup',
           'year'
         ].includes(type)
       ) {
@@ -362,8 +361,8 @@ export default {
         result = 'rate';
       } else if (type === 'upload') {
         result = 'upload';
-      } else if (type === 'silder') {
-        result = 'silder';
+      } else if (type === 'slider') {
+        result = 'slider';
       } else if (type === 'dynamic') {
         result = 'dynamic';
       } else if (type === 'icon-select') {

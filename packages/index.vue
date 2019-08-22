@@ -194,7 +194,7 @@ export default {
         emptyBtn: false,
         emptySize: 'medium',
         emptyText: '清空',
-        menuPostion: 'center'
+        menuPosition: 'center'
       },
       widgetFormPreview: {},
       configTab: 'widget',
