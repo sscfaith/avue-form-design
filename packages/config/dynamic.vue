@@ -1,19 +1,26 @@
 <template>
   <div>
-    <el-form-item label="属性值">
-      <el-input v-model="data.prop"
-                placeholder="属性值"></el-input>
+    <el-form-item label="对齐方式">
+      <el-select v-model="data.children.align"
+                 placeholder="对齐方式">
+        <el-option label="居左"
+                   value="left"></el-option>
+        <el-option label="居中"
+                   value="center"></el-option>
+        <el-option label="居右"
+                   value="right"></el-option>
+      </el-select>
     </el-form-item>
-    <el-form-item label="标题">
-      <el-input v-model="data.label"
-                placeholder="标题"></el-input>
-    </el-form-item>
-    <el-form-item label="表单栅格">
-      <el-input-number v-model="data.span"
-                       controls-position="right"
-                       placeholder="表单栅格"
-                       :min="8"
-                       :max="24"></el-input-number>
+    <el-form-item label="头部对齐方式">
+      <el-select v-model="data.children.headerAlign"
+                 placeholder="对齐方式">
+        <el-option label="居左"
+                   value="left"></el-option>
+        <el-option label="居中"
+                   value="center"></el-option>
+        <el-option label="居右"
+                   value="right"></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>

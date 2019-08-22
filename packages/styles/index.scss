@@ -1,8 +1,10 @@
-$primary-color: #409EFF;
-$primary-active-color: #ECF5FF;
-$primary-background-color: #ECF8FF;
+$primary-color: #409eff;
+$primary-active-color: #ecf5ff;
+$primary-background-color: #ecf8ff;
 
-*, :after, :before {
+*,
+:after,
+:before {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -50,7 +52,7 @@ $primary-background-color: #ECF8FF;
       white-space: nowrap;
       margin: 1%;
       color: #333;
-      border: 1px solid #F4F6FC;
+      border: 1px solid #f4f6fc;
 
       &:hover {
         color: $primary-color;
@@ -60,8 +62,8 @@ $primary-background-color: #ECF8FF;
       & > a {
         display: block;
         cursor: move;
-        background: #F4F6FC;
-        border: 1px solid #F4F6FC;
+        background: #f4f6fc;
+        border: 1px solid #f4f6fc;
 
         .icon {
           margin-right: 6px;
@@ -91,7 +93,7 @@ $primary-background-color: #ECF8FF;
       white-space: nowrap;
       margin: 1%;
       color: #333;
-      border: 1px solid #F4F6FC;
+      border: 1px solid #f4f6fc;
 
       &:hover {
         color: gray;
@@ -101,8 +103,8 @@ $primary-background-color: #ECF8FF;
       & > a {
         display: block;
         cursor: not-allowed;
-        background: #F4F6FC;
-        border: 1px solid #F4F6FC;
+        background: #f4f6fc;
+        border: 1px solid #f4f6fc;
 
         .icon {
           margin-right: 6px;
@@ -159,7 +161,7 @@ $primary-background-color: #ECF8FF;
         &.required {
           .el-form-item__label::before {
             content: '*';
-            color: #F56C6C;
+            color: #f56c6c;
             margin-right: 4px;
           }
         }
@@ -229,15 +231,24 @@ $primary-background-color: #ECF8FF;
             min-height: 90px;
             width: 0 !important;
             min-width: 0 !important;
-            margin: 0 2px;
+            margin: 1px 2px 0 2px;
           }
         }
 
         &__item {
           position: relative;
-          min-width: 50%;
+          min-width: 33.3%;
+          width: 33.3%;
           padding: 1px;
           height: 100%;
+
+          &.required {
+            .el-table__header .cell::before {
+              content: '*';
+              color: #f56c6c;
+              margin-right: 4px;
+            }
+          }
 
           &.active {
             outline: 1px solid $primary-color;
@@ -257,7 +268,7 @@ $primary-background-color: #ECF8FF;
             bottom: 0;
             top: 0;
             display: block;
-            content: "";
+            content: '';
             z-index: 1001;
           }
 
@@ -399,10 +410,10 @@ $primary-background-color: #ECF8FF;
   }
 
   .danger {
-    color: #F56C6C
+    color: #f56c6c;
   }
 
   .warning {
-    color: #E6A23C
+    color: #e6a23c;
   }
 }

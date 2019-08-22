@@ -1,13 +1,5 @@
 <template>
   <div>
-    <el-form-item label="属性值">
-      <el-input v-model="data.prop"
-                placeholder="属性值"></el-input>
-    </el-form-item>
-    <el-form-item label="标题">
-      <el-input v-model="data.label"
-                placeholder="标题"></el-input>
-    </el-form-item>
     <template v-if="data.type.indexOf('range') != -1">
       <el-form-item label="开始占位内容">
         <el-input v-model="data.startPlaceholder"
@@ -26,13 +18,6 @@
     <el-form-item label="默认值">
       <el-input v-model="data.valueDefault"
                 placeholder="默认值"></el-input>
-    </el-form-item>
-    <el-form-item label="表单栅格">
-      <el-input-number v-model="data.span"
-                       controls-position="right"
-                       placeholder="表单栅格"
-                       :min="8"
-                       :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="显示格式化">
       <el-input v-model="data.format"

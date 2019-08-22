@@ -49,25 +49,25 @@
         <el-header class="widget-container-header">
           <el-button type="text"
                      size="medium"
+                     icon="el-icon-document"
+                     @click="handleAvueDoc">Avue文档</el-button>
+          <el-button type="text"
+                     size="medium"
                      icon="el-icon-upload2"
-                     @click="importJsonVisible = true">导入JSON
-          </el-button>
+                     @click="importJsonVisible = true">导入JSON</el-button>
           <el-button type="text"
                      size="medium"
                      icon="el-icon-download"
-                     @click="generateJsonVisible = true">生成JSON
-          </el-button>
+                     @click="handleGenerateJson">生成JSON</el-button>
           <el-button type="text"
                      size="medium"
                      icon="el-icon-view"
-                     @click="handlePreview">预览
-          </el-button>
+                     @click="handlePreview">预览</el-button>
           <el-button class="danger"
                      type="text"
                      size="medium"
                      icon="el-icon-delete"
-                     @click="handleClear">清空
-          </el-button>
+                     @click="handleClear">清空</el-button>
         </el-header>
         <el-main :style="{background: widgetForm.column.length == 0 ? `url(${widgetEmpty}) no-repeat 50%`: ''}">
           <widget-form ref="widgetForm"
@@ -104,12 +104,10 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="handleImportJsonSubmit">确定
-          </el-button>
+                     @click="handleImportJsonSubmit">确定</el-button>
           <el-button size="medium"
                      type="danger"
-                     @click="importJsonVisible = false">取消
-          </el-button>
+                     @click="importJsonVisible = false">取消</el-button>
         </div>
       </el-drawer>
       <!-- 生成JSON -->
@@ -117,17 +115,15 @@
                  :visible.sync="generateJsonVisible"
                  size="50%"
                  destroy-on-close>
-        <v-json-editor v-model="widgetForm"
+        <v-json-editor v-model="widgetFormPreview"
                        height="82vh"></v-json-editor>
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="$emit('submit',widgetForm)">生成
-          </el-button>
+                     @click="$emit('submit',widgetForm)">生成</el-button>
           <el-button size="medium"
                      type="primary"
-                     @click="handleCopy">复制
-          </el-button>
+                     @click="handleCopy">复制</el-button>
         </div>
       </el-drawer>
       <!-- 预览 -->
@@ -143,12 +139,10 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="handlePreviewSubmit">确定
-          </el-button>
+                     @click="handlePreviewSubmit">确定</el-button>
           <el-button size="medium"
                      type="danger"
-                     @click="handleBeforeClose">取消
-          </el-button>
+                     @click="handleBeforeClose">取消</el-button>
         </div>
       </el-drawer>
     </el-container>
@@ -176,13 +170,12 @@ export default {
     }
   },
   watch: {
-    option: {
-      handler (value) {
-        this.importJson = this.deepClone(value);
-        this.handleImportJsonSubmit();
+    widgetForm: {
+      handler (val) {
+        if (val.column && val.column.length > 0) localStorage.setItem('avue-form', JSON.stringify(val))
+        else localStorage.removeItem('avue-form')
       },
-      deep: true,
-      immediate: true
+      deep: true
     }
   },
   data () {
@@ -203,6 +196,7 @@ export default {
         emptyText: '清空',
         menuPostion: 'center'
       },
+      widgetFormPreview: {},
       configTab: 'widget',
       widgetFormSelect: {},
       previewVisible: false,
@@ -215,8 +209,14 @@ export default {
   },
   mounted () {
     this.handleLoadCss();
+    this.handleLoadStorage();
   },
   methods: {
+    handleLoadStorage () {
+      const form = localStorage.getItem('avue-form');
+      if (form) this.setJSON(JSON.parse(form))
+      else this.setJSON(this.option)
+    },
     handleLoadCss () {
       const url = '//at.alicdn.com/t/font_1254447_dpcsvgkhila.css'
       const link = document.createElement('link');
@@ -239,6 +239,19 @@ export default {
     handlePreview () {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
       else this.previewVisible = true
+    },
+    handleGenerateJson () {
+      const data = this.deepClone(this.widgetForm)
+      data.column.forEach(col => {
+        if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
+          const c = col.children.column;
+          c.forEach(item => {
+            delete item.subfield
+          })
+        }
+      })
+      this.widgetFormPreview = data
+      this.generateJsonVisible = true
     },
     handleClear () {
       if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
@@ -266,9 +279,23 @@ export default {
         this.$message.error('复制失败')
       });
     },
+    handleAvueDoc () {
+      window.open('https://avuejs.com/doc/form/form-doc', '_blank')
+    },
     setJSON (json) {
       this.widgetForm = json
-      if (json.column && json.column.length > 0) this.widgetFormSelect = json.column[0]
+      if (json.column && json.column.length > 0) {
+        this.widgetFormSelect = json.column[0]
+
+        json.column.forEach(col => {
+          if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
+            const c = col.children.column;
+            c.forEach(item => {
+              item.subfield = true
+            })
+          }
+        })
+      }
     }
   }
 }

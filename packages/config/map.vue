@@ -1,23 +1,11 @@
 <template>
   <div>
-    <el-form-item label="属性值">
-      <el-input v-model="data.prop"
-                placeholder="属性值"></el-input>
-    </el-form-item>
-    <el-form-item label="标题">
-      <el-input v-model="data.label"
-                placeholder="标题"></el-input>
-    </el-form-item>
     <el-form-item label="默认值">
+      <a href="https://avuejs.com/doc/plugins/map-plugins"
+         target="_blank"
+         style="color: #409EFF;">详细文档</a><br>
       <el-input v-model="data.valueDefault"
                 placeholder="默认值"></el-input>
-    </el-form-item>
-    <el-form-item label="表单栅格">
-      <el-input-number v-model="data.span"
-                       controls-position="right"
-                       placeholder="表单栅格"
-                       :min="8"
-                       :max="24"></el-input-number>
     </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>

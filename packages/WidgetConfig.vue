@@ -17,6 +17,29 @@
           </el-option-group>
         </el-select>
       </el-form-item>
+      <el-form-item label="属性值">
+        <el-input v-model="data.prop"
+                  placeholder="属性值"></el-input>
+      </el-form-item>
+      <el-form-item label="标题">
+        <el-input v-model="data.label"
+                  placeholder="标题"></el-input>
+      </el-form-item>
+      <el-form-item label="宽度"
+                    v-if="data.subfield">
+        <el-input-number v-model="data.width"
+                         controls-position="right"
+                         placeholder="宽度"
+                         :min="100"></el-input-number>
+      </el-form-item>
+      <el-form-item label="表单栅格"
+                    v-else>
+        <el-input-number v-model="data.span"
+                         controls-position="right"
+                         placeholder="表单栅格"
+                         :min="8"
+                         :max="24"></el-input-number>
+      </el-form-item>
       <component :is="getComponent"
                  :data="data"></component>
     </el-form>
@@ -53,7 +76,7 @@ export default {
         const config = await this.getConfigByType(type);
         config.prop = this.data.prop;
         for (let key in config) {
-          if (config.hasOwnProperty(key) && !['icon', 'label'].includes(key)) {
+          if (config.hasOwnProperty(key) && !['icon', 'label', 'span'].includes(key)) {
             const val = config[key]
             this.$set(this.data, key, val);
           }

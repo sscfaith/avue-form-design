@@ -27,10 +27,15 @@ export default [
       display: true
     }, {
       type: 'dynamic',
-      label: '动态输入框',
-      icon: 'icon-dynamic',
+      label: '子表单',
+      icon: 'icon-table',
       span: 24,
       display: true,
+      children: {
+        align: 'center',
+        headerAlign: 'center',
+        column: []
+      }
     }]
   },
   {
@@ -131,17 +136,6 @@ export default [
     }],
   },
   {
-    title: '复杂字段',
-    list: [{
-      type: 'table',
-      label: '表格',
-      icon: 'icon-table',
-      display: true,
-      tableColumn: []
-    }],
-    disabled: true
-  },
-  {
     title: '日期时间字段',
     list: [{
       type: 'year',
@@ -225,9 +219,13 @@ export default [
       icon: 'icon-richtext',
       span: 24,
       display: true,
-      props: {},
-      ali: {},
-      qiniu: {}
+      upload: {
+        action: '',
+        oss: '',
+        props: {},
+        ali: {},
+        qiniu: {}
+      }
     }, {
       type: 'map',
       component: 'map',
