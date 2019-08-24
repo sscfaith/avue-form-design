@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <avue-form-design @submit="handleSubmit"
-                      :option="option"></avue-form-design>
+    <avue-form-design :options="options"
+                      @submit="handleSubmit"></avue-form-design>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'app',
   data () {
     return {
-      option: {
+      options: {
         column: [{
           type: 'input',
           label: '用户名',
@@ -50,8 +49,8 @@ export default {
     }
   },
   methods: {
-    handleSubmit (option) {
-      console.log(option);
+    handleSubmit (val) {
+      console.log(val);
     },
   }
 }

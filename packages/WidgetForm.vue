@@ -430,7 +430,7 @@ export default {
       const item = evt.item;
 
       if (newIndex == 1 && newIndex > column.children.column.length - 1) newIndex = 0
-      if (['子表单', '富文本', '坐标拾取器', '上传', '滑块'].includes(item.textContent)) {
+      if (['子表单', '富文本', '坐标拾取器'].includes(item.textContent)) {
         column.children.column.splice(newIndex, 1)
         return
       }

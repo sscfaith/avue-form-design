@@ -2,7 +2,7 @@
   <div class="form-designer">
     <el-container>
       <!-- 左侧字段 -->
-      <el-aside width="270px">
+      <el-aside :width="leftWidth">
         <div class="fields-list">
           <div v-for="(field, index) in fields"
                :key="index">
@@ -77,7 +77,7 @@
       </el-container>
       <!-- 右侧配置 -->
       <el-aside class="widget-config-container"
-                width="380px">
+                :width="asideRightWidth">
         <el-tabs v-model="configTab"
                  stretch>
           <el-tab-pane label="字段属性"
@@ -120,7 +120,7 @@
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
-                     @click="$emit('submit',widgetForm)">生成</el-button>
+                     @click="handleGenerate">生成</el-button>
           <el-button size="medium"
                      type="primary"
                      @click="handleCopy">复制</el-button>
@@ -162,20 +162,52 @@ export default {
   name: "FormDesign",
   components: { Draggable, VJsonEditor, WidgetForm, FormConfig, WidgetConfig },
   props: {
-    option: {
+    options: {
       type: Object,
       default: () => {
-        return {}
+        return {
+          column: []
+        }
       }
+    },
+    storage: {
+      type: Boolean,
+      default: false
+    },
+    asideLeftWidth: {
+      type: [String, Number],
+      default: '270px'
+    },
+    asideRightWidth: {
+      type: [String, Number],
+      default: '380px'
     }
   },
   watch: {
     widgetForm: {
       handler (val) {
-        if (val.column && val.column.length > 0) localStorage.setItem('avue-form', JSON.stringify(val))
-        else localStorage.removeItem('avue-form')
+        if (this.storage) {
+          if (val.column && val.column.length > 0) localStorage.setItem('avue-form', JSON.stringify(val))
+          else localStorage.removeItem('avue-form')
+        }
       },
       deep: true
+    }
+  },
+  computed: {
+    leftWidth () {
+      if (typeof this.asideLeftWidth == 'string') {
+        return this.asideLeftWidth
+      } else {
+        return `${this.asideLeftWidth}px`
+      }
+    },
+    rightWidth () {
+      if (typeof this.asideRightWidth == 'string') {
+        return this.asideRightWidth
+      } else {
+        return `${this.asideRightWidth}px`
+      }
     }
   },
   data () {
@@ -213,10 +245,13 @@ export default {
   },
   methods: {
     handleLoadStorage () {
-      const form = localStorage.getItem('avue-form');
-      if (form) this.setJSON(JSON.parse(form))
-      else this.setJSON(this.option)
+      if (this.storage) {
+        const form = localStorage.getItem('avue-form');
+        if (form) this.setJSON(JSON.parse(form))
+      }
+      else this.setJSON({ ...this.widgetForm, ...this.options })
     },
+
     handleLoadCss () {
       const url = '//at.alicdn.com/t/font_1254447_dpcsvgkhila.css'
       const link = document.createElement('link');
@@ -224,6 +259,7 @@ export default {
       link.href = url;
       window.document.head.appendChild(link)
     },
+
     handleImportJsonSubmit () {
       try {
         this.setJSON(this.importJson)
@@ -232,27 +268,30 @@ export default {
         this.$message.error(e.message)
       }
     },
+
     handleBeforeClose () {
       this.$refs.form.resetForm();
       this.previewVisible = false
     },
+
     handlePreview () {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
       else this.previewVisible = true
     },
+
     handleGenerateJson () {
-      const data = this.deepClone(this.widgetForm)
-      data.column.forEach(col => {
-        if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
-          const c = col.children.column;
-          c.forEach(item => {
-            delete item.subfield
-          })
-        }
+      this.transformToAvueOptions().then(data => {
+        this.widgetFormPreview = data
+        this.generateJsonVisible = true
       })
-      this.widgetFormPreview = data
-      this.generateJsonVisible = true
     },
+
+    handleGenerate () {
+      this.transformToAvueOptions().then(data => {
+        this.$emit('submit', data)
+      })
+    },
+
     handleClear () {
       if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
         this.$confirm('确定要清空吗？', '警告', {
@@ -264,12 +303,14 @@ export default {
         })
       } else this.$message.error("没有需要清空的内容")
     },
+
     handlePreviewSubmit () {
       this.$refs.form.validate((valid) => {
         if (valid) this.$alert(this.widgetModels).catch(() => {
         })
       })
     },
+
     handleCopy () {
       this.$Clipboard({
         text: JSON.stringify(this.widgetForm, null, 2)
@@ -279,9 +320,30 @@ export default {
         this.$message.error('复制失败')
       });
     },
+
     handleAvueDoc () {
       window.open('https://avuejs.com/doc/form/form-doc', '_blank')
     },
+
+    transformToAvueOptions () {
+      return new Promise((resolve, reject) => {
+        try {
+          const data = this.deepClone(this.widgetForm)
+          data.column.forEach(col => {
+            if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
+              const c = col.children.column;
+              c.forEach(item => {
+                delete item.subfield
+              })
+            }
+          })
+          resolve(data)
+        } catch (e) {
+          reject(e)
+        }
+      })
+    },
+
     setJSON (json) {
       this.widgetForm = json
       if (json.column && json.column.length > 0) {
@@ -297,6 +359,7 @@ export default {
         })
       }
     }
+
   }
 }
 </script>

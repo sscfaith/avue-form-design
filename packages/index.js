@@ -1,5 +1,5 @@
 import Config from './config'
-import FormDesigner from './index.vue'
+import FormDesign from './index.vue'
 import fields from './fieldsConfig.js'
 
 export default {
@@ -7,7 +7,7 @@ export default {
     Vue.use(Config)
     Vue.prototype.fields = fields;
     Vue.prototype.getConfigByType = getConfigByType
-    Vue.component('Avue' + FormDesigner.name, FormDesigner);
+    Vue.component('Avue' + FormDesign.name, FormDesign);
   }
 }
 
