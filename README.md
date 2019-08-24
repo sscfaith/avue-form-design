@@ -72,4 +72,4 @@ Vue.use(AvueFormDesign)
 
 # License
 
-<a href="LICENSE" target="_blank">MIT</a>
+<a href="https://git.avuejs.com/avue/avue-form/src/master/LICENSE" target="_blank">MIT</a>
