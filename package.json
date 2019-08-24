@@ -1,17 +1,17 @@
 {
   "name": "avue-form-design",
   "author": "SSC",
-  "version": "1.1.1",
-  "main": "packages/index.js",
+  "version": "1.1.2",
+  "main": "lib/index.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib --name AvueFormDesign --dest lib --filename index --formats umd-min ./packages/index.js"
   },
   "dependencies": {
     "avue-plugin-map": "^0.0.5",
     "avue-plugin-ueditor": "^0.0.5",
-    "core-js": "^2.6.5",
     "v-jsoneditor": "^1.2.1",
     "vue": "^2.6.10",
     "vuedraggable": "^2.23.0"
@@ -28,9 +28,14 @@
     "vue-template-compiler": "^2.6.10"
   },
   "files": [
-    "packages",
-    "README.md",
-    "LICENSE"
+    "lib"
+  ],
+  "keywords": [
+    "vue",
+    "element-ui",
+    "avue",
+    "form",
+    "design"
   ],
   "eslintConfig": {
     "root": true,

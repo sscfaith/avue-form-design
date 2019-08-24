@@ -1,10 +1,10 @@
-# 简介
+## 简介
 
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 
-# 安装
+## 安装
 
-## 组件
+### 组件
 
 ```sh
 $ npm i avue-form-design
@@ -12,7 +12,7 @@ $ npm i avue-form-design
 $ yarn add avue-form-design
 ```
 
-## 源码
+### 源码
 
 <a href="https://git.avuejs.com/avue/avue-form" target="_blank">下载</a>
 
@@ -21,11 +21,12 @@ $ yarn
 $ yarn serve
 ```
 
-# 使用
+## 使用
 
 ```
 import AvueFormDesign from 'avue-form-design'
 
+Vue.prototype.$ELEMENT = { size: 'small' }
 Vue.use(AvueFormDesign)
 ```
 
@@ -33,10 +34,11 @@ Vue.use(AvueFormDesign)
 <avue-form-design :options="options"
                   :aside-left-width="270"
                   :aside-right-width="380"
-                  storage></avue-from-design>
+                  storage
+                  @submit="handleSubmit"><avue-from-design>
 ```
 
-## 属性
+### 属性
 
 | 参数 | 说明 | 类型 | 默认值 |
 | ------ | ------ | ------ | ------ |
@@ -45,7 +47,7 @@ Vue.use(AvueFormDesign)
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
 
-## options字段配置
+### options字段配置
 
 <a href="https://avuejs.com/doc/form/form-doc" target="_blank">Avue文档</a>
 
@@ -64,12 +66,44 @@ Vue.use(AvueFormDesign)
 | emptySize | 清空按钮大小 | String | 'medium'/'small'/'mini' | 'medium' |
 | emptyText | 清空按钮文本 | String | - | '清空' |
 
-## 事件
+### 事件
 
 | 名称 | 说明 | 回调参数 |
 | ------ | ------ | ------ |
 | submit | 生成json回调 | 当前配置的json |
 
-# License
+### Avue插件
+
+#### 富文本
+
+```
+import AvueUeditor from 'avue-plugin-ueditor'
+
+Vue.use(AvueUeditor)
+```
+
+#### 坐标拾取器
+
+```
+import AvueMap from 'avue-plugin-map'
+
+Vue.use(AvueMap)
+```
+
+## 打包
+
+### 组件
+
+```sh
+$ yarn lib
+```
+
+### 源码
+
+```sh
+$ yarn build
+```
+
+## License
 
 <a href="https://git.avuejs.com/avue/avue-form/src/master/LICENSE" target="_blank">MIT</a>

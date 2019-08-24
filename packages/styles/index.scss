@@ -10,6 +10,10 @@ $primary-background-color: #ecf8ff;
   box-sizing: border-box;
 }
 
+body {
+  margin: 0 !important;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -406,7 +410,11 @@ $primary-background-color: #ecf8ff;
   }
 
   .el-container {
-    height: 100%;
+    height: 100vh;
+
+    .el-main {
+      height: calc(100% - 45px);
+    }
   }
 
   .danger {
