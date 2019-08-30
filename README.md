@@ -2,6 +2,22 @@
 
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 
+## 依赖
+
+element-ui 2.11.0+
+
+```sh
+$ npm i element-ui
+```
+
+@smallwei/avue 2.1.0+
+
+```sh
+$ npm i @smallwei/avue
+```
+
+或自行引入cdn
+
 ## 安装
 
 ### 组件
@@ -14,7 +30,7 @@ $ yarn add avue-form-design
 
 ### 源码
 
-<a href="https://git.avuejs.com/avue/avue-form" target="_blank">下载</a>
+<a href="https://github.com/sscfaith/avue-form-design" target="_blank">github</a>
 
 ```sh
 $ yarn
@@ -104,6 +120,10 @@ $ yarn lib
 $ yarn build
 ```
 
+## 捐赠
+如果你觉得本项目帮助到你的话，可以给作者买杯咖啡。
+<img src="http://112.74.43.150/images/donate.png">
+
 ## License
 
-<a href="https://git.avuejs.com/avue/avue-form/src/master/LICENSE" target="_blank">MIT</a>
+<a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a>
