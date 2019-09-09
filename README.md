@@ -31,7 +31,8 @@ $ yarn add avue-form-design
 
 ### 源码
 
-<a href="https://github.com/sscfaith/avue-form-design" target="_blank">github</a>
+<a href="https://github.com/sscfaith/avue-form-design" target="_blank">github</a><br>
+<a href="https://gitee.com/sscgh/avue-from-design" target="_blank">码云</a>
 
 ```sh
 $ yarn
