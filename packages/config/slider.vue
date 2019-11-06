@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: "config-silder",
+  name: "config-slider",
   props: ['data']
 }
 </script>

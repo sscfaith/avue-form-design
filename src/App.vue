@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <avue-form-design :options="options"
-                      storage
                       @submit="handleSubmit"></avue-form-design>
   </div>
 </template>
@@ -12,40 +11,28 @@ export default {
   data () {
     return {
       options: {
-        column: [{
-          type: 'input',
-          label: '用户名',
-          prop: 'name',
-          span: 12,
-          display: true
-        }, {
-          type: 'password',
-          label: '密码',
-          prop: 'password',
-          span: 12,
-          display: true
-        }, {
-          type: 'dynamic',
-          label: '子表单',
-          prop: 'dynamic',
-          span: 24,
-          display: true,
-          children: {
-            align: 'center',
-            headerAlign: 'center',
+        group: [
+          {
+            icon: 'el-icon-info',
+            label: '分组1',
+            prop: 'group1',
             column: [{
-              type: 'input',
-              label: '用户名',
-              prop: 'name1',
-              display: true
+              label: '内容1',
+              prop: 'text1',
+            }]
+          }, {
+            icon: 'el-icon-info',
+            label: '分组2',
+            prop: 'group2',
+            column: [{
+              label: '选项卡2',
+              prop: 'text2',
             }, {
-              type: 'password',
-              label: '密码',
-              prop: 'password1',
-              display: true
+              label: '选项卡3',
+              prop: 'text3',
             }]
           }
-        }]
+        ]
       }
     }
   },

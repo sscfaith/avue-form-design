@@ -331,6 +331,124 @@ body {
         }
       }
 
+      .widget-form-group {
+        position: relative;
+        width: 100%;
+        float: left;
+        padding: 2px;
+
+        &__head {
+          margin: 10px;
+        }
+
+        &__body {
+          min-height: 150px;
+          height: 100%;
+          outline: 1px dashed #ccc;
+          outline-offset: -1px;
+
+          .ghost {
+            background: white;
+            border-left: 5px solid $primary-color;
+            box-sizing: border-box;
+            font-size: 0;
+            content: '';
+            overflow: hidden;
+            padding: 0 !important;
+            position: relative;
+            outline: none 0;
+            height: 100%;
+            min-height: 57px;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin: 1px 2px 0 2px;
+          }
+        }
+
+        &__item {
+          padding: 10px;
+          margin: 3px;
+          position: relative;
+          border-left: 5px solid transparent;
+          background: white;
+
+          &.required {
+            .el-form-item__label::before {
+              content: '*';
+              color: #f56c6c;
+              margin-right: 4px;
+            }
+          }
+
+          &.active {
+            outline: 1px solid $primary-color;
+            outline-offset: -1px;
+          }
+
+          &:hover {
+            outline: 1px solid $primary-color;
+            outline-offset: -1px;
+            cursor: move;
+          }
+
+          &:after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            display: block;
+            content: '';
+            z-index: 1001;
+          }
+
+          &--delete {
+            position: absolute;
+            right: 0;
+            bottom: -24px;
+            z-index: 1002;
+          }
+
+          &--clone {
+            position: absolute;
+            right: 34px;
+            bottom: -24px;
+            z-index: 1002;
+          }
+        }
+
+        &.active {
+          border-left: 3px solid $primary-color;
+          background: $primary-active-color;
+        }
+
+        &:hover {
+          background: $primary-background-color;
+          cursor: move;
+        }
+
+        .widget-action-delete {
+          position: absolute;
+          right: 10px;
+          bottom: -12px;
+          z-index: 1001;
+        }
+
+        .widget-action-clear {
+          position: absolute;
+          right: 50px;
+          bottom: -12px;
+          z-index: 1001;
+        }
+
+        .widget-action-clone {
+          position: absolute;
+          right: 90px;
+          bottom: -12px;
+          z-index: 1001;
+        }
+      }
+
       .iconfont {
         font-size: 13px;
       }

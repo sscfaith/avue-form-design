@@ -11,6 +11,10 @@
     <el-form-item label="是否多选">
       <el-switch v-model="data.multiple"></el-switch>
     </el-form-item>
+    <el-form-item label="是否可拖拽（需引入sortable.js）"
+                  v-if="data.multiple">
+      <el-switch v-model="data.drag"></el-switch>
+    </el-form-item>
     <el-form-item label="多选数量限制"
                   v-if="data.multiple">
       <el-input-number v-model="data.limit"

@@ -134,7 +134,7 @@
         <avue-form v-if="previewVisible"
                    ref="form"
                    class="preview-form"
-                   :option="widgetForm"
+                   :option="widgetFormPreview"
                    v-model="widgetModels"></avue-form>
         <div class="drawer-foot">
           <el-button size="medium"
@@ -249,11 +249,15 @@ export default {
         const form = localStorage.getItem('avue-form');
         if (form) this.setJSON(JSON.parse(form))
       }
-      else this.setJSON({ ...this.widgetForm, ...this.options })
+      else {
+        this.transAvueOptionsToFormDesigner(this.options).then(options => {
+          this.setJSON({ ...this.widgetForm, ...options })
+        })
+      }
     },
 
     handleLoadCss () {
-      const url = '//at.alicdn.com/t/font_1254447_dpcsvgkhila.css'
+      const url = '//at.alicdn.com/t/font_1254447_vwre8s2hjxm.css'
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = url;
@@ -276,7 +280,12 @@ export default {
 
     handlePreview () {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
-      else this.previewVisible = true
+      else {
+        this.transformToAvueOptions().then(data => {
+          this.widgetFormPreview = data
+          this.previewVisible = true
+        })
+      }
     },
 
     handleGenerateJson () {
@@ -329,15 +338,52 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           const data = this.deepClone(this.widgetForm)
-          data.column.forEach(col => {
+          for (let i = 0; i < data.column.length; i++) {
+            const col = data.column[i]
             if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
               const c = col.children.column;
               c.forEach(item => {
                 delete item.subfield
               })
+            } else if (col.type == 'group') {
+              if (!data.group) data.group = []
+              data.group.push({
+                label: col.label,
+                icon: col.icon,
+                prop: col.prop,
+                column: col.children.column
+              })
+              data.column.splice(i, 1)
+              i--
             }
-          })
+          }
           resolve(data)
+        } catch (e) {
+          reject(e)
+        }
+      })
+    },
+
+    transAvueOptionsToFormDesigner (options) {
+      return new Promise((resolve, reject) => {
+        try {
+          if (options.group) {
+            for (let i = 0; i < options.group.length; i++) {
+              if (!options.column) options.column = []
+              const col = options.group[i]
+              options.column.push({
+                type: 'group',
+                label: col.label,
+                icon: col.icon,
+                prop: col.prop,
+                children: {
+                  column: col.column
+                }
+              })
+            }
+            delete options.group
+          }
+          resolve(options)
         } catch (e) {
           reject(e)
         }

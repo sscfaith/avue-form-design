@@ -61,6 +61,9 @@
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
+    <el-form-item label="当有子级时,是否可选择父级">
+      <el-switch v-model="data.parent"></el-switch>
+    </el-form-item>
     <el-form-item label="是否多选">
       <el-switch v-model="data.multiple"></el-switch>
     </el-form-item>

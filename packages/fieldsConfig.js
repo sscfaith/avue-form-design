@@ -1,5 +1,28 @@
 export default [
   {
+    title: '布局字段',
+    list: [{
+      type: 'group',
+      label: '分组',
+      icon: 'icon-group',
+      display: true,
+      children: {
+        column: []
+      }
+    }, {
+      type: 'dynamic',
+      label: '子表单',
+      icon: 'icon-table',
+      span: 24,
+      display: true,
+      children: {
+        align: 'center',
+        headerAlign: 'center',
+        column: []
+      }
+    }]
+  },
+  {
     title: '输入字段',
     list: [{
       type: 'input',
@@ -25,18 +48,7 @@ export default [
       icon: 'icon-number',
       span: 24,
       display: true
-    }, {
-      type: 'dynamic',
-      label: '子表单',
-      icon: 'icon-table',
-      span: 24,
-      display: true,
-      children: {
-        align: 'center',
-        headerAlign: 'center',
-        column: []
-      }
-    }]
+    },]
   },
   {
     title: '选择字段',
@@ -117,6 +129,7 @@ export default [
         { label: '选项二', value: 1 },
         { label: '选项三', value: 2 },
       ],
+      parent: true
     }]
   },
   {
@@ -256,7 +269,7 @@ export default [
       texts: ['极差', '失望', '一般', '满意', '惊喜'],
       colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
     }, {
-      type: 'silder',
+      type: 'slider',
       label: '滑块',
       icon: 'icon-slider',
       span: 24,

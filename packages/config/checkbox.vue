@@ -58,11 +58,16 @@
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
-    <el-form-item label="边框">
+    <el-form-item label="边框"
+                  v-if="!data.button">
       <el-switch v-model="data.border"></el-switch>
     </el-form-item>
+    <el-form-item label="按钮"
+                  v-if="!data.border">
+      <el-switch v-model="data.button"></el-switch>
+    </el-form-item>
     <el-form-item label="尺寸"
-                  v-if="data.border">
+                  v-if="data.border || data.button">
       <el-radio-group v-model="data.size"
                       size="mini">
         <el-radio-button label="medium">正常</el-radio-button>

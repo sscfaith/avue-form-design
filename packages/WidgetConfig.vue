@@ -33,7 +33,7 @@
                          :min="100"></el-input-number>
       </el-form-item>
       <el-form-item label="表单栅格"
-                    v-else>
+                    v-if="!data.subfield && !['group'].includes(data.type)">
         <el-input-number v-model="data.span"
                          controls-position="right"
                          placeholder="表单栅格"
