@@ -5,13 +5,13 @@
 
 ## 依赖
 
-element-ui 2.11.0+
+element-ui 2.12.0+
 
 ```sh
 $ npm i element-ui
 ```
 
-@smallwei/avue 2.1.0+
+@smallwei/avue 2.2.0+
 
 ```sh
 $ npm i @smallwei/avue

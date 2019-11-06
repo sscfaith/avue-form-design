@@ -19,7 +19,7 @@
           <widget-form-table :data="column.children"
                              :column="item"
                              :index="groupIndex"
-                             :select="selectWidget"></widget-form-table>
+                             :select.sync="selectWidget"></widget-form-table>
         </div>
         <el-col v-else
                 :key="groupIndex"
