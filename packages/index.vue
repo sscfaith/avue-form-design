@@ -247,11 +247,10 @@ export default {
     handleLoadStorage () {
       if (this.storage) {
         const form = localStorage.getItem('avue-form');
-        if (form) this.setJSON(JSON.parse(form))
-      }
-      else {
-        this.transAvueOptionsToFormDesigner(this.options).then(options => {
-          this.setJSON({ ...this.widgetForm, ...options })
+        if (form) this.widgetForm = JSON.parse(form)
+      } else {
+        this.transAvueOptionsToFormDesigner(this.options).then(res => {
+          this.widgetForm = { ...this.widgetForm, ...res }
         })
       }
     },
@@ -266,8 +265,10 @@ export default {
 
     handleImportJsonSubmit () {
       try {
-        this.setJSON(this.importJson)
-        this.importJsonVisible = false
+        this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
+          this.widgetForm = res
+          this.importJsonVisible = false
+        })
       } catch (e) {
         this.$message.error(e.message)
       }
@@ -281,7 +282,7 @@ export default {
     handlePreview () {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
       else {
-        this.transformToAvueOptions().then(data => {
+        this.transformToAvueOptions(this.widgetForm).then(data => {
           this.widgetFormPreview = data
           this.previewVisible = true
         })
@@ -289,14 +290,14 @@ export default {
     },
 
     handleGenerateJson () {
-      this.transformToAvueOptions().then(data => {
+      this.transformToAvueOptions(this.widgetForm).then(data => {
         this.widgetFormPreview = data
         this.generateJsonVisible = true
       })
     },
 
     handleGenerate () {
-      this.transformToAvueOptions().then(data => {
+      this.transformToAvueOptions(this.widgetForm).then(data => {
         this.$emit('submit', data)
       })
     },
@@ -334,10 +335,10 @@ export default {
       window.open('https://avuejs.com/doc/form/form-doc', '_blank')
     },
 
-    transformToAvueOptions () {
+    transformToAvueOptions (obj) {
       return new Promise((resolve, reject) => {
         try {
-          const data = this.deepClone(this.widgetForm)
+          const data = this.deepClone(obj)
           for (let i = 0; i < data.column.length; i++) {
             const col = data.column[i]
             if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
@@ -345,16 +346,31 @@ export default {
               c.forEach(item => {
                 delete item.subfield
               })
+              this.transformToAvueOptions(col.children).then(res => {
+                col.children = res
+              })
             } else if (col.type == 'group') {
               if (!data.group) data.group = []
-              data.group.push({
+
+              const group = {
                 label: col.label,
                 icon: col.icon,
                 prop: col.prop,
-                column: col.children.column
+              }
+              this.transformToAvueOptions(col.children).then(res => {
+                group.column = res.column
+                data.group.push(group)
               })
               data.column.splice(i, 1)
               i--
+            } else if (['checkbox', 'radio', 'tree', 'cascader', 'select'].includes(col.type)) {
+              if (!col.dicData && col.dicQuery) {
+                const query = {}
+                col.dicQuery.forEach(q => {
+                  if (q.key && q.value) query[q.key] = q.value
+                })
+                col.dicQuery = query
+              }
             }
           }
           resolve(data)
@@ -364,48 +380,58 @@ export default {
       })
     },
 
-    transAvueOptionsToFormDesigner (options) {
+    transAvueOptionsToFormDesigner (obj) {
+      const data = this.deepClone(obj)
       return new Promise((resolve, reject) => {
         try {
-          if (options.group) {
-            for (let i = 0; i < options.group.length; i++) {
-              if (!options.column) options.column = []
-              const col = options.group[i]
-              options.column.push({
+          if (data.column && data.column.length > 0) {
+            data.column.forEach(col => {
+              if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
+                const c = col.children.column;
+                c.forEach(item => {
+                  item.subfield = true
+                })
+                this.transAvueOptionsToFormDesigner(col.children).then(res => {
+                  col.children = res
+                })
+              } else if (['checkbox', 'radio', 'tree', 'cascader', 'select'].includes(col.type)) {
+                if (!col.dicData && col.dicQuery && typeof col.dicQuery == 'object') {
+                  const arr = []
+                  for (let key in col.dicQuery) {
+                    arr.push({
+                      key,
+                      value: col.dicQuery[key],
+                      $cellEdit: true
+                    })
+                  }
+                  col.dicQuery = arr
+                }
+              }
+            })
+          } else if (data.group && data.group.length > 0) {
+            for (let i = 0; i < data.group.length; i++) {
+              if (!data.column) data.column = []
+              const col = data.group[i]
+
+              const group = {
                 type: 'group',
                 label: col.label,
                 icon: col.icon,
                 prop: col.prop,
-                children: {
-                  column: col.column
-                }
+              }
+              this.transAvueOptionsToFormDesigner(col).then(res => {
+                group.children = res
+                data.column.push(group)
               })
             }
-            delete options.group
+            delete data.group
           }
-          resolve(options)
+          resolve(data)
         } catch (e) {
           reject(e)
         }
       })
-    },
-
-    setJSON (json) {
-      this.widgetForm = json
-      if (json.column && json.column.length > 0) {
-        this.widgetFormSelect = json.column[0]
-
-        json.column.forEach(col => {
-          if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
-            const c = col.children.column;
-            c.forEach(item => {
-              item.subfield = true
-            })
-          }
-        })
-      }
     }
-
   }
 }
 </script>

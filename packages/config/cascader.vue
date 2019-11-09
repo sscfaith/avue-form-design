@@ -58,6 +58,11 @@
             <el-option label="GET"
                        value="get"></el-option>
           </el-select>
+          <p v-if="data.dicMethod == 'post'">
+            请求参数
+            <avue-dynamic v-model="data.dicQuery"
+                          :children="option"></avue-dynamic>
+          </p>
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
@@ -144,7 +149,18 @@ export default {
       },
       dialogStatus: 'add',
       selectData: undefined,
-      dialogInputType: 'text'
+      dialogInputType: 'text',
+      option: {
+        column: [{
+          type: 'input',
+          prop: 'key',
+          label: 'key'
+        }, {
+          type: 'input',
+          prop: 'value',
+          label: 'value'
+        }]
+      },
     }
   },
   methods: {
@@ -160,11 +176,12 @@ export default {
       if (name == '1') {
         delete this.data.dicUrl
         delete this.data.dicMethod
-        if (this.data.dicData.length == 0)
+        delete this.data.dicQuery
+        if (!this.data.dicData || this.data.dicData.length == 0)
           this.data.dicData = this.dicCopy
       } else {
-        this.data.dicData = []
-        this.data.dicUrl = ''
+        delete this.data.dicData
+        if (!this.data.dicQuery) this.data.dicQuery = []
       }
     },
     handleParentNodeAdd () {
