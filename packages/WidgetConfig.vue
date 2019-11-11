@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import fields from './fieldsConfig.js'
+
 const dateArr = [
   'year', 'month', 'week', 'date', 'datetime', 'time', 'daterange', 'timerange', 'datetimerange', 'dates'
 ]
@@ -70,6 +72,11 @@ export default {
       return prefix + result
     }
   },
+  data () {
+    return {
+      fields
+    }
+  },
   methods: {
     async handleChangeType (type) {
       if (type) {
@@ -82,6 +89,16 @@ export default {
           }
         }
       }
+    },
+    getConfigByType (type) {
+      return new Promise((resolve, reject) => {
+        fields.forEach(field => {
+          field.list.forEach(config => {
+            if (config.type == type) resolve(config)
+          })
+        })
+        reject()
+      })
     }
   }
 }
