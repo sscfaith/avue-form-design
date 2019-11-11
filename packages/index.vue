@@ -192,6 +192,14 @@ export default {
         }
       },
       deep: true
+    },
+    options: {
+      handler (val) {
+        this.transAvueOptionsToFormDesigner(val).then(res => {
+          this.widgetForm = { ...this.widgetForm, ...res }
+        })
+      },
+      deep: true
     }
   },
   computed: {

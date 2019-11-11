@@ -76,7 +76,7 @@ export default {
         const config = await this.getConfigByType(type);
         config.prop = this.data.prop;
         for (let key in config) {
-          if (config.hasOwnProperty(key) && !['icon', 'label', 'span'].includes(key)) {
+          if (config && Object.prototype.hasOwnProperty.call(config, key) && !['icon', 'label', 'span'].includes(key)) {
             const val = config[key]
             this.$set(this.data, key, val);
           }
