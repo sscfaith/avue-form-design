@@ -85,6 +85,7 @@ export default {
   data () {
     return {
       selectWidget: this.select,
+  	  form: {}
     }
   },
   methods: {
