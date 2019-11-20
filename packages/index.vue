@@ -129,7 +129,7 @@
       <!-- 预览 -->
       <el-drawer title="预览"
                  :visible.sync="previewVisible"
-                 size="50%"
+                 size="60%"
                  :before-close="handleBeforeClose">
         <avue-form v-if="previewVisible"
                    ref="form"
@@ -220,18 +220,18 @@ export default {
   },
   data () {
     return {
-      widgetEmpty: widgetEmpty,
+      widgetEmpty,
       fields,
       widgetForm: {
         column: [],
         labelPosition: 'left',
         labelWidth: 120,
         gutter: 0,
-        menuBtn: false,
-        submitBtn: false,
+        menuBtn: true,
+        submitBtn: true,
         submitSize: 'medium',
         submitText: '提交',
-        emptyBtn: false,
+        emptyBtn: true,
         emptySize: 'medium',
         emptyText: '清空',
         menuPosition: 'center'
@@ -242,9 +242,8 @@ export default {
       previewVisible: false,
       generateJsonVisible: false,
       importJsonVisible: false,
-      importJson: undefined,
+      importJson: {},
       widgetModels: {},
-      configOption: {},
     }
   },
   mounted () {
@@ -252,6 +251,7 @@ export default {
     this.handleLoadStorage();
   },
   methods: {
+    // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
     handleLoadStorage () {
       if (this.storage) {
         const form = localStorage.getItem('avue-form');
@@ -262,7 +262,7 @@ export default {
         })
       }
     },
-
+    // 加载阿里iconfront
     handleLoadCss () {
       const url = '//at.alicdn.com/t/font_1254447_vwre8s2hjxm.css'
       const link = document.createElement('link');
@@ -270,7 +270,21 @@ export default {
       link.href = url;
       window.document.head.appendChild(link)
     },
-
+    // Avue文档链接
+    handleAvueDoc () {
+      window.open('https://avuejs.com/doc/form/form-doc', '_blank')
+    },
+    // 预览 - 弹窗
+    handlePreview () {
+      if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
+      else {
+        this.transformToAvueOptions(this.widgetForm).then(data => {
+          this.widgetFormPreview = data
+          this.previewVisible = true
+        })
+      }
+    },
+    // 导入JSON - 弹窗 - 确定
     handleImportJsonSubmit () {
       try {
         this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
@@ -281,35 +295,42 @@ export default {
         this.$message.error(e.message)
       }
     },
-
-    handleBeforeClose () {
-      this.$refs.form.resetForm();
-      this.previewVisible = false
-    },
-
-    handlePreview () {
-      if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
-      else {
-        this.transformToAvueOptions(this.widgetForm).then(data => {
-          this.widgetFormPreview = data
-          this.previewVisible = true
-        })
-      }
-    },
-
+    // 生成JSON - 弹窗
     handleGenerateJson () {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.widgetFormPreview = data
         this.generateJsonVisible = true
       })
     },
-
+    // 生成JSON - 弹窗 - 确定
     handleGenerate () {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.$emit('submit', data)
       })
     },
-
+    // 生成JSON - 弹窗 - 拷贝
+    handleCopy () {
+      this.$Clipboard({
+        text: this.widgetFormPreview
+      }).then(() => {
+        this.$message.success('复制成功')
+      }).catch(() => {
+        this.$message.error('复制失败')
+      });
+    },
+    // 预览 - 弹窗 - 确定
+    handlePreviewSubmit () {
+      this.$refs.form.validate((valid) => {
+        if (valid) this.$alert(this.widgetModels).catch(() => {
+        })
+      })
+    },
+    // 预览 - 弹窗 - 关闭前
+    handleBeforeClose () {
+      this.$refs.form.resetForm();
+      this.previewVisible = false
+    },
+    // 清空
     handleClear () {
       if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
         this.$confirm('确定要清空吗？', '警告', {
@@ -321,28 +342,7 @@ export default {
         })
       } else this.$message.error("没有需要清空的内容")
     },
-
-    handlePreviewSubmit () {
-      this.$refs.form.validate((valid) => {
-        if (valid) this.$alert(this.widgetModels).catch(() => {
-        })
-      })
-    },
-
-    handleCopy () {
-      this.$Clipboard({
-        text: JSON.stringify(this.widgetForm, null, 2)
-      }).then(() => {
-        this.$message.success('复制成功')
-      }).catch(() => {
-        this.$message.error('复制失败')
-      });
-    },
-
-    handleAvueDoc () {
-      window.open('https://avuejs.com/doc/form/form-doc', '_blank')
-    },
-
+    // 表单设计器配置项 转化为 Avue配置项
     transformToAvueOptions (obj) {
       return new Promise((resolve, reject) => {
         try {
@@ -372,13 +372,21 @@ export default {
               data.column.splice(i, 1)
               i--
             } else if (['checkbox', 'radio', 'tree', 'cascader', 'select'].includes(col.type)) {
-              if (!col.dicData && col.dicQuery) {
-                const query = {}
-                col.dicQuery.forEach(q => {
-                  if (q.key && q.value) query[q.key] = q.value
-                })
-                col.dicQuery = query
+              if (col.dicOption == 'static') {
+                delete col.dicUrl
+                delete col.dicMethod
+                delete col.dicQuery
+              } else if (col.dicOption == 'remote') {
+                delete col.dicData
+                if (col.dicQuery && col.dicQuery.length > 0) {
+                  const query = {}
+                  col.dicQuery.forEach(q => {
+                    if (q.key && q.value) query[q.key] = q.value
+                  })
+                  col.dicQuery = query
+                } else delete col.dicQuery
               }
+              delete col.dicOption
             }
           }
           resolve(data)
@@ -387,7 +395,7 @@ export default {
         }
       })
     },
-
+    // Avue配置项 转化为 表单设计器配置项
     transAvueOptionsToFormDesigner (obj) {
       const data = this.deepClone(obj)
       return new Promise((resolve, reject) => {
@@ -446,28 +454,4 @@ export default {
 
 <style lang="scss">
 @import "./styles/index.scss";
-
-.drawer-foot {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  display: flex;
-
-  button {
-    width: 50%;
-  }
-}
-
-.preview-form {
-  overflow-y: scroll;
-  height: 83vh;
-}
-
-.widget-config-container {
-  .avue-group__item {
-    padding: 0;
-  }
-}
 </style>

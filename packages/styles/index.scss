@@ -525,6 +525,9 @@ body {
         }
       }
     }
+    .avue-group__item {
+      padding: 0;
+    }
   }
 
   .el-container {
@@ -542,4 +545,22 @@ body {
   .warning {
     color: #e6a23c;
   }
+}
+
+.drawer-foot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+
+  button {
+    width: 50%;
+  }
+}
+
+.preview-form {
+  overflow-y: scroll;
+  height: 83vh;
 }

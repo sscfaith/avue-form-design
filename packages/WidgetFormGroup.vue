@@ -60,6 +60,7 @@
                v-if="selectWidget.prop == column.prop"
                circle
                plain
+               size='small'
                type="danger">
       <i class="iconfont icon-delete"></i>
     </el-button>
@@ -69,6 +70,7 @@
                v-if="selectWidget.prop == column.prop"
                circle
                plain
+               size='small'
                type="warning">
       <i class="iconfont icon-clear"></i>
     </el-button>
@@ -78,6 +80,7 @@
                v-if="selectWidget.prop == column.prop"
                circle
                plain
+               size='small'
                type="primary">
       <i class="iconfont icon-copy"></i>
     </el-button>

@@ -43,7 +43,6 @@ $ yarn serve
 ```
 import AvueFormDesign from 'avue-form-design'
 
-Vue.prototype.$ELEMENT = { size: 'small' }
 Vue.use(AvueFormDesign)
 ```
 

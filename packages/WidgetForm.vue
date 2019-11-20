@@ -4,7 +4,8 @@
              :label-width="data.labelWidth ? `${data.labelWidth}px` : '100px' "
              :label-suffix="data.labelSuffix"
              :model="form"
-             ref="widgetForm">
+             ref="widgetForm"
+             size="small">
       <el-row :gutter="data.gutter">
         <draggable class="widget-form-list"
                    :list="data.column"
@@ -51,6 +52,7 @@
                            v-if="selectWidget.prop == column.prop"
                            circle
                            plain
+                           size="small"
                            type="danger">
                   <i class="iconfont icon-delete"></i>
                 </el-button>
@@ -60,6 +62,7 @@
                            v-if="selectWidget.prop == column.prop"
                            circle
                            plain
+                           size="small"
                            type="primary">
                   <i class="iconfont icon-copy"></i>
                 </el-button>
@@ -85,7 +88,7 @@ export default {
   data () {
     return {
       selectWidget: this.select,
-  	  form: {}
+      form: {}
     }
   },
   methods: {

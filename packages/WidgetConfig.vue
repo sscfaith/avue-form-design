@@ -1,7 +1,8 @@
 <template>
   <div class="widget-config">
     <el-form label-suffix="："
-             v-if="this.data && Object.keys(this.data).length > 0">
+             v-if="this.data && Object.keys(this.data).length > 0"
+             size="small">
       <el-form-item label="类型">
         <el-select v-model="data.type"
                    placeholder="请选择类型"
