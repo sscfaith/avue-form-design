@@ -311,7 +311,7 @@ export default {
     // 生成JSON - 弹窗 - 拷贝
     handleCopy () {
       this.$Clipboard({
-        text: this.widgetFormPreview
+        text: JSON.stringify(this.widgetFormPreview, null, 2)
       }).then(() => {
         this.$message.success('复制成功')
       }).catch(() => {
@@ -422,6 +422,9 @@ export default {
                   }
                   col.dicQuery = arr
                 }
+                if (col.dicUrl) col.dicOption = 'remote'
+                else col.dicOption = 'static'
+                if (!col.dicData) col.dicData = []
               }
             })
           } else if (data.group && data.group.length > 0) {

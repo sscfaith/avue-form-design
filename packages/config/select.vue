@@ -137,10 +137,6 @@ export default {
       },
     }
   },
-  mounted () {
-    if (this.data.dicData && !this.data.dicUrl) this.data.dicOption = 'static'
-    else this.data.dicOption = 'remote'
-  },
   methods: {
     generateRule () {
       const rules = [];

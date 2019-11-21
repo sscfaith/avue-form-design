@@ -62,7 +62,8 @@ export default [
         { label: '选项三', value: 2 },
       ],
       span: 24,
-      display: true
+      display: true,
+      dicOption: 'static'
     }, {
       type: 'checkbox',
       label: '多选框组',
@@ -74,6 +75,7 @@ export default [
       ],
       span: 24,
       display: true,
+      dicOption: 'static'
     }, {
       type: 'select',
       label: '下拉选择器',
@@ -84,7 +86,8 @@ export default [
         { label: '选项三', value: 2 },
       ],
       span: 24,
-      display: true
+      display: true,
+      dicOption: 'static'
     }, {
       type: 'cascader',
       label: '级联选择器',
@@ -107,6 +110,7 @@ export default [
         { label: '选项三', value: 2 },
       ],
       showAllLevels: true,
+      dicOption: 'static',
       separator: "/"
     }, {
       type: 'tree',
@@ -114,6 +118,7 @@ export default [
       icon: 'icon-tree',
       span: 24,
       display: true,
+      dicOption: 'static',
       dicData: [
         {
           label: '选项一',
