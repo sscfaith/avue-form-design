@@ -1,5 +1,7 @@
 <template>
   <component :is="getComponent(item.type, item.component)"
+             v-model="form[item.prop]"
+             :item="item"
              :action="item.action"
              :append="item.append"
              :accordion="item.accordion"
@@ -13,7 +15,6 @@
              :click="item.click"
              :onRemove="item.onRemove"
              :showWordLimit="item.showWordLimit"
-             :item="item"
              :colors="item.colors"
              :canvasOption="item.canvasOption"
              :controls-position="item.controlsPosition"
@@ -53,7 +54,7 @@
              :oss="item.oss"
              :parent="item.parent"
              :pickerOptions="item.pickerOptions"
-             :placeholder="getPlaceholder(item)"
+             :placeholder="item.placeholder || getPlaceholder(item)"
              :precision="item.precision"
              :prefixIcon="item.prefixIcon"
              :prepend="item.prepend"
@@ -84,15 +85,15 @@
              :voidIconClass="item.voidIconClass"
              :remote="item.remote"
              :autocomplete="item.autocomplete"
-             v-model="form[item.prop]"
              :allow-create="item.allowCreate"
-             :default-first-option="item.defaultFirstOption"></component>
+             :default-first-option="item.defaultFirstOption"
+             :is-img="item.isImg"></component>
 </template>
 <script>
 export default {
   name: 'widget-form-item',
   props: ['item'],
-  data() {
+  data () {
     return {
       form: {}
     }
@@ -101,59 +102,32 @@ export default {
     getComponent (type, component) {
       let KEY_COMPONENT_NAME = 'avue-';
       let result = 'input';
-      if (!this.validatenull(component)) {
-        result = component;
-      } else if (type === 'select') {
-        result = 'select';
-      } else if (type === 'radio') {
-        result = 'radio';
-      } else if (type === 'checkbox') {
-        result = 'checkbox';
-      } else if (['time', 'timerange'].includes(type)) {
-        result = 'time';
-      } else if (
-        [
-          'dates',
-          'date',
-          'datetime',
-          'datetimerange',
-          'daterange',
-          'week',
-          'month',
-          'year'
-        ].includes(type)
-      ) {
+      if (!this.validatenull(component)) result = component;
+      else if (type === 'array') result = 'array';
+      else if (type === 'select') result = 'select';
+      else if (type === 'radio') result = 'radio';
+      else if (type === 'checkbox') result = 'checkbox';
+      else if (['time', 'timerange'].includes(type)) result = 'time';
+      else if (['dates', 'date', 'datetime', 'datetimerange', 'daterange', 'week', 'month', 'year'].includes(type))
         result = 'date';
-      } else if (type === 'cascader') {
-        result = 'cascader';
-      } else if (type === 'number') {
-        result = 'input-number';
-      } else if (type === 'password') {
-        result = 'input';
-      } else if (type === 'switch') {
-        result = 'switch';
-      } else if (type === 'rate') {
-        result = 'rate';
-      } else if (type === 'upload') {
-        result = 'upload';
-      } else if (type === 'slider') {
-        result = 'slider';
-      } else if (type === 'dynamic') {
-        result = 'dynamic';
-      } else if (type === 'icon-select') {
-        result = 'icon-select';
-      } else if (type === 'color') {
-        result = 'color';
-      }
+      else if (type === 'cascader') result = 'cascader';
+      else if (type === 'number') result = 'input-number';
+      else if (type === 'password') result = 'input';
+      else if (type === 'switch') result = 'switch';
+      else if (type === 'rate') result = 'rate';
+      else if (type === 'upload') result = 'upload';
+      else if (type === 'slider') result = 'slider';
+      else if (type === 'dynamic') result = 'dynamic';
+      else if (type === 'icon-select') result = 'icon-select';
+      else if (type === 'color') result = 'color';
       return KEY_COMPONENT_NAME + result;
     },
+
     getPlaceholder (item) {
       const label = item.label;
-      if (['select', 'checkbox', 'radio', 'tree', 'color', 'date', 'time'].includes(item.type)) {
+      if (['select', 'checkbox', 'radio', 'tree', 'color', 'dates', 'date', 'datetime', 'datetimerange', 'daterange', 'week', 'month', 'year'].includes(item.type))
         return `请选择${label}`;
-      } else {
-        return `请输入${label}`;
-      }
+      else return `请输入${label}`;
     },
   }
 }

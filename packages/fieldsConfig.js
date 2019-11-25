@@ -48,7 +48,25 @@ export default [
       icon: 'icon-number',
       span: 24,
       display: true
-    },]
+    }, {
+      type: 'url',
+      label: '超链接',
+      icon: 'icon-url',
+      span: 24,
+      display: true
+    }, {
+      type: 'array',
+      label: '数组',
+      icon: 'icon-array',
+      span: 24,
+      display: true,
+    }, {
+      type: 'img',
+      label: '图片',
+      icon: 'icon-img',
+      span: 24,
+      display: true,
+    }]
   },
   {
     title: '选择字段',

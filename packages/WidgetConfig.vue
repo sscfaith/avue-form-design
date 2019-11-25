@@ -41,6 +41,20 @@
                          :min="8"
                          :max="24"></el-input-number>
       </el-form-item>
+      <el-form-item label="数据类型"
+                    v-if="['cascader','checkbox','upload','img','array'].includes(data.type)">
+        <el-select v-model="data.dataType"
+                   placeholder="数据类型"
+                   clearable>
+          <el-option label="String"
+                     value="string"></el-option>
+          <el-option label="Number"
+                     value="number"></el-option>
+        </el-select>
+        &nbsp;<a href="https://avuejs.com/doc/dataType"
+           target="_blank"
+           style="color: #409EFF;">详情</a><br>
+      </el-form-item>
       <component :is="getComponent"
                  :data="data"></component>
     </el-form>
@@ -66,8 +80,9 @@ export default {
       const { type } = this.data
       let result = 'input'
 
-      if ([undefined, 'input', 'password'].includes(type)) result = 'input'
+      if ([undefined, 'input', 'password', 'url'].includes(type)) result = 'input'
       else if (dateArr.includes(type)) result = 'date'
+      else if (['array', 'img'].includes(type)) result = 'array'
       else result = type
 
       return prefix + result

@@ -346,6 +346,8 @@ body {
           height: 100%;
           outline: 1px dashed #ccc;
           outline-offset: -1px;
+          overflow: hidden;
+          padding-bottom: 15px;
 
           .ghost {
             background: white;

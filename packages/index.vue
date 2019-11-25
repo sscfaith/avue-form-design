@@ -264,7 +264,7 @@ export default {
     },
     // 加载阿里iconfront
     handleLoadCss () {
-      const url = '//at.alicdn.com/t/font_1254447_vwre8s2hjxm.css'
+      const url = '//at.alicdn.com/t/font_1254447_rwaizg76pz.css'
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = url;

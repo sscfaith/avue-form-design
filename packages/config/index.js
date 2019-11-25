@@ -16,6 +16,7 @@ import Upload from './upload.vue'
 import UEditor from './ueditor.vue'
 import Map from './map.vue'
 import Group from './group.vue'
+import Array from './array.vue'
 
 const components = [
   Input,
@@ -35,7 +36,8 @@ const components = [
   UEditor,
   Upload,
   Map,
-  Group
+  Group,
+  Array
 ]
 
 const Config = {

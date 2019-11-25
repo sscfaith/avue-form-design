@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <avue-form-design :options="options"
-                      storage
                       @submit="handleSubmit"></avue-form-design>
   </div>
 </template>
@@ -12,7 +11,24 @@ export default {
   data () {
     return {
       options: {
-
+        column: [
+          {
+            type: 'url',
+            prop: 'url',
+            label: '超链接',
+            icon: 'icon-url',
+            valueDefault: 'http://www.baidu.com',
+            span: 24,
+            display: true
+          },
+          {
+            prop: 'img',
+            type: 'img',
+            label: '图片',
+            span: '24',
+            display: true
+          }
+        ]
       }
     }
   },
