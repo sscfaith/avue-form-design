@@ -30,7 +30,8 @@
     <el-form-item label="文件列表类型"
                   v-if="!data.drag">
       <el-select v-model="data.listType"
-                 placeholder="文件列表类型">
+                 placeholder="文件列表类型"
+                 clearable>
         <el-option label="附件"
                    value="text"></el-option>
         <el-option label="照片墙"
@@ -50,7 +51,13 @@
                 placeholder="数据对象的图片地址"></el-input>
       数据对象的图片名称
       <el-input v-model="data.props.value"
-                placeholder="数据对象的图片地址"></el-input>
+                placeholder="数据对象的图片名称"></el-input>
+      请求头
+      <avue-dynamic v-model="data.headers"
+                    :children="option"></avue-dynamic>
+      请求体
+      <avue-dynamic v-model="data.data"
+                    :children="option"></avue-dynamic>
     </el-form-item>
     <el-form-item label="服务器返回参数设置"><br>
       上传成功返回结构体的图片地址
@@ -151,7 +158,18 @@ export default {
         required: null,
         pattern: null,
         length: null
-      }
+      },
+      option: {
+        column: [{
+          type: 'input',
+          prop: 'key',
+          label: 'key'
+        }, {
+          type: 'input',
+          prop: 'value',
+          label: 'value'
+        }]
+      },
     }
   },
   methods: {
@@ -171,7 +189,7 @@ export default {
       this.generateRule()
     },
     'data.drag': function (val) {
-      if (val) this.data.listType = ''
+      if (val) delete this.data.listType
     }
   }
 }

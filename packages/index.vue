@@ -387,6 +387,22 @@ export default {
                 } else delete col.dicQuery
               }
               delete col.dicOption
+            } else if (['upload'].includes(col.type)) {
+              if (col.headers && col.headers.length > 0) {
+                const headers = {}
+                col.headers.forEach(h => {
+                  if (h.key && h.value) headers[h.key] = h.value
+                })
+                col.headers = headers
+              }
+
+              if (col.data && col.data.length > 0) {
+                const data = {}
+                col.data.forEach(h => {
+                  if (h.key && h.value) data[h.key] = h.value
+                })
+                col.data = data
+              }
             }
           }
           resolve(data)
@@ -425,6 +441,30 @@ export default {
                 if (col.dicUrl) col.dicOption = 'remote'
                 else col.dicOption = 'static'
                 if (!col.dicData) col.dicData = []
+              } else if (['upload'].includes(col.type)) {
+                if (col.headers && typeof col.headers == 'object') {
+                  const arr = []
+                  for (let key in col.headers) {
+                    arr.push({
+                      key,
+                      value: col.headers[key],
+                      $cellEdit: true
+                    })
+                  }
+                  col.headers = arr
+                }
+
+                if (col.data && typeof col.data == 'object') {
+                  const arr = []
+                  for (let key in col.data) {
+                    arr.push({
+                      key,
+                      value: col.data[key],
+                      $cellEdit: true
+                    })
+                  }
+                  col.data = arr
+                }
               }
             })
           } else if (data.group && data.group.length > 0) {

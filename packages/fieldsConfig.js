@@ -168,7 +168,9 @@ export default [
       limit: 10,
       props: {},
       propsHttp: {},
-      canvasOption: {}
+      canvasOption: {},
+      headers: [],
+      data: []
     }],
   },
   {
