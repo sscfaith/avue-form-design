@@ -225,6 +225,7 @@ export default {
       widgetForm: {
         column: [],
         labelPosition: 'left',
+        labelSuffix: '：',
         labelWidth: 120,
         gutter: 0,
         menuBtn: true,

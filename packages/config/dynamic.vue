@@ -22,6 +22,15 @@
                    value="right"></el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="添加按钮">
+      <el-switch v-model="data.children.addBtn"></el-switch>
+    </el-form-item>
+    <el-form-item label="删除按钮">
+      <el-switch v-model="data.children.delBtn"></el-switch>
+    </el-form-item>
+    <el-form-item label="是否只读">
+      <el-switch v-model="data.children.viewBtn"></el-switch>
+    </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
     </el-form-item>

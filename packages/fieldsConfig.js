@@ -18,6 +18,8 @@ export default [
       children: {
         align: 'center',
         headerAlign: 'center',
+        addBtn: true,
+        delBtn: true,
         column: []
       }
     }]

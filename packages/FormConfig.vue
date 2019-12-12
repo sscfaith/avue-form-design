@@ -15,14 +15,18 @@
                      value="top"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="表单字段宽度">
+      <el-form-item label="标签宽度">
         <el-input-number v-model="data.labelWidth"
                          :min="80"
                          :max="200"
                          :step="10"
                          controls-position="right"
-                         placeholder="表单字段宽度"
+                         placeholder="标签宽度"
                          style="width: 100%"></el-input-number>
+      </el-form-item>
+      <el-form-item label="标签后缀">
+        <el-input v-model="data.labelSuffix"
+                  placeholder="标签后缀"></el-input>
       </el-form-item>
       <el-form-item label="项之间的间隔">
         <el-input-number v-model="data.gutter"

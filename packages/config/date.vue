@@ -27,6 +27,10 @@
       <el-input v-model="data.valueFormat"
                 placeholder="值格式化"></el-input>
     </el-form-item>
+    <el-form-item label="取消范围联动"
+                  v-if="['timerange', 'daterange', 'datetimerange'].includes(data.type)">
+      <el-switch v-model="data.unlinkPanels"></el-switch>
+    </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
     </el-form-item>

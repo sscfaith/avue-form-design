@@ -109,14 +109,20 @@
       <el-input v-model="data.canvasOption.fontFamily"
                 placeholder="字体类型"></el-input>
       字体颜色
-      <el-input v-model="data.canvasOption.color"
-                placeholder="字体颜色"></el-input>
+      <avue-color placeholder="字体颜色"></avue-color>
       字体大小
-      <el-input v-model="data.canvasOption.fontSize"
-                placeholder="字体大小"></el-input>
+      <el-input-number v-model="data.canvasOption.fontSize"
+                       controls-position="right"
+                       placeholder="字体大小"
+                       style="width: 100%;"></el-input-number>
       文字的透明度
-      <el-input v-model="data.canvasOption.opacity"
-                placeholder="文字的透明度"></el-input>
+      <el-input-number v-model="data.canvasOption.opacity"
+                       controls-position="right"
+                       placeholder="文字的透明度"
+                       :step="10"
+                       :min="10"
+                       :max="100"
+                       style="width: 100%;"></el-input-number>
       文字距离图片底部的距离<br>
       <el-input-number v-model="data.canvasOption.bottom"
                        controls-position="right"
@@ -131,6 +137,7 @@
       <el-input-number v-model="data.canvasOption.ratio"
                        controls-position="right"
                        placeholder="压缩图片比率"
+                       :step="0.1"
                        :min="0"
                        :max="1"
                        style="width: 100%;"></el-input-number>
