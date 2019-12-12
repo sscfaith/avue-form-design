@@ -257,7 +257,7 @@ export default [
       icon: 'icon-richtext',
       span: 24,
       display: true,
-      upload: {
+      options: {
         action: '',
         oss: '',
         props: {},
