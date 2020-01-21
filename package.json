@@ -11,19 +11,19 @@
   },
   "dependencies": {
     "avue-plugin-map": "^0.0.7",
-    "avue-plugin-ueditor": "^0.0.8",
+    "avue-plugin-ueditor": "^0.0.10",
     "v-jsoneditor": "^1.2.1",
     "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.1.1",
-    "@vue/cli-plugin-eslint": "^4.1.1",
-    "@vue/cli-service": "^4.1.1",
+    "@vue/cli-plugin-babel": "^4.1.2",
+    "@vue/cli-plugin-eslint": "^4.1.2",
+    "@vue/cli-service": "^4.1.2",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
-    "eslint-plugin-vue": "^6.0.1",
-    "node-sass": "^4.13.0",
-    "sass-loader": "^7.1.0",
+    "eslint-plugin-vue": "^6.1.2",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
   "files": [
