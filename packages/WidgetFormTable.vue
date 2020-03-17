@@ -87,10 +87,12 @@
 </template>
 <script>
 import WidgetFormItem from './WidgetFormItem'
+import draggable from 'vuedraggable'
+
 export default {
   name: 'widget-form-table',
   props: ['data', 'column', 'select', 'index'],
-  components: { WidgetFormItem },
+  components: { WidgetFormItem, draggable },
   data () {
     return {
       selectWidget: this.select,
