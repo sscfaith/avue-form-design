@@ -10,8 +10,9 @@
     "lib": "vue-cli-service build --target lib --name AvueFormDesign --dest lib --filename index --formats umd-min ./packages/index.js"
   },
   "dependencies": {
-    "avue-plugin-map": "^0.0.7",
-    "avue-plugin-ueditor": "^0.0.10",
+    "avue-plugin-map": "^0.0.5",
+    "avue-plugin-ueditor": "^0.0.5",
+    "csvjson-json_beautifier": "^5.0.4",
     "v-jsoneditor": "^1.2.1",
     "vuedraggable": "^2.23.0"
   },
