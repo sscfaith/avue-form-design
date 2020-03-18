@@ -30,7 +30,8 @@
     <el-form-item label="文件列表类型"
                   v-if="!data.drag">
       <el-select v-model="data.listType"
-                 placeholder="文件列表类型">
+                 placeholder="文件列表类型"
+                 clearable>
         <el-option label="附件"
                    value="text"></el-option>
         <el-option label="照片墙"
@@ -50,7 +51,13 @@
                 placeholder="数据对象的图片地址"></el-input>
       数据对象的图片名称
       <el-input v-model="data.props.value"
-                placeholder="数据对象的图片地址"></el-input>
+                placeholder="数据对象的图片名称"></el-input>
+      请求头
+      <avue-dynamic v-model="data.headers"
+                    :children="option"></avue-dynamic>
+      请求体
+      <avue-dynamic v-model="data.data"
+                    :children="option"></avue-dynamic>
     </el-form-item>
     <el-form-item label="服务器返回参数设置"><br>
       上传成功返回结构体的图片地址
@@ -102,14 +109,20 @@
       <el-input v-model="data.canvasOption.fontFamily"
                 placeholder="字体类型"></el-input>
       字体颜色
-      <el-input v-model="data.canvasOption.color"
-                placeholder="字体颜色"></el-input>
+      <avue-color placeholder="字体颜色"></avue-color>
       字体大小
-      <el-input v-model="data.canvasOption.fontSize"
-                placeholder="字体大小"></el-input>
+      <el-input-number v-model="data.canvasOption.fontSize"
+                       controls-position="right"
+                       placeholder="字体大小"
+                       style="width: 100%;"></el-input-number>
       文字的透明度
-      <el-input v-model="data.canvasOption.opacity"
-                placeholder="文字的透明度"></el-input>
+      <el-input-number v-model="data.canvasOption.opacity"
+                       controls-position="right"
+                       placeholder="文字的透明度"
+                       :step="10"
+                       :min="10"
+                       :max="100"
+                       style="width: 100%;"></el-input-number>
       文字距离图片底部的距离<br>
       <el-input-number v-model="data.canvasOption.bottom"
                        controls-position="right"
@@ -124,6 +137,7 @@
       <el-input-number v-model="data.canvasOption.ratio"
                        controls-position="right"
                        placeholder="压缩图片比率"
+                       :step="0.1"
                        :min="0"
                        :max="1"
                        style="width: 100%;"></el-input-number>
@@ -151,7 +165,18 @@ export default {
         required: null,
         pattern: null,
         length: null
-      }
+      },
+      option: {
+        column: [{
+          type: 'input',
+          prop: 'key',
+          label: 'key'
+        }, {
+          type: 'input',
+          prop: 'value',
+          label: 'value'
+        }]
+      },
     }
   },
   methods: {
@@ -171,7 +196,7 @@ export default {
       this.generateRule()
     },
     'data.drag': function (val) {
-      if (val) this.data.listType = ''
+      if (val) delete this.data.listType
     }
   }
 }

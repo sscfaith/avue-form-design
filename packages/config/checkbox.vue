@@ -5,11 +5,11 @@
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="字典配置"><br>
-      <el-tabs v-model="dicOption"
+      <el-tabs v-model="data.dicOption"
                stretch
                @tab-click="handleTabClick">
         <el-tab-pane label="静态数据"
-                     name="1">
+                     name="static">
           <draggable tag="ul"
                      :list="data.dicData"
                      :group="{ name: 'dic' }"
@@ -42,7 +42,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="远端数据"
-                     name="2">
+                     name="remote">
           网址
           <el-input v-model="data.dicUrl"
                     placeholder="远端数据字典网址"></el-input>
@@ -55,14 +55,24 @@
             <el-option label="GET"
                        value="get"></el-option>
           </el-select>
+          <p v-if="data.dicMethod == 'post'">
+            请求参数
+            <avue-dynamic v-model="data.dicQuery"
+                          :children="option"></avue-dynamic>
+          </p>
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
-    <el-form-item label="边框">
+    <el-form-item label="边框"
+                  v-if="!data.button">
       <el-switch v-model="data.border"></el-switch>
     </el-form-item>
+    <el-form-item label="按钮"
+                  v-if="!data.border">
+      <el-switch v-model="data.button"></el-switch>
+    </el-form-item>
     <el-form-item label="尺寸"
-                  v-if="data.border">
+                  v-if="data.border || data.button">
       <el-radio-group v-model="data.size"
                       size="mini">
         <el-radio-button label="medium">正常</el-radio-button>
@@ -97,8 +107,17 @@ export default {
         pattern: null,
         length: null
       },
-      dicOption: '1',
-      dicCopy: this.deepClone(this.data.dicData)
+      option: {
+        column: [{
+          type: 'input',
+          prop: 'key',
+          label: 'key'
+        }, {
+          type: 'input',
+          prop: 'value',
+          label: 'value'
+        }]
+      },
     }
   },
   methods: {
@@ -116,17 +135,8 @@ export default {
       const i = Math.ceil(Math.random() * 99999)
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
-    handleTabClick (tab) {
-      const { name } = tab;
-      if (name == '1') {
-        delete this.data.dicUrl
-        delete this.data.dicMethod
-        if (this.data.dicData.length == 0)
-          this.data.dicData = this.dicCopy
-      } else {
-        this.data.dicData = []
-        this.data.dicUrl = ''
-      }
+    handleTabClick ({ name }) {
+      if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
     }
   },
   watch: {
@@ -135,12 +145,6 @@ export default {
       else this.validator.required = null
 
       this.generateRule()
-    },
-    'data.dicData': {
-      handler (val) {
-        if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
-      },
-      deep: true
     }
   }
 }

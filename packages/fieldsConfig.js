@@ -1,5 +1,30 @@
 export default [
   {
+    title: '布局字段',
+    list: [{
+      type: 'group',
+      label: '分组',
+      icon: 'icon-group',
+      display: true,
+      children: {
+        column: []
+      }
+    }, {
+      type: 'dynamic',
+      label: '子表单',
+      icon: 'icon-table',
+      span: 24,
+      display: true,
+      children: {
+        align: 'center',
+        headerAlign: 'center',
+        addBtn: true,
+        delBtn: true,
+        column: []
+      }
+    }]
+  },
+  {
     title: '输入字段',
     list: [{
       type: 'input',
@@ -26,16 +51,23 @@ export default [
       span: 24,
       display: true
     }, {
-      type: 'dynamic',
-      label: '子表单',
-      icon: 'icon-table',
+      type: 'url',
+      label: '超链接',
+      icon: 'icon-url',
+      span: 24,
+      display: true
+    }, {
+      type: 'array',
+      label: '数组',
+      icon: 'icon-array',
       span: 24,
       display: true,
-      children: {
-        align: 'center',
-        headerAlign: 'center',
-        column: []
-      }
+    }, {
+      type: 'img',
+      label: '图片',
+      icon: 'icon-img',
+      span: 24,
+      display: true,
     }]
   },
   {
@@ -50,7 +82,8 @@ export default [
         { label: '选项三', value: 2 },
       ],
       span: 24,
-      display: true
+      display: true,
+      dicOption: 'static'
     }, {
       type: 'checkbox',
       label: '多选框组',
@@ -62,6 +95,7 @@ export default [
       ],
       span: 24,
       display: true,
+      dicOption: 'static'
     }, {
       type: 'select',
       label: '下拉选择器',
@@ -72,7 +106,8 @@ export default [
         { label: '选项三', value: 2 },
       ],
       span: 24,
-      display: true
+      display: true,
+      dicOption: 'static'
     }, {
       type: 'cascader',
       label: '级联选择器',
@@ -95,6 +130,7 @@ export default [
         { label: '选项三', value: 2 },
       ],
       showAllLevels: true,
+      dicOption: 'static',
       separator: "/"
     }, {
       type: 'tree',
@@ -102,6 +138,7 @@ export default [
       icon: 'icon-tree',
       span: 24,
       display: true,
+      dicOption: 'static',
       dicData: [
         {
           label: '选项一',
@@ -117,6 +154,7 @@ export default [
         { label: '选项二', value: 1 },
         { label: '选项三', value: 2 },
       ],
+      parent: true
     }]
   },
   {
@@ -132,7 +170,9 @@ export default [
       limit: 10,
       props: {},
       propsHttp: {},
-      canvasOption: {}
+      canvasOption: {},
+      headers: [],
+      data: []
     }],
   },
   {
@@ -219,7 +259,7 @@ export default [
       icon: 'icon-richtext',
       span: 24,
       display: true,
-      upload: {
+      options: {
         action: '',
         oss: '',
         props: {},
@@ -256,7 +296,7 @@ export default [
       texts: ['极差', '失望', '一般', '满意', '惊喜'],
       colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
     }, {
-      type: 'silder',
+      type: 'slider',
       label: '滑块',
       icon: 'icon-slider',
       span: 24,

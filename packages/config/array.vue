@@ -1,17 +1,6 @@
 <template>
   <div>
-    <template v-if="data.type.indexOf('range') != -1">
-      <el-form-item label="开始占位内容">
-        <el-input v-model="data.startPlaceholder"
-                  placeholder="开始占位内容"></el-input>
-      </el-form-item>
-      <el-form-item label="结束占位内容">
-        <el-input v-model="data.endPlaceholder"
-                  placeholder="结束占位内容"></el-input>
-      </el-form-item>
-    </template>
-    <el-form-item label="占位内容"
-                  v-else>
+    <el-form-item label="占位内容">
       <el-input v-model="data.placeholder"
                 placeholder="占位内容"></el-input>
     </el-form-item>
@@ -19,17 +8,13 @@
       <el-input v-model="data.valueDefault"
                 placeholder="默认值"></el-input>
     </el-form-item>
-    <el-form-item label="显示格式化">
-      <el-input v-model="data.format"
-                placeholder="显示格式化"></el-input>
-    </el-form-item>
-    <el-form-item label="值格式化">
-      <el-input v-model="data.valueFormat"
-                placeholder="值格式化"></el-input>
-    </el-form-item>
-    <el-form-item label="取消范围联动"
-                  v-if="['timerange', 'daterange', 'datetimerange'].includes(data.type)">
-      <el-switch v-model="data.unlinkPanels"></el-switch>
+    <el-form-item label="尺寸">
+      <el-radio-group v-model="data.size"
+                      size="mini">
+        <el-radio-button label="medium">正常</el-radio-button>
+        <el-radio-button label="small">小</el-radio-button>
+        <el-radio-button label="mini">超小</el-radio-button>
+      </el-radio-group>
     </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
@@ -42,10 +27,9 @@
     </el-form-item>
   </div>
 </template>
-
 <script>
 export default {
-  name: "config-date",
+  name: 'config-array',
   props: ['data'],
   data () {
     return {
@@ -68,7 +52,7 @@ export default {
   },
   watch: {
     'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
+      if (val) this.validator.required = { required: true, message: `请输入${this.data.label}` }
       else this.validator.required = null
 
       this.generateRule()

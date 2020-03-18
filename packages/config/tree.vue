@@ -9,11 +9,11 @@
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="字典配置"><br>
-      <el-tabs v-model="dicOption"
+      <el-tabs v-model="data.dicOption"
                stretch
                @tab-click="handleTabClick">
         <el-tab-pane label="静态数据"
-                     name="1">
+                     name="static">
           <el-tree ref="tree"
                    :data="data.dicData"
                    default-expand-all
@@ -45,7 +45,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="远端数据"
-                     name="2">
+                     name="remote">
           网址
           <el-input v-model="data.dicUrl"
                     placeholder="远端数据字典网址"></el-input>
@@ -58,8 +58,16 @@
             <el-option label="GET"
                        value="get"></el-option>
           </el-select>
+          <p v-if="data.dicMethod == 'post'">
+            请求参数
+            <avue-dynamic v-model="data.dicQuery"
+                          :children="option"></avue-dynamic>
+          </p>
         </el-tab-pane>
       </el-tabs>
+    </el-form-item>
+    <el-form-item label="当有子级时,是否可选择父级">
+      <el-switch v-model="data.parent"></el-switch>
     </el-form-item>
     <el-form-item label="是否多选">
       <el-switch v-model="data.multiple"></el-switch>
@@ -125,8 +133,6 @@ export default {
         pattern: null,
         length: null
       },
-      dicOption: '1',
-      dicCopy: this.deepClone(this.data.dicData),
       dialogForm: {},
       dialogVisible: false,
       dialogRules: {
@@ -135,7 +141,18 @@ export default {
       },
       dialogStatus: 'add',
       selectData: undefined,
-      dialogInputType: 'text'
+      dialogInputType: 'text',
+      option: {
+        column: [{
+          type: 'input',
+          prop: 'key',
+          label: 'key'
+        }, {
+          type: 'input',
+          prop: 'value',
+          label: 'value'
+        }]
+      },
     }
   },
   methods: {
@@ -146,17 +163,8 @@ export default {
       })
       this.data.rules = rules
     },
-    handleTabClick (tab) {
-      const { name } = tab;
-      if (name == '1') {
-        delete this.data.dicUrl
-        delete this.data.dicMethod
-        if (this.data.dicData.length == 0)
-          this.data.dicData = this.dicCopy
-      } else {
-        this.data.dicData = []
-        this.data.dicUrl = ''
-      }
+    handleTabClick ({ name }) {
+      if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
     },
     handleParentNodeAdd () {
       this.selectData = undefined
@@ -209,12 +217,6 @@ export default {
       else this.validator.required = null
 
       this.generateRule()
-    },
-    'data.dicData': {
-      handler (val) {
-        if (val && val.length > 0 && !Object.is(val, this.dicCopy)) this.dicCopy = this.deepClone(val)
-      },
-      deep: true
     },
     'data.multiple': function (val) {
       if (val) this.data.defaultValue = []

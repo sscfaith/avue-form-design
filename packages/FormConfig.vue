@@ -2,10 +2,11 @@
   <div class="form-config-container">
     <el-form label-position="left"
              label-suffix="："
-             label-width="130px">
-      <el-form-item label="标签对齐方式"
-                    placeholder="请选择按钮位置">
-        <el-select v-model="data.labelPosition">
+             label-width="130px"
+             size="small">
+      <el-form-item label="标签对齐方式">
+        <el-select v-model="data.labelPosition"
+                   placeholder="标签对齐方式">
           <el-option label="左对齐"
                      value="left"></el-option>
           <el-option label="右对齐"
@@ -14,13 +15,18 @@
                      value="top"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="表单字段宽度">
+      <el-form-item label="标签宽度">
         <el-input-number v-model="data.labelWidth"
                          :min="80"
                          :max="200"
                          :step="10"
                          controls-position="right"
+                         placeholder="标签宽度"
                          style="width: 100%"></el-input-number>
+      </el-form-item>
+      <el-form-item label="标签后缀">
+        <el-input v-model="data.labelSuffix"
+                  placeholder="标签后缀"></el-input>
       </el-form-item>
       <el-form-item label="项之间的间隔">
         <el-input-number v-model="data.gutter"
@@ -28,6 +34,7 @@
                          :max="60"
                          :step="5"
                          controls-position="right"
+                         placeholder="项之间的间隔"
                          style="width: 100%"></el-input-number>
       </el-form-item>
       <el-form-item label="显示按钮">
@@ -37,7 +44,7 @@
       <el-form-item label="按钮位置"
                     v-if="data.menuBtn">
         <el-select v-model="data.menuPostion"
-                   placeholder="请选择按钮位置">
+                   placeholder="按钮位置">
           <el-option label="居左"
                      value="left"></el-option>
           <el-option label="居中"
@@ -54,7 +61,7 @@
       <el-form-item label="提交按钮的大小"
                     v-if="data.menuBtn && data.submitBtn">
         <el-select v-model="data.submitSize"
-                   placeholder="请选择提交按钮的大小">
+                   placeholder="提交按钮的大小">
           <el-option label="正常"
                      value="medium"></el-option>
           <el-option label="小"
@@ -66,7 +73,7 @@
       <el-form-item label="提交按钮的文字"
                     v-if="data.menuBtn && data.submitBtn">
         <el-input v-model="data.submitText"
-                  placeholder="请输入提交按钮的文字"></el-input>
+                  placeholder="提交按钮的文字"></el-input>
       </el-form-item>
 
       <el-form-item label="显示清空按钮"
@@ -77,7 +84,7 @@
       <el-form-item label="清空按钮的大小"
                     v-if="data.menuBtn && data.emptyBtn">
         <el-select v-model="data.emptySize"
-                   placeholder="请选择提交按钮的大小">
+                   placeholder="提交按钮的大小">
           <el-option label="正常"
                      value="medium"></el-option>
           <el-option label="小"
@@ -89,7 +96,7 @@
       <el-form-item label="清空按钮的文字"
                     v-if="data.menuBtn && data.emptyBtn">
         <el-input v-model="data.emptyText"
-                  placeholder="请输入提交按钮的文字"></el-input>
+                  placeholder="提交按钮的文字"></el-input>
       </el-form-item>
     </el-form>
   </div>
