@@ -409,8 +409,8 @@ export default {
      * @return {String}
      */
     getCopyContent () {
-      if (this.beautifierOptions.enabled) return beautifier(this.widgetForm, this.beautifierOptions)
-      else return JSON.stringify(this.widgetForm, null, 2)
+      if (this.beautifierOptions.enabled) return beautifier(this.widgetFormPreview, this.beautifierOptions)
+      else return JSON.stringify(this.widgetFormPreview, null, 2)
     },
     // 表单设计器配置项 转化为 Avue配置项
     transformToAvueOptions (obj) {
@@ -537,7 +537,8 @@ export default {
                 }
               }
             })
-          } else if (data.group && data.group.length > 0) {
+          }
+          if (data.group && data.group.length > 0) {
             for (let i = 0; i < data.group.length; i++) {
               if (!data.column) data.column = []
               const col = data.group[i]
