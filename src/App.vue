@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <avue-form-design :options="options"
-                      @submit="handleSubmit"></avue-form-design>
+                      @submit="handleSubmit"
+                      storage></avue-form-design>
   </div>
 </template>
 

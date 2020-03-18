@@ -121,20 +121,26 @@
           <el-button size="medium"
                      type="primary"
                      @click="handleGenerate">生成</el-button>
-          <el-popover placement="top" trigger="hover" popper-class="popper-bo" width="250px">
+          <el-popover placement="top"
+                      trigger="hover"
+                      popper-class="popper-bo"
+                      width="250px">
             <el-button size="medium"
                        type="primary"
                        slot="reference"
-                       @click="handleCopy">复制</el-button>
+                       @click="handleCopy"
+                       style="margin-left: 10px;">复制</el-button>
             <div>
-              <el-form label-width="180px" label-position="left">
+              <el-form label-width="180px"
+                       label-position="left">
                 <el-alert :closable="false">
                   在没有开启美化的情况下，当前编辑器内可见的文本，就是复制得到的内容。<br>
                   如有需要，您可以开启美化，然后选取适合自己的美化配置。
-                  <a href="https://www.npmjs.com/package/csvjson-json_beautifier" target="_blank">参考资料</a>
+                  <a href="https://www.npmjs.com/package/csvjson-json_beautifier"
+                     target="_blank">参考资料</a>
                 </el-alert>
                 <el-form-item label="是否开启美化">
-                  <el-switch v-model="beautifierOptions.enabled"/>
+                  <el-switch v-model="beautifierOptions.enabled" />
                 </el-form-item>
                 <el-form-item label="缩进长度-空格数量">
                   <el-slider v-model="beautifierOptions.space"
@@ -235,7 +241,8 @@ export default {
         if (this.storage) {
           localStorage.setItem('avue-form-beautifier-options', JSON.stringify(val))
         }
-      }
+      },
+      deep: true
     },
     options: {
       handler (val) {
@@ -290,7 +297,6 @@ export default {
       importJson: {},
       widgetModels: {},
       configOption: {},
-      // csvjson-json_beautifier设置项。https://www.npmjs.com/package/csvjson-json_beautifier
       beautifierOptions: {
         enabled: false,
         space: 2,
@@ -309,11 +315,11 @@ export default {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
     handleLoadStorage () {
       if (this.storage) {
-        const form = localStorage.getItem('avue-form');
-        if (form) this.setJSON(JSON.parse(form))
-      } else this.setJSON({ ...this.widgetForm, ...this.options })
+        const form = localStorage.getItem('avue-form')
+        if (form) this.transAvueOptionsToFormDesigner(JSON.parse(form)).then(data => this.widgetForm = data)
+      } else this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...this.options }).then(data => this.widgetForm = data)
     },
-
+    // 获取JSON格式化属性
     loadBeautifierOptions () {
       const bo = localStorage.getItem('avue-form-beautifier-options')
       if (bo) this.beautifierOptions = JSON.parse(bo)
@@ -367,7 +373,7 @@ export default {
     // 生成JSON - 弹窗 - 拷贝
     handleCopy () {
       this.$Clipboard({
-        text: JSON.stringify(this.widgetFormPreview, null, 2)
+        text: this.getCopyContent()
       }).then(() => {
         this.$message.success('复制成功')
       }).catch(() => {
@@ -403,11 +409,8 @@ export default {
      * @return {String}
      */
     getCopyContent () {
-      if (this.beautifierOptions.enabled) {
-        return beautifier(this.widgetForm, this.beautifierOptions)
-      } else {
-        return JSON.stringify(this.widgetForm, null, 2)
-      }
+      if (this.beautifierOptions.enabled) return beautifier(this.widgetForm, this.beautifierOptions)
+      else return JSON.stringify(this.widgetForm, null, 2)
     },
     // 表单设计器配置项 转化为 Avue配置项
     transformToAvueOptions (obj) {
