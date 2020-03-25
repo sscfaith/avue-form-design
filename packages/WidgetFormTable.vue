@@ -48,7 +48,7 @@
         </div>
       </template>
       <template v-else>
-        <avue-empty :size="50"
+        <avue-empty size="50"
                     style="width: 100%;"
                     desc="拖拽字段至此"></avue-empty>
       </template>
@@ -87,10 +87,12 @@
 </template>
 <script>
 import WidgetFormItem from './WidgetFormItem'
+import draggable from 'vuedraggable'
+
 export default {
   name: 'widget-form-table',
   props: ['data', 'column', 'select', 'index'],
-  components: { WidgetFormItem },
+  components: { WidgetFormItem, draggable },
   data () {
     return {
       selectWidget: this.select,
