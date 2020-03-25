@@ -48,7 +48,7 @@
         </div>
       </template>
       <template v-else>
-        <avue-empty :size="50"
+        <avue-empty size="50"
                     style="width: 100%;"
                     desc="拖拽字段至此"></avue-empty>
       </template>
