@@ -18,7 +18,7 @@ export default {
             prop: 'url',
             label: '超链接',
             icon: 'icon-url',
-            valueDefault: 'http://www.baidu.com',
+            value: 'http://www.baidu.com',
             span: 24,
             display: true
           },

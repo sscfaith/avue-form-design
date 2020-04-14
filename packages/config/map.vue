@@ -4,7 +4,7 @@
       <a href="https://avuejs.com/doc/plugins/map-plugins"
          target="_blank"
          style="color: #409EFF;">详细文档</a><br>
-      <el-input v-model="data.valueDefault"
+      <el-input v-model="data.value"
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="是否禁用">
