@@ -5,7 +5,7 @@
                 placeholder="占位内容"></el-input>
     </el-form-item>
     <el-form-item label="默认值">
-      <el-input v-model="data.valueDefault"
+      <el-input v-model="data.value"
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="最大长度">

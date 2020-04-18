@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="图片上传地址">
-      <el-input v-model="data.upload.action"
+      <el-input v-model="data.options.action"
                 placeholder="图片上传地址"></el-input>
     </el-form-item>
     <el-form-item label="配置参数">
@@ -9,14 +9,14 @@
          target="_blank"
          style="color: #409EFF;">详细文档</a><br>
       返回的数据结构层次
-      <el-input v-model="data.upload.props.res"
+      <el-input v-model="data.options.props.res"
                 placeholder="返回的数据结构层次"></el-input>
       返回结构体图片地址字段
-      <el-input v-model="data.upload.props.url"
+      <el-input v-model="data.options.props.url"
                 placeholder="返回结构体图片地址字段"></el-input>
     </el-form-item>
     <el-form-item label="oss">
-      <el-select v-model="data.upload.oss"
+      <el-select v-model="data.options.oss"
                  placeholder="oss不写则为普通上传"
                  clearable>
         <el-option label="阿里"
@@ -25,41 +25,41 @@
                    value="qiniu"></el-option>
       </el-select>
     </el-form-item>
-    <template v-if="data.upload.oss == 'qiniu'">
+    <template v-if="data.options.oss == 'qiniu'">
       <el-form-item label="七牛oss配置"><br>
         AK
-        <el-input v-model="data.upload.qiniu.AK"
+        <el-input v-model="data.options.qiniu.AK"
                   placeholder="七牛云的密钥(AK)"></el-input>
         SK
-        <el-input v-model="data.upload.qiniu.SK"
+        <el-input v-model="data.options.qiniu.SK"
                   placeholder="七牛云的密钥(SK)"></el-input>
         scope
-        <el-input v-model="data.upload.qiniu.scope"
+        <el-input v-model="data.options.qiniu.scope"
                   placeholder="七牛云存储的空间名"></el-input>
         url
-        <el-input v-model="data.upload.qiniu.url"
+        <el-input v-model="data.options.qiniu.url"
                   placeholder="空间的自定义域名"></el-input>
         deadline
-        <el-input v-model="data.upload.qiniu.deadline"
+        <el-input v-model="data.options.qiniu.deadline"
                   placeholder="token的过期时间"></el-input>
       </el-form-item>
     </template>
-    <template v-if="data.upload.oss == 'ali'">
+    <template v-if="data.options.oss == 'ali'">
       <el-form-item label="阿里oss配置"><br>
         region
-        <el-input v-model="data.upload.ali.region"
+        <el-input v-model="data.options.ali.region"
                   placeholder="region"></el-input>
         endpoint
-        <el-input v-model="data.upload.ali.endpoint"
+        <el-input v-model="data.options.ali.endpoint"
                   placeholder="endpoint"></el-input>
         accessKeyId
-        <el-input v-model="data.upload.ali.accessKeyId"
+        <el-input v-model="data.options.ali.accessKeyId"
                   placeholder="accessKeyId"></el-input>
         accessKeySecret
-        <el-input v-model="data.upload.ali.accessKeySecret"
+        <el-input v-model="data.options.ali.accessKeySecret"
                   placeholder="accessKeySecret"></el-input>
         bucket
-        <el-input v-model="data.upload.ali.bucket"
+        <el-input v-model="data.options.ali.bucket"
                   placeholder="bucket	"></el-input>
       </el-form-item>
     </template>
@@ -101,9 +101,9 @@ export default {
       else this.validator.required = null
       this.generateRule()
     },
-    'data.upload.oss': function (val) {
-      if (val == 'ali') this.data.upload.qiniu = {}
-      else if (val == 'qiniu') this.data.upload.ali = {}
+    'data.options.oss': function (val) {
+      if (val == 'ali') this.data.options.qiniu = {}
+      else if (val == 'qiniu') this.data.options.ali = {}
     }
   }
 }

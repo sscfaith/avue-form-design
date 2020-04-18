@@ -123,9 +123,51 @@
           <el-button size="medium"
                      type="primary"
                      @click="handleGenerate">生成</el-button>
-          <el-button size="medium"
-                     type="primary"
-                     @click="handleCopy">复制</el-button>
+          <el-popover placement="top"
+                      trigger="hover"
+                      popper-class="popper-bo"
+                      width="250px">
+            <el-button size="medium"
+                       type="primary"
+                       slot="reference"
+                       @click="handleCopy"
+                       style="margin-left: 10px;">复制</el-button>
+            <div>
+              <el-form label-width="180px"
+                       label-position="left">
+                <el-alert :closable="false">
+                  在没有开启美化的情况下，当前编辑器内可见的文本，就是复制得到的内容。<br>
+                  如有需要，您可以开启美化，然后选取适合自己的美化配置。
+                  <a href="https://www.npmjs.com/package/csvjson-json_beautifier"
+                     target="_blank">参考资料</a>
+                </el-alert>
+                <el-form-item label="是否开启美化">
+                  <el-switch v-model="beautifierOptions.enabled" />
+                </el-form-item>
+                <el-form-item label="缩进长度-空格数量">
+                  <el-slider v-model="beautifierOptions.space"
+                             show-stops
+                             :marks="{ 1: '1', 2: '2', 3: '3', 4: '4' }"
+                             :min="1"
+                             :max="4"
+                             :step="1"></el-slider>
+                </el-form-item>
+                <el-form-item label="引号类型">
+                  <el-switch v-model="beautifierOptions.quoteType"
+                             active-value="single"
+                             inactive-value="double"
+                             active-text="单引号"
+                             inactive-text="双引号"></el-switch>
+                </el-form-item>
+                <el-form-item label="移除key的引号">
+                  <el-switch v-model="beautifierOptions.dropQuotesOnKeys"></el-switch>
+                </el-form-item>
+                <el-form-item label="移除数字字符串的引号">
+                  <el-switch v-model="beautifierOptions.dropQuotesOnNumbers"></el-switch>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-popover>
         </div>
       </el-drawer>
       <!-- 预览 -->
@@ -160,6 +202,7 @@ import WidgetForm from './WidgetForm'
 import FormConfig from './FormConfig'
 import WidgetConfig from './WidgetConfig'
 import widgetEmpty from './assets/widget-empty.png'
+import beautifier from 'csvjson-json_beautifier'
 
 export default {
   name: "FormDesign",
@@ -192,6 +235,14 @@ export default {
         if (this.storage) {
           if (val.column && val.column.length > 0) localStorage.setItem('avue-form', JSON.stringify(val))
           else localStorage.removeItem('avue-form')
+        }
+      },
+      deep: true
+    },
+    beautifierOptions: {
+      handler (val) {
+        if (this.storage) {
+          localStorage.setItem('avue-form-beautifier-options', JSON.stringify(val))
         }
       },
       deep: true
@@ -248,23 +299,33 @@ export default {
       importJsonVisible: false,
       importJson: {},
       widgetModels: {},
+      configOption: {},
+      beautifierOptions: {
+        enabled: false,
+        space: 2,
+        quoteType: 'single',
+        dropQuotesOnKeys: true,
+        dropQuotesOnNumbers: false
+      }
     }
   },
   mounted () {
     this.handleLoadCss();
     this.handleLoadStorage();
+    this.loadBeautifierOptions();
   },
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
     handleLoadStorage () {
       if (this.storage) {
-        const form = localStorage.getItem('avue-form');
-        if (form) this.widgetForm = JSON.parse(form)
-      } else {
-        this.transAvueOptionsToFormDesigner(this.options).then(res => {
-          this.widgetForm = { ...this.widgetForm, ...res }
-        })
-      }
+        const form = localStorage.getItem('avue-form')
+        if (form) this.transAvueOptionsToFormDesigner(JSON.parse(form)).then(data => this.widgetForm = data)
+      } else this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...this.options }).then(data => this.widgetForm = data)
+    },
+    // 获取JSON格式化属性
+    loadBeautifierOptions () {
+      const bo = localStorage.getItem('avue-form-beautifier-options')
+      if (bo) this.beautifierOptions = JSON.parse(bo)
     },
     // 加载阿里iconfront
     handleLoadCss () {
@@ -315,7 +376,7 @@ export default {
     // 生成JSON - 弹窗 - 拷贝
     handleCopy () {
       this.$Clipboard({
-        text: JSON.stringify(this.widgetFormPreview, null, 2)
+        text: this.getCopyContent()
       }).then(() => {
         this.$message.success('复制成功')
       }).catch(() => {
@@ -345,6 +406,14 @@ export default {
         }).catch(() => {
         })
       } else this.$message.error("没有需要清空的内容")
+    },
+    /**
+     * 获取需要复制的内容
+     * @return {String}
+     */
+    getCopyContent () {
+      if (this.beautifierOptions.enabled) return beautifier(this.widgetFormPreview, this.beautifierOptions)
+      else return JSON.stringify(this.widgetFormPreview, null, 2)
     },
     // 表单设计器配置项 转化为 Avue配置项
     transformToAvueOptions (obj) {
@@ -471,7 +540,8 @@ export default {
                 }
               }
             })
-          } else if (data.group && data.group.length > 0) {
+          }
+          if (data.group && data.group.length > 0) {
             for (let i = 0; i < data.group.length; i++) {
               if (!data.column) data.column = []
               const col = data.group[i]
@@ -501,4 +571,42 @@ export default {
 
 <style lang="scss">
 @import "./styles/index.scss";
+
+.drawer-foot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  display: flex;
+
+  button {
+    width: 50%;
+  }
+}
+
+.drawer-foot > span {
+  display: inline-block;
+  width: 50%;
+  button {
+    width: 100%;
+  }
+}
+
+.popper-bo {
+  .el-alert {
+    margin-bottom: 10px;
+  }
+}
+
+.preview-form {
+  overflow-y: scroll;
+  height: 83vh;
+}
+
+.widget-config-container {
+  .avue-group__item {
+    padding: 0;
+  }
+}
 </style>

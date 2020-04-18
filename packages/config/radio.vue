@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form-item label="默认值">
-      <el-input v-model="data.valueDefault"
+      <el-input v-model="data.value"
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="字典配置"><br>

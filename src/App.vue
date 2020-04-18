@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <avue-form-design :options="options"
-                      @submit="handleSubmit"></avue-form-design>
+                      @submit="handleSubmit"
+                      storage></avue-form-design>
   </div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
             prop: 'url',
             label: '超链接',
             icon: 'icon-url',
-            valueDefault: 'http://www.baidu.com',
+            value: 'http://www.baidu.com',
             span: 24,
             display: true
           },

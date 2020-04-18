@@ -77,9 +77,9 @@ export default [
       label: '单选框组',
       icon: 'icon-radio',
       dicData: [
-        { label: '选项一', value: 0 },
-        { label: '选项二', value: 1 },
-        { label: '选项三', value: 2 },
+        { label: '选项一', value: '0' },
+        { label: '选项二', value: '1' },
+        { label: '选项三', value: '2' },
       ],
       span: 24,
       display: true,
@@ -89,9 +89,9 @@ export default [
       label: '多选框组',
       icon: 'icon-checkbox',
       dicData: [
-        { label: '选项一', value: 0 },
-        { label: '选项二', value: 1 },
-        { label: '选项三', value: 2 },
+        { label: '选项一', value: '0' },
+        { label: '选项二', value: '1' },
+        { label: '选项三', value: '2' },
       ],
       span: 24,
       display: true,
@@ -283,7 +283,7 @@ export default [
       icon: 'icon-switch',
       span: 24,
       display: true,
-      valueDefault: 0,
+      value: 0,
       dicData: [{ label: '', value: '0' }, { label: '', value: '1' }]
     }, {
       type: 'rate',
@@ -292,7 +292,7 @@ export default [
       span: 24,
       display: true,
       max: 5,
-      valueDefault: 0,
+      value: 0,
       texts: ['极差', '失望', '一般', '满意', '惊喜'],
       colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
     }, {

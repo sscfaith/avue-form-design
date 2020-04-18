@@ -37,6 +37,21 @@
                          placeholder="项之间的间隔"
                          style="width: 100%"></el-input-number>
       </el-form-item>
+      <el-form-item label="多分组转标签（启用后不支持单独字段）">
+        <el-switch v-model="data.tabs"
+                   active-color="#409EFF"></el-switch>
+      </el-form-item>
+      <!-- <el-form-item label="标签样式"
+                    v-if="data.tabs">
+        <el-select v-model="data.tabsType">
+          <el-option label="基础"
+                     value=""></el-option>
+          <el-option label="卡片"
+                     value="card"></el-option>
+          <el-option label="卡片2"
+                     value="border-card"></el-option>
+        </el-select>
+      </el-form-item> -->
       <el-form-item label="显示按钮">
         <el-switch v-model="data.menuBtn"
                    active-color="#409EFF"></el-switch>
