@@ -96,6 +96,7 @@
       <!-- 弹窗 -->
       <!-- 导入JSON -->
       <el-drawer title="导入JSON"
+                 append-to-body
                  :visible.sync="importJsonVisible"
                  size="50%"
                  destroy-on-close>
@@ -112,6 +113,7 @@
       </el-drawer>
       <!-- 生成JSON -->
       <el-drawer title="生成JSON"
+                 append-to-body
                  :visible.sync="generateJsonVisible"
                  size="50%"
                  destroy-on-close>
@@ -128,6 +130,7 @@
       </el-drawer>
       <!-- 预览 -->
       <el-drawer title="预览"
+                 append-to-body
                  :visible.sync="previewVisible"
                  size="60%"
                  :before-close="handleBeforeClose">
