@@ -34,8 +34,9 @@ export default {
   },
   methods: {
     getComponent (type, component) {
+      let KEY_COMPONENT_NAME = 'avue-';
       let result = 'input';
-      if (!this.validatenull(component)) result = component;
+      if (component) return component
       else if (type === 'array') result = 'array';
       else if (type === 'select') result = 'select';
       else if (type === 'radio') result = 'radio';
@@ -53,7 +54,7 @@ export default {
       else if (type === 'dynamic') result = 'dynamic';
       else if (type === 'icon-select') result = 'icon-select';
       else if (type === 'color') result = 'color';
-      return result;
+      return KEY_COMPONENT_NAME + result;
     },
 
     getPlaceholder (item) {
