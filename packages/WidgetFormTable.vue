@@ -22,7 +22,8 @@
                              :label="item.label"
                              :align="column.children.align"
                              :header-align="column.children.headerAlign">
-              <widget-form-item :item="item"></widget-form-item>
+              <widget-form-item :item="item"
+                                :params="column.params"></widget-form-item>
               <el-button title="删除"
                          @click.stop="handleWidgetTableDelete(column, tableIndex)"
                          class="widget-table-action-delete"

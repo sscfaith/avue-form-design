@@ -42,10 +42,12 @@
                     :offset="column.offset || 0">
               <el-form-item class="widget-form-item"
                             :label="column.label"
+                            :labelWidth="column.labelWidth"
                             :prop="column.prop"
                             :class="{ active: selectWidget.prop == column.prop, 'required': column.required }"
                             @click.native="handleSelectWidget(index)">
-                <widget-form-item :item="column"></widget-form-item>
+                <widget-form-item :item="column"
+                                  :params="column.params"></widget-form-item>
                 <el-button title="删除"
                            @click.stop="handleWidgetDelete(index)"
                            class="widget-action-delete"

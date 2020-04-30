@@ -19,7 +19,7 @@
                   <a>
                     <i class="icon iconfont"
                        :class="item.icon"></i>
-                    <span>{{item.label}}</span>
+                    <span>{{item.title || item.label}}</span>
                   </a>
                 </li>
               </draggable>
@@ -35,7 +35,7 @@
                   <a>
                     <i class="icon iconfont"
                        :class="item.icon"></i>
-                    <span>{{item.label}}</span>
+                    <span>{{item.title || item.label}}</span>
                   </a>
                 </li>
               </ul>

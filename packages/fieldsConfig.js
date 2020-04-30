@@ -251,10 +251,31 @@ export default [
     }],
   },
   {
-    title: '插件字段（请自行引入avue插件）',
+    title: '插件字段（富文本和坐标拾取器需要单独引入）',
     list: [{
+      title: '分割线',
+      labelWidth: 40,
+      prop: 'divider',
+      component: 'elDivider',//ele分割线
+      span: 24,
+      icon: 'icon-map',
+      params: {
+        html: '<h3 style="color:red">分割线标题</h3>',
+        contentPosition: "left",
+      }
+    }, {
+      title: '日历',
+      labelWidth: 40,
+      prop: 'calendar',
+      icon: 'icon-map',
+      component: 'elCalendar',//ele日期
+      span: 24,
+      params: {
+
+      }
+    }, {
       type: 'ueditor',
-      component: 'ueditor',
+      component: 'avue-ueditor',
       label: '富文本',
       icon: 'icon-richtext',
       span: 24,
@@ -268,7 +289,7 @@ export default [
       }
     }, {
       type: 'map',
-      component: 'map',
+      component: 'avue-map',
       label: '坐标拾取器',
       icon: 'icon-map',
       span: 24,
