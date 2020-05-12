@@ -101,6 +101,7 @@
                  size="50%"
                  destroy-on-close>
         <v-json-editor v-model="importJson"
+                       :options="{ mode: 'code' }"
                        height="82vh"></v-json-editor>
         <div class="drawer-foot">
           <el-button size="medium"
@@ -118,6 +119,7 @@
                  size="50%"
                  destroy-on-close>
         <v-json-editor v-model="widgetFormPreview"
+                       :options="{ mode: 'code' }"
                        height="82vh"></v-json-editor>
         <div class="drawer-foot">
           <el-button size="medium"
