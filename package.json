@@ -10,16 +10,16 @@
     "lib": "vue-cli-service build --target lib --name AvueFormDesign --dest lib --filename index --formats umd-min ./packages/index.js"
   },
   "dependencies": {
-    "avue-plugin-map": "^0.0.7",
+    "avue-plugin-map": "^0.0.8",
     "avue-plugin-ueditor": "^0.1.4",
     "csvjson-json_beautifier": "^5.0.4",
     "v-jsoneditor": "^1.2.1",
     "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.3.1",
-    "@vue/cli-plugin-eslint": "^4.3.1",
-    "@vue/cli-service": "^4.3.1",
+    "@vue/cli-plugin-babel": "^4.4.1",
+    "@vue/cli-plugin-eslint": "^4.4.1",
+    "@vue/cli-service": "^4.4.1",
     "babel-eslint": "^10.1.0",
     "core-js": "^3.6.5",
     "eslint": "^6.8.0",

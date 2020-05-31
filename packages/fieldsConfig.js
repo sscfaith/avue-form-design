@@ -6,6 +6,8 @@ export default [
       label: '分组',
       icon: 'icon-group',
       display: true,
+      arrow: false,
+      collapse: true,
       children: {
         column: []
       }

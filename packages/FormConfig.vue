@@ -41,6 +41,9 @@
         <el-switch v-model="data.tabs"
                    active-color="#409EFF"></el-switch>
       </el-form-item>
+      <el-form-item label="详情模式">
+        <el-switch v-model="data.detail"></el-switch>
+      </el-form-item>
       <!-- <el-form-item label="标签样式"
                     v-if="data.tabs">
         <el-select v-model="data.tabsType">
@@ -56,7 +59,7 @@
         <el-switch v-model="data.menuBtn"
                    active-color="#409EFF"></el-switch>
       </el-form-item>
-      <el-form-item label="按钮位置"
+      <!-- <el-form-item label="按钮位置"
                     v-if="data.menuBtn">
         <el-select v-model="data.menuPostion"
                    placeholder="按钮位置">
@@ -67,13 +70,13 @@
           <el-option label="居右"
                      value="right"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="显示提交按钮"
                     v-if="data.menuBtn">
         <el-switch v-model="data.submitBtn"
                    active-color="#409EFF"></el-switch>
       </el-form-item>
-      <el-form-item label="提交按钮的大小"
+      <!-- <el-form-item label="提交按钮的大小"
                     v-if="data.menuBtn && data.submitBtn">
         <el-select v-model="data.submitSize"
                    placeholder="提交按钮的大小">
@@ -84,7 +87,7 @@
           <el-option label="超小"
                      value="mini"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="提交按钮的文字"
                     v-if="data.menuBtn && data.submitBtn">
         <el-input v-model="data.submitText"
@@ -96,7 +99,7 @@
         <el-switch v-model="data.emptyBtn"
                    active-color="#409EFF"></el-switch>
       </el-form-item>
-      <el-form-item label="清空按钮的大小"
+      <!-- <el-form-item label="清空按钮的大小"
                     v-if="data.menuBtn && data.emptyBtn">
         <el-select v-model="data.emptySize"
                    placeholder="提交按钮的大小">
@@ -107,12 +110,22 @@
           <el-option label="超小"
                      value="mini"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="清空按钮的文字"
                     v-if="data.menuBtn && data.emptyBtn">
         <el-input v-model="data.emptyText"
                   placeholder="提交按钮的文字"></el-input>
       </el-form-item>
+      <el-form-item label="全局只读">
+        <el-switch v-model="data.readonly"></el-switch>
+      </el-form-item>
+      <el-form-item label="全局禁用">
+        <el-switch v-model="data.disabled"></el-switch>
+      </el-form-item>
+      <!-- <el-form-item label="全局栅格">
+        <el-input v-model="data.span"
+                  placeholder="全局栅格"></el-input>
+      </el-form-item> -->
     </el-form>
   </div>
 </template>
