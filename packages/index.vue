@@ -471,7 +471,7 @@ export default {
                   if (h.key && h.value) headers[h.key] = h.value
                 })
                 col.headers = headers
-              }
+              } else delete col.headers
 
               if (col.data && col.data.length > 0) {
                 const data = {}
@@ -479,7 +479,7 @@ export default {
                   if (h.key && h.value) data[h.key] = h.value
                 })
                 col.data = data
-              }
+              } else delete col.data
             }
           }
           resolve(data)
@@ -529,7 +529,7 @@ export default {
                     })
                   }
                   col.headers = arr
-                }
+                } else col.headers = []
 
                 if (col.data && typeof col.data == 'object') {
                   const arr = []
@@ -541,7 +541,7 @@ export default {
                     })
                   }
                   col.data = arr
-                }
+                } else col.data = []
               }
             })
           }
