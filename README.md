@@ -3,15 +3,16 @@
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 [在线预览](http://112.74.43.150/)
 
+如果有任何使用上的问题，QQ群 1083980136
 ## 依赖
 
-element-ui 2.12.0+
+element-ui 2.13.2+
 
 ```sh
 $ npm i element-ui
 ```
 
-@smallwei/avue 2.2.0+
+@smallwei/avue 2.6.6+
 
 ```sh
 $ npm i @smallwei/avue
@@ -24,9 +25,9 @@ $ npm i @smallwei/avue
 ### 组件
 
 ```sh
-$ npm i avue-form-design
+$ npm i @sscfaith/avue-form-design
 或
-$ yarn add avue-form-design
+$ yarn add @sscfaith/avue-form-design
 ```
 
 ### 源码

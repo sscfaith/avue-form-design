@@ -96,7 +96,6 @@
       <!-- 弹窗 -->
       <!-- 导入JSON -->
       <el-drawer title="导入JSON"
-                 append-to-body
                  :visible.sync="importJsonVisible"
                  size="50%"
                  destroy-on-close>
@@ -114,7 +113,6 @@
       </el-drawer>
       <!-- 生成JSON -->
       <el-drawer title="生成JSON"
-                 append-to-body
                  :visible.sync="generateJsonVisible"
                  size="50%"
                  destroy-on-close>
@@ -174,7 +172,6 @@
       </el-drawer>
       <!-- 预览 -->
       <el-drawer title="预览"
-                 append-to-body
                  :visible.sync="previewVisible"
                  size="60%"
                  :before-close="handleBeforeClose">
@@ -577,42 +574,4 @@ export default {
 
 <style lang="scss">
 @import "./styles/index.scss";
-
-.drawer-foot {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  display: flex;
-
-  button {
-    width: 50%;
-  }
-}
-
-.drawer-foot > span {
-  display: inline-block;
-  width: 50%;
-  button {
-    width: 100%;
-  }
-}
-
-.popper-bo {
-  .el-alert {
-    margin-bottom: 10px;
-  }
-}
-
-.preview-form {
-  overflow-y: scroll;
-  height: 83vh;
-}
-
-.widget-config-container {
-  .avue-group__item {
-    padding: 0;
-  }
-}
 </style>

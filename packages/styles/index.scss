@@ -560,9 +560,35 @@ body {
   button {
     width: 50%;
   }
+
+  & > span {
+    display: inline-block;
+    width: 50%;
+    button {
+      width: 100%;
+    }
+  }
 }
 
 .preview-form {
   overflow-y: scroll;
   height: 83vh;
+}
+
+.popper-bo {
+  .el-alert {
+    margin-bottom: 10px;
+  }
+}
+
+.widget-config-container {
+  .avue-group__item {
+    padding: 0;
+  }
+}
+
+.el-drawer__wrapper {
+  :focus {
+    outline: 0;
+  }
 }
