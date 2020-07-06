@@ -3,7 +3,7 @@
     <component :is="getComponent(item.type, item.component)"
                v-model="form[item.prop]"
                v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
-               :placeholder="getPlaceholder(item)">
+               :placeholder="item.placeholder || getPlaceholder(item)">
       <span v-if="params.html"
             v-html="params.html"></span>
     </component>

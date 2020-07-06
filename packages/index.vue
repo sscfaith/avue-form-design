@@ -179,7 +179,8 @@
                    ref="form"
                    class="preview-form"
                    :option="widgetFormPreview"
-                   v-model="widgetModels"></avue-form>
+                   v-model="widgetModels"
+                   @submit="handlePreviewSubmit"></avue-form>
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
@@ -374,11 +375,20 @@ export default {
       });
     },
     // 预览 - 弹窗 - 确定
-    handlePreviewSubmit () {
-      this.$refs.form.validate((valid) => {
-        if (valid) this.$alert(this.widgetModels).catch(() => {
+    handlePreviewSubmit (form, done) {
+      if (done) {
+        this.$alert(this.widgetModels).then(() => {
+          done()
+        }).catch(() => {
         })
-      })
+      } else {
+        this.$refs.form.validate((valid, done) => {
+          if (valid) this.$alert(this.widgetModels).then(() => {
+            done()
+          }).catch(() => {
+          })
+        })
+      }
     },
     // 预览 - 弹窗 - 关闭前
     handleBeforeClose () {
