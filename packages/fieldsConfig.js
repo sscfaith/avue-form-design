@@ -70,6 +70,12 @@ export default [
       icon: 'icon-img',
       span: 24,
       display: true,
+    }, {
+      type: 'map',
+      label: '地图选择器',
+      icon: 'icon-map',
+      span: 24,
+      display: true
     }]
   },
   {
@@ -253,7 +259,7 @@ export default [
     }],
   },
   {
-    title: '插件字段（富文本和坐标拾取器需要单独引入）',
+    title: '插件字段（富文本需要单独引入）',
     list: [{
       title: '分割线',
       labelWidth: 40,
@@ -289,18 +295,27 @@ export default [
         ali: {},
         qiniu: {}
       }
-    }, {
-      type: 'map',
-      component: 'avue-map',
-      label: '坐标拾取器',
-      icon: 'icon-map',
-      span: 24,
-      display: true,
-    }],
+    },],
   },
   {
     title: '其他字段',
     list: [{
+      type: 'icon',
+      label: '图标',
+      icon: 'icon-icon',
+      span: 24,
+      display: true,
+      iconList: [{
+        label: '基本图标',
+        list: ['el-icon-info', 'el-icon-error', 'el-icon-error', 'el-icon-success', 'el-icon-warning', 'el-icon-question']
+      }, {
+        label: '方向图标',
+        list: ['el-icon-info', 'el-icon-back', 'el-icon-arrow-left', 'el-icon-arrow-down', 'el-icon-arrow-right', 'el-icon-arrow-up']
+      }, {
+        label: '符号图标',
+        list: ['el-icon-plus', 'el-icon-minus', 'el-icon-close', 'el-icon-check']
+      }]
+    }, {
       type: 'switch',
       label: '开关',
       icon: 'icon-switch',

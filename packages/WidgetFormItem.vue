@@ -2,9 +2,8 @@
   <div>
     <component :is="getComponent(item.type, item.component)"
                v-model="form[item.prop]"
-               v-bind="Object.assign(item,params,{
-                size:item.size || 'small'
-             })">
+               v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
+               :placeholder="getPlaceholder(item)">
       <span v-if="params.html"
             v-html="params.html"></span>
     </component>
@@ -52,16 +51,16 @@ export default {
       else if (type === 'upload') result = 'upload';
       else if (type === 'slider') result = 'slider';
       else if (type === 'dynamic') result = 'dynamic';
-      else if (type === 'icon-select') result = 'icon-select';
-      else if (type === 'color') result = 'color';
+      else if (type === 'icon') result = 'input-icon';
+      else if (type === 'color') result = 'input-color';
+      else if (type === 'map') result = 'input-map';
       return KEY_COMPONENT_NAME + result;
     },
-
     getPlaceholder (item) {
       const label = item.label;
-      if (['select', 'checkbox', 'radio', 'tree', 'color', 'dates', 'date', 'datetime', 'datetimerange', 'daterange', 'week', 'month', 'year'].includes(item.type))
-        return `请选择${label}`;
-      else return `请输入${label}`;
+      if (['select', 'checkbox', 'radio', 'tree', 'color', 'dates', 'date', 'datetime', 'datetimerange', 'daterange', 'week', 'month', 'year', 'map', 'icon'].includes(item.type))
+        return `请选择 ${label}`;
+      else return `请输入 ${label}`;
     },
   }
 }

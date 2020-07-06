@@ -309,9 +309,8 @@ export default {
     }
   },
   mounted () {
-    this.handleLoadCss();
-    this.handleLoadStorage();
-    this.loadBeautifierOptions();
+    this.handleLoadStorage()
+    this.loadBeautifierOptions()
   },
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
@@ -325,14 +324,6 @@ export default {
     loadBeautifierOptions () {
       const bo = localStorage.getItem('avue-form-beautifier-options')
       if (bo) this.beautifierOptions = JSON.parse(bo)
-    },
-    // 加载阿里iconfront
-    handleLoadCss () {
-      const url = '//at.alicdn.com/t/font_1254447_rwaizg76pz.css'
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = url;
-      window.document.head.appendChild(link)
     },
     // Avue文档链接
     handleAvueDoc () {
@@ -391,8 +382,8 @@ export default {
     },
     // 预览 - 弹窗 - 关闭前
     handleBeforeClose () {
-      this.$refs.form.resetForm();
-      this.previewVisible = false
+      this.$refs.form.resetForm()
+      this.$nextTick(() => this.previewVisible = false)
     },
     // 清空
     handleClear () {
