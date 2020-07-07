@@ -179,8 +179,8 @@ export default [
       props: {},
       propsHttp: {},
       canvasOption: {},
-      headers: [],
-      data: []
+      headersConfig: [],
+      dataConfig: []
     }],
   },
   {
@@ -262,7 +262,8 @@ export default [
     title: '插件字段（富文本需要单独引入）',
     list: [{
       title: '分割线',
-      labelWidth: 40,
+      type: 'divider',
+      labelWidth: '40',
       prop: 'divider',
       component: 'elDivider',//ele分割线
       span: 24,
@@ -273,7 +274,8 @@ export default [
       }
     }, {
       title: '日历',
-      labelWidth: 40,
+      type: 'calendar',
+      labelWidth: '40',
       prop: 'calendar',
       icon: 'icon-map',
       component: 'elCalendar',//ele日期

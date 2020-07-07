@@ -1,5 +1,14 @@
 ## 更新日志
 
+*2020-07-07*
+
+#### Bug 修复
+
+- 修复使用源码时，upload无法使用的问题。
+- 修复水印字体颜色未绑定的问题。
+- 修复分组配置中，avue-icon-select -> avue-input-icon。
+- 修复使用npm组件时，预览时的遮罩层挡住了内容。
+
 *2020-07-06*
 
 #### 更新 [avue 2.6.10 版本](https://avuejs.com/doc/changelog) 

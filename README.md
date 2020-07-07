@@ -4,6 +4,10 @@
 [在线预览](http://112.74.43.150/)
 
 如果有任何使用上的问题，QQ群 1083980136
+
+## 更新日志
+[更新日志](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md)
+
 ## 依赖
 
 element-ui 2.13.2+

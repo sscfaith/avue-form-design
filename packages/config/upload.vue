@@ -8,7 +8,7 @@
     <el-form-item label="接受文件类型"
                   v-if="!data.oss">
       <el-input v-model="data.accept"
-                placeholder="接受文件类型"></el-input>
+                placeholder="接受文件类型，如：image/png,image/jpg"></el-input>
     </el-form-item>
     <el-form-item label="oss">
       <a href="https://avuejs.com/doc/form/form-upload-qiniu"
@@ -53,10 +53,10 @@
       <el-input v-model="data.props.value"
                 placeholder="数据对象的图片名称"></el-input>
       请求头
-      <avue-dynamic v-model="data.headers"
+      <avue-dynamic v-model="data.headersConfig"
                     :children="option"></avue-dynamic>
       请求体
-      <avue-dynamic v-model="data.data"
+      <avue-dynamic v-model="data.dataConfig"
                     :children="option"></avue-dynamic>
     </el-form-item>
     <el-form-item label="服务器返回参数设置"><br>
@@ -109,7 +109,8 @@
       <el-input v-model="data.canvasOption.fontFamily"
                 placeholder="字体类型"></el-input>
       字体颜色
-      <avue-color placeholder="字体颜色"></avue-color>
+      <avue-input-color v-model="data.canvasOption.color"
+                        placeholder="字体颜色"></avue-input-color>
       字体大小
       <el-input-number v-model="data.canvasOption.fontSize"
                        controls-position="right"

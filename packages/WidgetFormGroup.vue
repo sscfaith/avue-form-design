@@ -90,11 +90,12 @@
 <script>
 import WidgetFormItem from './WidgetFormItem'
 import WidgetFormTable from './WidgetFormTable'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'widget-form-table',
   props: ['data', 'column', 'select', 'index'],
-  components: { WidgetFormItem, WidgetFormTable },
+  components: { WidgetFormItem, WidgetFormTable, draggable },
   data () {
     return {
       selectWidget: this.select,

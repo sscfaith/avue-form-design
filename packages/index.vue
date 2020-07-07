@@ -471,21 +471,23 @@ export default {
               }
               delete col.dicOption
             } else if (['upload'].includes(col.type)) {
-              if (col.headers && col.headers.length > 0) {
+              if (col.headersConfig && col.headersConfig.length > 0) {
                 const headers = {}
-                col.headers.forEach(h => {
+                col.headersConfig.forEach(h => {
                   if (h.key && h.value) headers[h.key] = h.value
                 })
                 col.headers = headers
-              } else delete col.headers
+              }
+              delete col.headersConfig
 
-              if (col.data && col.data.length > 0) {
+              if (col.dataConfig && col.dataConfig.length > 0) {
                 const data = {}
-                col.data.forEach(h => {
+                col.dataConfig.forEach(h => {
                   if (h.key && h.value) data[h.key] = h.value
                 })
                 col.data = data
-              } else delete col.data
+              }
+              delete col.dataConfig
             }
           }
           resolve(data)
@@ -534,8 +536,8 @@ export default {
                       $cellEdit: true
                     })
                   }
-                  col.headers = arr
-                } else col.headers = []
+                  col.headersConfig = arr
+                } else col.headersConfig = []
 
                 if (col.data && typeof col.data == 'object') {
                   const arr = []
@@ -546,8 +548,8 @@ export default {
                       $cellEdit: true
                     })
                   }
-                  col.data = arr
-                } else col.data = []
+                  col.dataConfig = arr
+                } else col.dataConfig = []
               }
             })
           }

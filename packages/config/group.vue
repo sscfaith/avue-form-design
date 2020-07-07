@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-form-item label="图标">
-      <avue-icon-select v-model="data.icon"
-                        :icon-list="iconList"
-                        placeholder="图标"></avue-icon-select>
+      <avue-input-icon v-model="data.icon"
+                       :icon-list="iconList"
+                       placeholder="图标"></avue-input-icon>
       <el-form-item label="开启折叠">
         <el-switch v-model="data.arrow"></el-switch>
       </el-form-item>
