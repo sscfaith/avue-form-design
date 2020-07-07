@@ -42,7 +42,7 @@ $ yarn serve
 ## 使用
 
 ```
-import AvueFormDesign from 'avue-form-design'
+import AvueFormDesign from '@sscfaith/avue-form-design'
 
 Vue.use(AvueFormDesign)
 ```
@@ -52,7 +52,7 @@ Vue.use(AvueFormDesign)
                   :aside-left-width="270"
                   :aside-right-width="380"
                   storage
-                  @submit="handleSubmit"><avue-from-design>
+                  @submit="handleSubmit"></avue-from-design>
 ```
 
 ### 属性
@@ -63,6 +63,7 @@ Vue.use(AvueFormDesign)
 | storage | 开启本地存储功能，防止浏览器刷新丢失json | Boolean | false |
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
+| showAvueDoc | 是否显示Avue文档 | Boolean | false |
 
 ### options字段配置
 
@@ -75,13 +76,14 @@ Vue.use(AvueFormDesign)
 | labelWidth | 字段宽度 | Number | - | 120 |
 | gutter | 字段间隔 | Number | - | 0 |
 | menuBtn | 表单按钮 | Boolean | true/false | false |
-| menuPosition | 表单按钮位置 | String | 'left'/'center'/'right' | 'center'
 | submitBtn | 显示提交按钮 | Boolean | true/false | false |
-| submitSize | 提交按钮大小 | String | 'medium'/'small'/'mini' | 'medium' |
 | submitText | 提交按钮文本 | String | - | '提交' |
 | emptyBtn | 显示清空按钮 | Boolean | true/false | false |
-| emptySize | 清空按钮大小 | String | 'medium'/'small'/'mini' | 'medium' |
 | emptyText | 清空按钮文本 | String | - | '清空' |
+| tabs | 多分组转标签 | Boolean | true/false | false |
+| detail | 详情模式 | Boolean | true/false | false |
+| readonly | 全局只读 | Boolean | true/false | false |
+| disabled | 全局禁用 | Boolean | true/false | false |
 
 ### 事件
 
@@ -97,14 +99,6 @@ Vue.use(AvueFormDesign)
 import AvueUeditor from 'avue-plugin-ueditor'
 
 Vue.use(AvueUeditor)
-```
-
-#### 坐标拾取器
-
-```
-import AvueMap from 'avue-plugin-map'
-
-Vue.use(AvueMap)
 ```
 
 ## 打包

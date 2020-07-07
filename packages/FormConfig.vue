@@ -37,7 +37,7 @@
                          placeholder="项之间的间隔"
                          style="width: 100%"></el-input-number>
       </el-form-item>
-      <el-form-item label="多分组转标签（启用后不支持单独字段）">
+      <el-form-item label="多分组转标签">
         <el-switch v-model="data.tabs"
                    active-color="#409EFF"></el-switch>
       </el-form-item>

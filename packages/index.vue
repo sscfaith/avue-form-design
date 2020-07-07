@@ -47,7 +47,8 @@
       <el-container class="widget-container"
                     direction="vertical">
         <el-header class="widget-container-header">
-          <el-button type="text"
+          <el-button v-if="showAvueDoc"
+                     type="text"
                      size="medium"
                      icon="el-icon-document"
                      @click="handleAvueDoc">Avue文档</el-button>
@@ -98,6 +99,7 @@
       <el-drawer title="导入JSON"
                  :visible.sync="importJsonVisible"
                  size="50%"
+                 append-to-body
                  destroy-on-close>
         <v-json-editor v-model="importJson"
                        :options="{ mode: 'code' }"
@@ -115,6 +117,7 @@
       <el-drawer title="生成JSON"
                  :visible.sync="generateJsonVisible"
                  size="50%"
+                 append-to-body
                  destroy-on-close>
         <v-json-editor v-model="widgetFormPreview"
                        :options="{ mode: 'code' }"
@@ -174,6 +177,7 @@
       <el-drawer title="预览"
                  :visible.sync="previewVisible"
                  size="60%"
+                 append-to-body
                  :before-close="handleBeforeClose">
         <avue-form v-if="previewVisible"
                    ref="form"
@@ -227,6 +231,10 @@ export default {
     asideRightWidth: {
       type: [String, Number],
       default: '380px'
+    },
+    showAvueDoc: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
