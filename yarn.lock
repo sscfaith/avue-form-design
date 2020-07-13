@@ -582,8 +582,8 @@
 
 "@babel/plugin-transform-modules-umd@^7.10.4":
   version "7.10.4"
-  resolved "https://registry.npmjs.org/@babel/plugin-transform-modules-umd/-/plugin-transform-modules-umd-7.10.4.tgz#9a8481fe81b824654b3a0b65da3df89f3d21839e"
-  integrity sha512-mohW5q3uAEt8T45YT7Qc5ws6mWgJAaL/8BfWD9Dodo1A3RKWli8wTS+WiQ/knF+tXlPirW/1/MqzzGfCExKECA==
+  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-modules-umd/download/@babel/plugin-transform-modules-umd-7.10.4.tgz#9a8481fe81b824654b3a0b65da3df89f3d21839e"
+  integrity sha1-moSB/oG4JGVLOgtl2j34nz0hg54=
   dependencies:
     "@babel/helper-module-transforms" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
@@ -952,8 +952,8 @@
 
 "@vue/babel-preset-app@^4.4.6":
   version "4.4.6"
-  resolved "https://registry.npmjs.org/@vue/babel-preset-app/-/babel-preset-app-4.4.6.tgz#92aef916e83f1abe0a2ed1e9e2cef5b332f958c4"
-  integrity sha512-urIa6Qk3lKacLvscrzxMNyYlTqKFcPAUo5MohOjv1ISZ9PssHw693WTOrqSC0XksdMLtp/rnLvc6l5G8Muk0lw==
+  resolved "https://registry.npm.taobao.org/@vue/babel-preset-app/download/@vue/babel-preset-app-4.4.6.tgz?cache=0&sync_timestamp=1592976388832&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fbabel-preset-app%2Fdownload%2F%40vue%2Fbabel-preset-app-4.4.6.tgz#92aef916e83f1abe0a2ed1e9e2cef5b332f958c4"
+  integrity sha1-kq75Fug/Gr4KLtHp4s71szL5WMQ=
   dependencies:
     "@babel/core" "^7.9.6"
     "@babel/helper-compilation-targets" "^7.9.6"
@@ -1639,10 +1639,10 @@ autoprefixer@^9.8.0:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
-avue-plugin-ueditor@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/avue-plugin-ueditor/-/avue-plugin-ueditor-0.1.4.tgz#8ffa6f6bfd94f1fe6e6a7a02428ae5e0dce8fd10"
-  integrity sha512-ySvz75gpie2vAFMKcCqOc/di7bMIiR7AmpjS2sTgnEvsaPpHenddsmW8A7fcwcdoi0xndn8ZJFniypHU29vZAA==
+avue-plugin-ueditor@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/avue-plugin-ueditor/download/avue-plugin-ueditor-0.1.5.tgz#a20828d5e40689b02cb31f1007ba497518bb43c2"
+  integrity sha1-oggo1eQGibAssx8QB7pJdRi7Q8I=
   dependencies:
     axios "^0.18.0"
     element-ui "^2.13.0"
@@ -3388,10 +3388,10 @@ eslint-visitor-keys@^1.0.0, eslint-visitor-keys@^1.1.0, eslint-visitor-keys@^1.2
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-1.3.0.tgz#30ebd1ef7c2fdff01c3a4f151044af25fab0523e"
   integrity sha512-6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==
 
-eslint@^7.3.1:
-  version "7.3.1"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-7.3.1.tgz#76392bd7e44468d046149ba128d1566c59acbe19"
-  integrity sha512-cQC/xj9bhWUcyi/RuMbRtC3I0eW8MH0jhRELSvpKYkWep3C6YZ2OkvcvJVUeO6gcunABmzptbXBuDoXsjHmfTA==
+eslint@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.4.0.tgz?cache=0&sync_timestamp=1593807321382&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint%2Fdownload%2Feslint-7.4.0.tgz#4e35a2697e6c1972f9d6ef2b690ad319f80f206f"
+  integrity sha1-TjWiaX5sGXL51u8raQrTGfgPIG8=
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -8518,10 +8518,10 @@ vue@^2.5.17:
   resolved "https://registry.npmjs.org/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuedraggable@^2.23.0:
-  version "2.23.2"
-  resolved "https://registry.npmjs.org/vuedraggable/-/vuedraggable-2.23.2.tgz#0d95d7fdf4f02f56755a26b3c9dca5c7ca9cfa72"
-  integrity sha512-PgHCjUpxEAEZJq36ys49HfQmXglattf/7ofOzUrW2/rRdG7tu6fK84ir14t1jYv4kdXewTEa2ieKEAhhEMdwkQ==
+vuedraggable@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.npm.taobao.org/vuedraggable/download/vuedraggable-2.24.0.tgz#1ee069eeb91f61fcb540faf20f1c6b2d4d990a26"
+  integrity sha1-HuBp7rkfYfy1QPryDxxrLU2ZCiY=
   dependencies:
     sortablejs "^1.10.1"
 

@@ -1,4 +1,6 @@
 module.exports = {
+  transpileDependencies: ['avue-plugin-ueditor'],
+
   productionSourceMap: false,
 
   configureWebpack: (config) => {

@@ -43,7 +43,7 @@
       </el-select>
     </el-form-item>
     <el-form-item label="参数设置">
-      <a href="https://avuejs.com/doc/form/form-upload"
+      <!-- <a href="https://avuejs.com/doc/form/form-upload"
          target="_blank"
          style="color: #409EFF;">详细文档</a><br>
       数据对象的图片地址
@@ -51,7 +51,7 @@
                 placeholder="数据对象的图片地址"></el-input>
       数据对象的图片名称
       <el-input v-model="data.props.value"
-                placeholder="数据对象的图片名称"></el-input>
+                placeholder="数据对象的图片名称"></el-input> -->
       请求头
       <avue-dynamic v-model="data.headersConfig"
                     :children="option"></avue-dynamic>

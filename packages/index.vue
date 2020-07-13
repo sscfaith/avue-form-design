@@ -292,10 +292,8 @@ export default {
         gutter: 0,
         menuBtn: true,
         submitBtn: true,
-        submitSize: 'medium',
         submitText: '提交',
         emptyBtn: true,
-        emptySize: 'medium',
         emptyText: '清空',
         menuPosition: 'center'
       },
@@ -477,7 +475,7 @@ export default {
                   if (h.key && h.value) headers[h.key] = h.value
                 })
                 col.headers = headers
-              }
+              } else delete col.headers
               delete col.headersConfig
 
               if (col.dataConfig && col.dataConfig.length > 0) {
@@ -486,7 +484,7 @@ export default {
                   if (h.key && h.value) data[h.key] = h.value
                 })
                 col.data = data
-              }
+              } else delete col.data
               delete col.dataConfig
             }
           }

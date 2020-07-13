@@ -176,7 +176,7 @@ export default [
       showFileList: true,
       multiple: true,
       limit: 10,
-      props: {},
+      // props: {},
       propsHttp: {},
       canvasOption: {},
       headersConfig: [],

@@ -1,7 +1,7 @@
 ## 简介
 
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
-[在线预览](http://112.74.43.150/)
+[在线预览](https://form.beta.kim/)
 
 如果有任何使用上的问题，QQ群 1083980136
 
@@ -16,7 +16,7 @@ element-ui 2.13.2+
 $ npm i element-ui
 ```
 
-@smallwei/avue 2.6.6+
+@smallwei/avue 2.6.10+
 
 ```sh
 $ npm i @smallwei/avue

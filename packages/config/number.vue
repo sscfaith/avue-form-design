@@ -69,10 +69,11 @@ export default {
   },
   methods: {
     generateRule () {
-      this.data.rules.clear()
+      const rules = [];
       Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) this.data.rules.push(this.validator[key])
+        if (this.validator[key]) rules.push(this.validator[key])
       })
+      this.data.rules = rules
     },
   },
   watch: {
