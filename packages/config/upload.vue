@@ -77,7 +77,7 @@
       <el-switch v-model="data.showFileList"></el-switch>
     </el-form-item>
     <el-form-item label="文件大小限制（字节）">
-      <el-input-number v-model="data.filesize"
+      <el-input-number v-model="data.fileSize"
                        controls-position="right"
                        placeholder="文件大小限制（字节）"
                        :min="0"
