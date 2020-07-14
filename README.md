@@ -52,11 +52,12 @@ Vue.use(AvueFormDesign)
 ```
 
 ```
-<avue-form-design :options="options"
+<avue-form-design style="height: 86vh;"
+                  :options="options"
                   :aside-left-width="270"
                   :aside-right-width="380"
                   storage
-                  @submit="handleSubmit"></avue-from-design>
+                  @submit="handleSubmit"></avue-form-design>
 ```
 
 ### 属性

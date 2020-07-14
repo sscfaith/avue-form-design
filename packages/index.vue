@@ -199,14 +199,17 @@
 </template>
 
 <script>
+import fields from './fieldsConfig.js'
+import { stringify } from './utils'
+import beautifier from './utils/json-beautifier'
+import widgetEmpty from './assets/widget-empty.png'
+
 import Draggable from 'vuedraggable'
 import VJsonEditor from 'v-jsoneditor'
-import fields from './fieldsConfig.js'
+
 import WidgetForm from './WidgetForm'
 import FormConfig from './FormConfig'
 import WidgetConfig from './WidgetConfig'
-import widgetEmpty from './assets/widget-empty.png'
-import beautifier from 'csvjson-json_beautifier'
 
 export default {
   name: "FormDesign",
@@ -318,6 +321,7 @@ export default {
   mounted () {
     this.handleLoadStorage()
     this.loadBeautifierOptions()
+    this.handleLoadCss()
   },
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
@@ -331,6 +335,13 @@ export default {
     loadBeautifierOptions () {
       const bo = localStorage.getItem('avue-form-beautifier-options')
       if (bo) this.beautifierOptions = JSON.parse(bo)
+    },
+    handleLoadCss () {
+      const url = '//at.alicdn.com/t/font_1254447_x280zepmf6.css'
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = url;
+      window.document.head.appendChild(link)
     },
     // Avue文档链接
     handleAvueDoc () {
@@ -371,14 +382,20 @@ export default {
       })
     },
     // 生成JSON - 弹窗 - 拷贝
-    handleCopy () {
-      this.$Clipboard({
-        text: this.getCopyContent()
-      }).then(() => {
-        this.$message.success('复制成功')
-      }).catch(() => {
-        this.$message.error('复制失败')
-      });
+    async handleCopy () {
+      this.transformToAvueOptions(this.widgetForm).then(data => {
+        let text;
+        if (this.beautifierOptions.enabled) text = beautifier(data, this.beautifierOptions)
+        else text = stringify(data)
+
+        this.$Clipboard({
+          text
+        }).then(() => {
+          this.$message.success('复制成功')
+        }).catch(() => {
+          this.$message.error('复制失败')
+        });
+      })
     },
     // 预览 - 弹窗 - 确定
     handlePreviewSubmit (form, done) {
@@ -412,14 +429,6 @@ export default {
         }).catch(() => {
         })
       } else this.$message.error("没有需要清空的内容")
-    },
-    /**
-     * 获取需要复制的内容
-     * @return {String}
-     */
-    getCopyContent () {
-      if (this.beautifierOptions.enabled) return beautifier(this.widgetFormPreview, this.beautifierOptions)
-      else return JSON.stringify(this.widgetFormPreview, null, 2)
     },
     // 表单设计器配置项 转化为 Avue配置项
     transformToAvueOptions (obj) {
@@ -487,6 +496,17 @@ export default {
               } else delete col.data
               delete col.dataConfig
             }
+            if (col.change) col.change = eval(col.change)
+            else delete col.change
+
+            if (col.click) col.click = eval(col.click)
+            else delete col.click
+
+            if (col.focus) col.focus = eval(col.focus)
+            else delete col.focus
+
+            if (col.blur) col.blur = eval(col.blur)
+            else delete col.blur
           }
           resolve(data)
         } catch (e) {

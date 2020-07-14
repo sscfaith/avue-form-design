@@ -3,65 +3,99 @@
     <el-form label-suffix="："
              v-if="this.data && Object.keys(this.data).length > 0"
              size="small">
-      <el-form-item label="类型">
-        <el-select v-model="data.type"
-                   placeholder="请选择类型"
-                   @change="handleChangeType">
-          <el-option-group v-for="group in fields"
-                           :key="group.title"
-                           :label="group.title">
-            <el-option v-for="item in group.list"
-                       :key="item.type"
-                       :label="item.label"
-                       :value="item.type">
-            </el-option>
-          </el-option-group>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="属性值">
-        <el-input v-model="data.prop"
-                  placeholder="属性值"></el-input>
-      </el-form-item>
-      <el-form-item label="标题">
-        <el-input v-model="data.label"
-                  placeholder="标题"></el-input>
-      </el-form-item>
-      <el-form-item label="宽度"
-                    v-if="data.subfield">
-        <el-input-number v-model="data.width"
-                         controls-position="right"
-                         placeholder="宽度"
-                         :min="100"></el-input-number>
-      </el-form-item>
-      <el-form-item label="内容"
-                    v-if="data.component=='elDivider'">
-        <el-input v-model="data.params.html"
-                  placeholder="内容"></el-input>
-      </el-form-item>
-      <el-form-item label="表单栅格"
-                    v-if="!data.subfield && !['group'].includes(data.type)">
-        <el-input-number v-model="data.span"
-                         controls-position="right"
-                         placeholder="表单栅格"
-                         :min="8"
-                         :max="24"></el-input-number>
-      </el-form-item>
-      <el-form-item label="数据类型"
-                    v-if="['cascader','checkbox','upload','img','array'].includes(data.type)">
-        <el-select v-model="data.dataType"
-                   placeholder="数据类型"
-                   clearable>
-          <el-option label="String"
-                     value="string"></el-option>
-          <el-option label="Number"
-                     value="number"></el-option>
-        </el-select>
-        &nbsp;<a href="https://avuejs.com/doc/dataType"
-           target="_blank"
-           style="color: #409EFF;">详情</a><br>
-      </el-form-item>
-      <component :is="getComponent"
-                 :data="data"></component>
+      <el-collapse v-model="collapse">
+        <el-collapse-item name="1"
+                          title="基本属性">
+          <el-form-item label="类型">
+            <el-select v-model="data.type"
+                       placeholder="请选择类型"
+                       @change="handleChangeType">
+              <el-option-group v-for="group in fields"
+                               :key="group.title"
+                               :label="group.title">
+                <el-option v-for="item in group.list"
+                           :key="item.type"
+                           :label="item.label"
+                           :value="item.type">
+                </el-option>
+              </el-option-group>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="属性值">
+            <el-input v-model="data.prop"
+                      placeholder="属性值"></el-input>
+          </el-form-item>
+          <el-form-item label="标题">
+            <el-input v-model="data.label"
+                      placeholder="标题"></el-input>
+          </el-form-item>
+          <el-form-item label="宽度"
+                        v-if="data.subfield">
+            <el-input-number v-model="data.width"
+                             controls-position="right"
+                             placeholder="宽度"
+                             :min="100"></el-input-number>
+          </el-form-item>
+          <el-form-item label="内容"
+                        v-if="data.component=='elDivider'">
+            <el-input v-model="data.params.html"
+                      placeholder="内容"></el-input>
+          </el-form-item>
+          <el-form-item label="表单栅格"
+                        v-if="!data.subfield && !['group'].includes(data.type)">
+            <el-input-number v-model="data.span"
+                             controls-position="right"
+                             placeholder="表单栅格"
+                             :min="8"
+                             :max="24"></el-input-number>
+          </el-form-item>
+          <el-form-item label="数据类型"
+                        v-if="['cascader','checkbox','upload','img','array'].includes(data.type)">
+            <el-select v-model="data.dataType"
+                       placeholder="数据类型"
+                       clearable>
+              <el-option label="String"
+                         value="string"></el-option>
+              <el-option label="Number"
+                         value="number"></el-option>
+            </el-select>
+            &nbsp;<a href="https://avuejs.com/doc/dataType"
+               target="_blank"
+               style="color: #409EFF;">详情</a><br>
+          </el-form-item>
+          <component :is="getComponent"
+                     :data="data"></component>
+        </el-collapse-item>
+        <el-collapse-item name="2"
+                          title="事件属性"
+                          v-if="!['group', 'dynamic'].includes(data.type)">
+          <el-form-item label="change">
+            <avue-input v-model="data.change"
+                        type="textarea"
+                        placeholder="改变事件"
+                        rows="5"
+                        clearable></avue-input>
+          </el-form-item>
+          <el-form-item label="click">
+            <el-input v-model="data.click"
+                      type="textarea"
+                      placeholder="点击事件"
+                      rows="5"></el-input>
+          </el-form-item>
+          <el-form-item label="focus">
+            <el-input v-model="data.focus"
+                      type="textarea"
+                      placeholder="获取焦点事件"
+                      rows="5"></el-input>
+          </el-form-item>
+          <el-form-item label="blur">
+            <el-input v-model="data.blur"
+                      type="textarea"
+                      placeholder="失去焦点事件"
+                      rows="5"></el-input>
+          </el-form-item>
+        </el-collapse-item>
+      </el-collapse>
     </el-form>
     <avue-empty v-else
                 desc="拖拽字段进行配置"
@@ -95,7 +129,8 @@ export default {
   },
   data () {
     return {
-      fields
+      fields,
+      collapse: "1"
     }
   },
   methods: {

@@ -1,5 +1,23 @@
 ## 更新日志
 
+*2020-07-14*
+
+#### Bug修复
+
+- 修复number配置校验未生效的问题。
+
+#### 新特性
+
+- 除dynamic、group外增加字段的change、focus、blur、click事件属性配置。
+使用方法如下:
+```js
+({value, column}) => {
+  // TODO
+}
+```
+- 由于json的value值无法是函数，所以生成JSON时<font color=red>无法显示</font>配置的事件属性，通过复制按钮可正常获取。
+- <font color=red>！！！导入json时无法导入事件属性，如果有好的提议，欢迎pr！！！</font>
+
 *2020-07-07*
 
 #### Bug 修复
