@@ -83,6 +83,33 @@
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
+    <el-form-item label="级联配置">
+      <draggable tag="ul" :list="data.cascaderItem" :group="{ name: 'cascaderItem' }" ghost-class="ghost" handle=".drag-item">
+        <li v-for="(item, index) in data.cascaderItem" :key="index">
+          <i class="drag-item el-icon-s-operation" style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
+          <el-input size="mini" v-model="data.cascaderItem[index]" placeholder="级联属性值"></el-input>
+          <el-button @click="handleRemoveCascaderItemFields(index)"
+            circle
+            plain
+            type="danger"
+            size="mini"
+            icon="el-icon-minus"
+            style="padding: 4px;margin-left: 5px;">
+          </el-button>
+        </li>
+      </draggable>
+      <div style="margin-left: 22px;">
+        <el-button type="text" @click="handleAddCascaderItemFields">添加列</el-button>
+      </div>
+    </el-form-item>
+    <el-form-item label="字典key配置">
+      <draggable tag="ul" :list="data.props" :sort="false" :group="{ name: 'props' }" ghost-class="ghost" handle=".drag-item">
+        <li v-for="(value, key) in data.props" :key="key">
+          <span style="width: 50px">{{ key }}</span>
+          <el-input size="mini" v-model="data.props[key]" placeholder="key配置"></el-input>
+        </li>
+      </draggable>
+    </el-form-item>
     <el-form-item label="尺寸">
       <el-radio-group v-model="data.size"
                       size="mini">
@@ -152,6 +179,12 @@ export default {
       const i = Math.ceil(Math.random() * 99999)
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
+    handleRemoveCascaderItemFields (index) {
+      this.data.cascaderItem.splice(index, 1)
+    },
+    handleAddCascaderItemFields () {
+      this.data.cascaderItem.push('')
+    },
     handleTabClick ({ name }) {
       if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
     }
@@ -162,6 +195,15 @@ export default {
       else this.validator.required = null
 
       this.generateRule()
+    },
+    data: {
+      handler(){
+        // 初始化props数据，字典的key配置加上默认值
+        if (!this.data.props) {
+          this.$set(this.data, 'props', {label: 'label', value: 'value'});
+        }
+      },
+      immediate: true
     }
   }
 }
