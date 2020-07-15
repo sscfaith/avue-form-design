@@ -63,6 +63,13 @@
                target="_blank"
                style="color: #409EFF;">详情</a><br>
           </el-form-item>
+          <el-form-item label="深结构">
+            <a href="https://avuejs.com/doc/form/form-bind"
+               target="_blank"
+               style="color: #409EFF;">详情</a><br>
+            <el-input v-model="data.bind"
+                      placeholder="深结构"></el-input>
+          </el-form-item>
           <component :is="getComponent"
                      :data="data"></component>
         </el-collapse-item>

@@ -16,7 +16,7 @@ element-ui 2.13.2+
 $ npm i element-ui
 ```
 
-@smallwei/avue 2.6.10+
+@smallwei/avue 2.6.11+
 
 ```sh
 $ npm i @smallwei/avue

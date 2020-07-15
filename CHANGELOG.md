@@ -1,5 +1,13 @@
 ## 更新日志
 
+*2020-07-15*
+
+#### 更新 [avue 2.6.11 版本](https://avuejs.com/doc/changelog)
+
+#### 新特性
+
+- select组件支持联动，[感谢pr](https://github.com/sscfaith/avue-form-design/pull/21)
+
 *2020-07-14*
 
 #### Bug修复

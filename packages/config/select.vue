@@ -84,29 +84,52 @@
       </el-tabs>
     </el-form-item>
     <el-form-item label="级联配置">
-      <draggable tag="ul" :list="data.cascaderItem" :group="{ name: 'cascaderItem' }" ghost-class="ghost" handle=".drag-item">
-        <li v-for="(item, index) in data.cascaderItem" :key="index">
-          <i class="drag-item el-icon-s-operation" style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
-          <el-input size="mini" v-model="data.cascaderItem[index]" placeholder="级联属性值"></el-input>
+      <draggable tag="ul"
+                 :list="data.cascaderItem"
+                 :group="{ name: 'cascaderItem' }"
+                 ghost-class="ghost"
+                 handle=".drag-item">
+        <li v-for="(item, index) in data.cascaderItem"
+            :key="index">
+          <i class="drag-item el-icon-s-operation"
+             style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
+          <el-input size="mini"
+                    v-model="data.cascaderItem[index]"
+                    placeholder="级联属性值"></el-input>
           <el-button @click="handleRemoveCascaderItemFields(index)"
-            circle
-            plain
-            type="danger"
-            size="mini"
-            icon="el-icon-minus"
-            style="padding: 4px;margin-left: 5px;">
+                     circle
+                     plain
+                     type="danger"
+                     size="mini"
+                     icon="el-icon-minus"
+                     style="padding: 4px;margin-left: 5px;">
           </el-button>
         </li>
       </draggable>
       <div style="margin-left: 22px;">
-        <el-button type="text" @click="handleAddCascaderItemFields">添加列</el-button>
+        <el-button type="text"
+                   @click="handleAddCascaderItemFields">添加列</el-button>
       </div>
     </el-form-item>
+    <el-form-item label="级联默认选中">
+      <el-input-number v-model="data.cascaderIndex"
+                       controls-position="right"
+                       placeholder="级联默认选中"
+                       :min="0"></el-input-number>
+    </el-form-item>
     <el-form-item label="字典key配置">
-      <draggable tag="ul" :list="data.props" :sort="false" :group="{ name: 'props' }" ghost-class="ghost" handle=".drag-item">
-        <li v-for="(value, key) in data.props" :key="key">
+      <draggable tag="ul"
+                 :list="data.props"
+                 :sort="false"
+                 :group="{ name: 'props' }"
+                 ghost-class="ghost"
+                 handle=".drag-item">
+        <li v-for="(value, key) in data.props"
+            :key="key">
           <span style="width: 50px">{{ key }}</span>
-          <el-input size="mini" v-model="data.props[key]" placeholder="key配置"></el-input>
+          <el-input size="mini"
+                    v-model="data.props[key]"
+                    placeholder="key配置"></el-input>
         </li>
       </draggable>
     </el-form-item>
@@ -197,10 +220,10 @@ export default {
       this.generateRule()
     },
     data: {
-      handler(){
+      handler () {
         // 初始化props数据，字典的key配置加上默认值
         if (!this.data.props) {
-          this.$set(this.data, 'props', {label: 'label', value: 'value'});
+          this.$set(this.data, 'props', { label: 'label', value: 'value' });
         }
       },
       immediate: true

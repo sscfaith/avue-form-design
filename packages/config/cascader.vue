@@ -219,7 +219,7 @@ export default {
   },
   watch: {
     'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
+      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}`, trigger: 'change' }
       else this.validator.required = null
 
       this.generateRule()

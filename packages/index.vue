@@ -424,8 +424,9 @@ export default {
         this.$confirm('确定要清空吗？', '警告', {
           type: 'warning'
         }).then(() => {
-          this.widgetForm = { column: [] }
-          this.widgetFormSelect = {}
+          this.$set(this.widgetForm, 'column', [])
+          this.$set(this, 'widgetModels', {})
+          this.$set(this, 'widgetFormSelect', {})
         }).catch(() => {
         })
       } else this.$message.error("没有需要清空的内容")

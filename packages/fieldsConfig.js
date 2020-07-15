@@ -139,6 +139,7 @@ export default [
         { label: '选项二', value: 1 },
         { label: '选项三', value: 2 },
       ],
+      cascaderIndex: 1,
       showAllLevels: true,
       dicOption: 'static',
       separator: "/"
