@@ -113,6 +113,8 @@ export default [
         { label: '选项二', value: 1 },
         { label: '选项三', value: 2 },
       ],
+      // 用于做级联配置
+      cascaderItem: [],
       span: 24,
       display: true,
       dicOption: 'static'
