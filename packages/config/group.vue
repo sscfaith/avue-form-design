@@ -11,6 +11,9 @@
                     v-if="data.arrow">
         <el-switch v-model="data.collapse"></el-switch>
       </el-form-item>
+      <el-form-item label="是否可见">
+        <el-switch v-model="data.display"></el-switch>
+      </el-form-item>
     </el-form-item>
   </div>
 </template>
