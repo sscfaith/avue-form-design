@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>demo</title>
+  <link rel="stylesheet" href="./cdn/element-ui/theme-chalk/index.css">
+  <link rel="stylesheet" href="./cdn/avue/index.css">
+</head>
+
+<body>
+  <div id="app">
+    <avue-form-design style="height: 100vh;" :options="options" @submit="handleSubmit" storage show-avue-doc>
+    </avue-form-design>
+  </div>
+  <script src="./cdn/vue/vue.min.js"></script>
+  <script src="./cdn/element-ui/index.js"></script>
+  <script src="./cdn/avue/avue.min.js"></script>
+  <script src="./cdn/index.umd.min.js"></script>
+  <script>
+    Vue.use(window.AvueFormDesign)
+    var app = new Vue({
+      el: '#app',
+      data: {
+        options: {
+
+        }
+      },
+      methods: {
+        handleSubmit(data) {
+          this.$message.success("查看控制台")
+          console.log(data)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

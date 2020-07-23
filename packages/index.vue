@@ -337,7 +337,7 @@ export default {
       if (bo) this.beautifierOptions = JSON.parse(bo)
     },
     handleLoadCss () {
-      const url = '//at.alicdn.com/t/font_1254447_x280zepmf6.css'
+      const url = 'http://at.alicdn.com/t/font_1254447_x280zepmf6.css'
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = url;

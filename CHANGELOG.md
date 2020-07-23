@@ -1,6 +1,12 @@
-## 更新日志
+# 更新日志
 
-*2020-07-15*
+## 2020-07-23
+
+#### 更新 [avue 2.6.13 版本](https://avuejs.com/doc/changelog)
+
+#### 添加了打包好的js在普通html上使用的例子。详见examples。
+
+## 2020-07-15
 
 #### 更新 [avue 2.6.11 版本](https://avuejs.com/doc/changelog)
 
@@ -8,7 +14,7 @@
 
 - select组件支持联动，[感谢pr](https://github.com/sscfaith/avue-form-design/pull/21)
 
-*2020-07-14*
+## 2020-07-14
 
 #### Bug修复
 
@@ -27,7 +33,7 @@
 - 由于json的value值无法是函数，所以生成JSON时<font color=red>无法显示</font>配置的事件属性，通过复制按钮可正常获取。
 - <font color=red>！！！导入json时无法导入事件属性，如果有好的提议，欢迎pr！！！</font>
 
-*2020-07-07*
+## 2020-07-07
 
 #### Bug 修复
 
@@ -36,7 +42,7 @@
 - 修复分组配置中，avue-icon-select -> avue-input-icon。
 - 修复使用npm组件时，预览时的遮罩层挡住了内容。
 
-*2020-07-06*
+## 2020-07-06
 
 #### 更新 [avue 2.6.10 版本](https://avuejs.com/doc/changelog) 
 
@@ -44,7 +50,7 @@
 - icon-select组件 -> input-icon。
 - 删除avue-plugin-map依赖，使用input-map。
 
-*2020-06-29*
+## 2020-06-29
 
 #### 更新 [avue 2.6.8 版本](https://avuejs.com/doc/changelog) 
 
