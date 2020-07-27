@@ -1,5 +1,13 @@
 # 更新日志
 
+## 2020-07-27
+
+#### 更新 [avue 2.6.14 版本](https://avuejs.com/doc/changelog)
+
+#### 新特性
+
+- number组件添加controls属性，控制器是否显示。
+
 ## 2020-07-23
 
 #### 更新 [avue 2.6.13 版本](https://avuejs.com/doc/changelog)

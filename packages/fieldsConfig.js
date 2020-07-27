@@ -50,8 +50,9 @@ export default [
       type: 'number',
       label: '计数器',
       icon: 'icon-number',
+      controls: true,
       span: 24,
-      display: true
+      display: true,
     }, {
       type: 'url',
       label: '超链接',

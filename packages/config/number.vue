@@ -30,7 +30,11 @@
                        :min="0"
                        :max="10"></el-input-number>
     </el-form-item>
-    <el-form-item label="控制器位置">
+    <el-form-item label="开启控制器">
+      <el-switch v-model="data.controls"></el-switch>
+    </el-form-item>
+    <el-form-item label="控制器位置"
+                  v-if="data.controls">
       <el-radio v-model="data.controlsPosition"
                 label="">默认
       </el-radio>
