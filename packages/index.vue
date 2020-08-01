@@ -47,33 +47,50 @@
       <el-container class="widget-container"
                     direction="vertical">
         <el-header class="widget-container-header">
-          <el-button v-if="showAvueDoc"
-                     type="text"
-                     size="medium"
-                     icon="el-icon-document"
-                     @click="handleAvueDoc">Avue文档</el-button>
-          <el-button type="text"
-                     size="medium"
-                     icon="el-icon-upload2"
-                     @click="importJsonVisible = true">导入JSON</el-button>
-          <el-button type="text"
-                     size="medium"
-                     icon="el-icon-download"
-                     @click="handleGenerateJson">生成JSON</el-button>
-          <el-button type="text"
-                     size="medium"
-                     icon="el-icon-view"
-                     @click="handlePreview">预览</el-button>
-          <el-button class="danger"
-                     type="text"
-                     size="medium"
-                     icon="el-icon-delete"
-                     @click="handleClear">清空</el-button>
+          <div>
+            <template v-if="undoRedo">
+              <el-button type="text"
+                         size="medium"
+                         icon="el-icon-refresh-left"
+                         :disabled="historySteps.index == 0"
+                         @click="widgetForm = handleUndo()">撤销</el-button>
+              <el-button type="text"
+                         size="medium"
+                         icon="el-icon-refresh-right"
+                         :disabled="historySteps.index == historySteps.steps.length - 1"
+                         @click="widgetForm = handleRedo()">重做</el-button>
+            </template>
+          </div>
+          <div>
+            <el-button v-if="showAvueDoc"
+                       type="text"
+                       size="medium"
+                       icon="el-icon-document"
+                       @click="handleAvueDoc">Avue文档</el-button>
+            <el-button type="text"
+                       size="medium"
+                       icon="el-icon-upload2"
+                       @click="importJsonVisible = true">导入JSON</el-button>
+            <el-button type="text"
+                       size="medium"
+                       icon="el-icon-download"
+                       @click="handleGenerateJson">生成JSON</el-button>
+            <el-button type="text"
+                       size="medium"
+                       icon="el-icon-view"
+                       @click="handlePreview">预览</el-button>
+            <el-button class="danger"
+                       type="text"
+                       size="medium"
+                       icon="el-icon-delete"
+                       @click="handleClear">清空</el-button>
+          </div>
         </el-header>
         <el-main :style="{background: widgetForm.column.length == 0 ? `url(${widgetEmpty}) no-repeat 50%`: ''}">
           <widget-form ref="widgetForm"
                        :data="widgetForm"
-                       :select.sync="widgetFormSelect"></widget-form>
+                       :select.sync="widgetFormSelect"
+                       @change="handleHistoryChange(widgetForm)"></widget-form>
         </el-main>
       </el-container>
       <!-- 右侧配置 -->
@@ -203,6 +220,7 @@ import fields from './fieldsConfig.js'
 import { stringify } from './utils'
 import beautifier from './utils/json-beautifier'
 import widgetEmpty from './assets/widget-empty.png'
+import history from './mixins/history'
 
 import Draggable from 'vuedraggable'
 import VJsonEditor from 'v-jsoneditor'
@@ -214,6 +232,7 @@ import WidgetConfig from './WidgetConfig'
 export default {
   name: "FormDesign",
   components: { Draggable, VJsonEditor, WidgetForm, FormConfig, WidgetConfig },
+  mixins: [history],
   props: {
     options: {
       type: Object,
@@ -238,18 +257,13 @@ export default {
     showAvueDoc: {
       type: Boolean,
       default: false
+    },
+    undoRedo: {
+      type: Boolean,
+      default: true
     }
   },
   watch: {
-    widgetForm: {
-      handler (val) {
-        if (this.storage) {
-          if (val.column && val.column.length > 0) localStorage.setItem('avue-form', JSON.stringify(val))
-          else localStorage.removeItem('avue-form')
-        }
-      },
-      deep: true
-    },
     beautifierOptions: {
       handler (val) {
         if (this.storage) {
@@ -260,6 +274,7 @@ export default {
     },
     options: {
       handler (val) {
+        debugger
         this.transAvueOptionsToFormDesigner(val).then(res => {
           this.widgetForm = { ...this.widgetForm, ...res }
         })
@@ -315,6 +330,11 @@ export default {
         quoteType: 'single',
         dropQuotesOnKeys: true,
         dropQuotesOnNumbers: false
+      },
+      history: {
+        index: 0, // 当前下标
+        maxStep: 20, // 最大记录步数
+        steps: [], // 历史步数
       }
     }
   },
@@ -325,11 +345,28 @@ export default {
   },
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
-    handleLoadStorage () {
-      if (this.storage) {
-        const form = localStorage.getItem('avue-form')
-        if (form) this.transAvueOptionsToFormDesigner(JSON.parse(form)).then(data => this.widgetForm = data)
-      } else this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...this.options }).then(data => this.widgetForm = data)
+    async handleLoadStorage () {
+      this.widgetForm = this.initHistory({
+        index: 0,
+        maxStep: 20,
+        steps: [await this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...this.options })],
+        storage: this.storage
+      })
+
+      if (this.undoRedo) {
+        window.addEventListener('keydown', (evt) => {
+          // 监听 cmd + z / ctrl + z 撤销
+          if ((evt.metaKey && !evt.shiftKey && evt.keyCode == 90) || (evt.ctrlKey && !evt.shiftKey && evt.keyCode == 90)) {
+            this.widgetForm = this.handleUndo()
+          }
+
+          // 监听 cmd + shift + z / ctrl + shift + z / ctrl + y 重做
+          if ((evt.metaKey && evt.shiftKey && evt.keyCode == 90) || (evt.ctrlKey && evt.shiftKey && evt.keyCode == 90) || (evt.ctrlKey && evt.keyCode == 89)) {
+            this.widgetForm = this.handleRedo()
+          }
+        }, false)
+      }
+
     },
     // 获取JSON格式化属性
     loadBeautifierOptions () {
@@ -337,7 +374,7 @@ export default {
       if (bo) this.beautifierOptions = JSON.parse(bo)
     },
     handleLoadCss () {
-      const url = 'http://at.alicdn.com/t/font_1254447_x280zepmf6.css'
+      const url = 'https://at.alicdn.com/t/font_1254447_x280zepmf6.css'
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.href = url;
@@ -363,6 +400,7 @@ export default {
         this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
           this.widgetForm = res
           this.importJsonVisible = false
+          this.handleHistoryChange(this.widgetForm)
         })
       } catch (e) {
         this.$message.error(e.message)
@@ -382,7 +420,7 @@ export default {
       })
     },
     // 生成JSON - 弹窗 - 拷贝
-    async handleCopy () {
+    handleCopy () {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         let text;
         if (this.beautifierOptions.enabled) text = beautifier(data, this.beautifierOptions)
@@ -394,7 +432,7 @@ export default {
           this.$message.success('复制成功')
         }).catch(() => {
           this.$message.error('复制失败')
-        });
+        })
       })
     },
     // 预览 - 弹窗 - 确定
@@ -427,6 +465,7 @@ export default {
           this.$set(this.widgetForm, 'column', [])
           this.$set(this, 'widgetModels', {})
           this.$set(this, 'widgetFormSelect', {})
+          this.handleHistoryChange(this.widgetForm)
         }).catch(() => {
         })
       } else this.$message.error("没有需要清空的内容")

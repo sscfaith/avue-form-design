@@ -144,15 +144,16 @@ body {
   }
 
   .widget-container {
+    flex: 1;
     border-left: 1px solid #e0e0e0;
     border-right: 1px solid #e0e0e0;
 
     .widget-container-header {
       height: 45px !important;
-      line-height: 45px;
-      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       border-bottom: solid 2px #e4e7ed;
-      text-align: right;
     }
 
     .el-main {

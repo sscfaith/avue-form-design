@@ -43,6 +43,10 @@ $ yarn
 $ yarn serve
 ```
 
+### html
+
+详见examples
+
 ## 使用
 
 ```
@@ -69,6 +73,7 @@ Vue.use(AvueFormDesign)
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
 | showAvueDoc | 是否显示Avue文档 | Boolean | false |
+| undoRedo | 是否开启撤销重做功能 | Boolean | true |
 
 ### options字段配置
 

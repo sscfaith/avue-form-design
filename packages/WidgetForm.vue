@@ -12,7 +12,8 @@
                    :group="{ name: 'form' }"
                    ghost-class="ghost"
                    :animation="300"
-                   @add="handleWidgetAdd">
+                   @add="handleWidgetAdd"
+                   @end="$emit('change')">
           <template v-for="(column, index) in data.column">
             <div class="widget-form-table"
                  v-if="column.type == 'dynamic'"
@@ -22,7 +23,8 @@
               <widget-form-table :data="data"
                                  :column="column"
                                  :index="index"
-                                 :select.sync="selectWidget"></widget-form-table>
+                                 :select.sync="selectWidget"
+                                 @change="$emit('change')"></widget-form-table>
             </div>
             <div class="widget-form-group"
                  v-else-if="column.type == 'group'"
@@ -32,7 +34,8 @@
               <widget-form-group :data="data"
                                  :column="column"
                                  :index="index"
-                                 :select.sync="selectWidget">
+                                 :select.sync="selectWidget"
+                                 @change="$emit('change')">
               </widget-form-group>
             </div>
             <el-col v-else
@@ -98,13 +101,15 @@ export default {
       this.selectWidget = this.data.column[index]
     },
     handleWidgetAdd (evt) {
-      const newIndex = evt.newIndex;
-      const data = this.deepClone(this.data.column[newIndex]);
+      const newIndex = evt.newIndex
+      const data = this.deepClone(this.data.column[newIndex])
       if (!data.prop) data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
       delete data.icon
       delete data.subfield
-      this.$set(this.data.column, newIndex, { ...data })
+      this.$set(this.data.column, newIndex, data)
       this.handleSelectWidget(newIndex)
+
+      this.$emit("change")
     },
     handleWidgetDelete (index) {
       if (this.data.column.length - 1 === index) {
@@ -114,6 +119,7 @@ export default {
 
       this.$nextTick(() => {
         this.data.column.splice(index, 1)
+        this.$emit("change")
       })
     },
     handleWidgetClone (index) {
@@ -122,6 +128,7 @@ export default {
       this.data.column.splice(index, 0, cloneData)
       this.$nextTick(() => {
         this.handleSelectWidget(index + 1)
+        this.$emit("change")
       })
     },
   },

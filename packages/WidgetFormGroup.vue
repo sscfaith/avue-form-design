@@ -9,7 +9,8 @@
                :group="{ name: 'form' }"
                ghost-class="ghost"
                :animation="200"
-               @add="handleWidgetGroupAdd($event, column)">
+               @add="handleWidgetGroupAdd($event, column)"
+               @end="$emit('change')">
       <template v-for="(item, groupIndex) in column.children.column">
         <div class="widget-form-table"
              v-if="item.type == 'dynamic'"
@@ -19,7 +20,8 @@
           <widget-form-table :data="column.children"
                              :column="item"
                              :index="groupIndex"
-                             :select.sync="selectWidget"></widget-form-table>
+                             :select.sync="selectWidget"
+                             @change="$emit('change')"></widget-form-table>
         </div>
         <el-col v-else
                 :key="groupIndex"
@@ -93,7 +95,7 @@ import WidgetFormTable from './WidgetFormTable'
 import draggable from 'vuedraggable'
 
 export default {
-  name: 'widget-form-table',
+  name: 'widget-form-group',
   props: ['data', 'column', 'select', 'index'],
   components: { WidgetFormItem, WidgetFormTable, draggable },
   data () {
@@ -108,6 +110,8 @@ export default {
     handleWidgetClear (index) {
       this.data.column[index].children.column = []
       this.selectWidget = this.data.column[index]
+
+      this.$emit("change")
     },
     handleWidgetDelete (index) {
       if (this.data.column.length - 1 === index) {
@@ -117,6 +121,7 @@ export default {
 
       this.$nextTick(() => {
         this.data.column.splice(index, 1)
+        this.$emit("change")
       })
     },
     handleWidgetCloneTable (index) {
@@ -128,6 +133,7 @@ export default {
       this.data.column.splice(index, 0, cloneData)
       this.$nextTick(() => {
         this.handleSelectWidget(index + 1)
+        this.$emit("change")
       })
     },
     handleWidgetTableSelect (data) {
@@ -139,6 +145,7 @@ export default {
       this.$set(column.children.column, column.children.column.length, { ...data })
       this.$nextTick(() => {
         this.selectWidget = column.children.column[column.children.column.length - 1]
+        this.$emit("change")
       })
     },
     handleWidgetTableDelete (column, index) {
@@ -148,6 +155,7 @@ export default {
       } else this.selectWidget = column.children.column[index + 1]
       this.$nextTick(() => {
         column.children.column.splice(index, 1)
+        this.$emit("change")
       })
     },
     handleWidgetGroupAdd (evt, column) {
@@ -167,6 +175,8 @@ export default {
       else data.span = 12
       this.$set(column.children.column, newIndex, { ...data })
       this.selectWidget = column.children.column[newIndex]
+
+      this.$emit("change")
     }
   },
   watch: {
