@@ -1,5 +1,17 @@
 # 更新日志
 
+## 2020-08-24
+
+#### 更新 [avue 2.6.15 版本](https://avuejs.com/doc/changelog)
+
+- dynamic组件添加type为form表单模式和index序号控制属性。
+- 新增 title/标题 组件。
+- 新增左侧字段点击基础功能。
+
+#### Bug修复
+
+- asideRightWidth不生效的问题 [#27](https://github.com/sscfaith/avue-form-design/issues/27)
+
 ## 2020-08-01
 
 #### 新特性

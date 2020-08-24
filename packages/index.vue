@@ -16,7 +16,7 @@
                 <li class="field-label"
                     v-for="(item, index) in field.list"
                     :key="index">
-                  <a>
+                  <a @click="handleFieldClick(item)">
                     <i class="icon iconfont"
                        :class="item.icon"></i>
                     <span>{{item.title || item.label}}</span>
@@ -95,7 +95,7 @@
       </el-container>
       <!-- 右侧配置 -->
       <el-aside class="widget-config-container"
-                :width="asideRightWidth">
+                :width="rightWidth">
         <el-tabs v-model="configTab"
                  stretch>
           <el-tab-pane label="字段属性"
@@ -373,16 +373,27 @@ export default {
       const bo = localStorage.getItem('avue-form-beautifier-options')
       if (bo) this.beautifierOptions = JSON.parse(bo)
     },
+    // 加载icon
     handleLoadCss () {
-      const url = 'https://at.alicdn.com/t/font_1254447_x280zepmf6.css'
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = url;
-      window.document.head.appendChild(link)
+      this.loadScript('css', 'https://at.alicdn.com/t/font_1254447_f1l6nj6r32p.css')
     },
     // Avue文档链接
     handleAvueDoc () {
       window.open('https://avuejs.com/doc/form/form-doc', '_blank')
+    },
+    // 左侧字段点击
+    handleFieldClick (item) {
+      const activeIndex = this.widgetForm.column.findIndex(c => c.prop == this.widgetFormSelect.prop) + 1
+      let newIndex = 0
+      if (activeIndex == -1) {
+        this.widgetForm.column.push(item)
+        newIndex = this.widgetForm.column.length - 1
+      } else {
+        this.widgetForm.column.splice(activeIndex, 0, item)
+        newIndex = activeIndex
+      }
+
+      this.$refs.widgetForm.handleWidgetAdd({ newIndex })
     },
     // 预览 - 弹窗
     handlePreview () {
@@ -454,7 +465,8 @@ export default {
     // 预览 - 弹窗 - 关闭前
     handleBeforeClose () {
       this.$refs.form.resetForm()
-      this.$nextTick(() => this.previewVisible = false)
+      this.widgetModels = {}
+      this.previewVisible = false
     },
     // 清空
     handleClear () {

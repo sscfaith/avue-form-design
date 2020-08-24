@@ -106,6 +106,10 @@ export default {
       if (!data.prop) data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
       delete data.icon
       delete data.subfield
+      if (data.type == 'title') {
+        delete data.label
+        this.form[data.prop] = data.value
+      }
       this.$set(this.data.column, newIndex, data)
       this.handleSelectWidget(newIndex)
 

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <component :is="getComponent(item.type, item.component)"
+    <span v-if="item.type == 'title'"
+          :style="item.styles">
+      {{item.value}}
+    </span>
+    <component v-else
+               :is="getComponent(item.type, item.component)"
                v-model="form[item.prop]"
                v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
                :placeholder="item.placeholder || getPlaceholder(item)">

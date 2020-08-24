@@ -22,6 +22,19 @@
                    value="right"></el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="表单格式">
+      <el-select v-model="data.children.type"
+                 placeholder="表单格式">
+        <el-option label="表格"
+                   value=""></el-option>
+        <el-option label="表单"
+                   value="form"></el-option>
+      </el-select>
+    </el-form-item>
+    <el-form-item label="序号"
+                  v-if="data.children.type == 'form'">
+      <el-switch v-model="data.children.index"></el-switch>
+    </el-form-item>
     <el-form-item label="添加按钮">
       <el-switch v-model="data.children.addBtn"></el-switch>
     </el-form-item>

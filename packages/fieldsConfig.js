@@ -20,10 +20,19 @@ export default [
       children: {
         align: 'center',
         headerAlign: 'center',
+        index: false,
         addBtn: true,
         delBtn: true,
         column: []
       }
+    }, {
+      type: 'title',
+      icon: 'icon-title',
+      span: 24,
+      display: true,
+      styles: {},
+      label: '标题',
+      labelWidth: 20
     }]
   },
   {
