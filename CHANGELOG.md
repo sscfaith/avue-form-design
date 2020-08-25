@@ -1,5 +1,12 @@
 # 更新日志
 
+## 2020-08-25
+
+#### Bug修复
+
+- 修复了cascader/checkbox/radio/select/tree配置的属性类型问题。
+- 增加了cascader/checkbox/radio/select/tree的字典key配置。
+
 ## 2020-08-24
 
 #### 更新 [avue 2.6.15 版本](https://avuejs.com/doc/changelog)

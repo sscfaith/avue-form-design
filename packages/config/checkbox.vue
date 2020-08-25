@@ -57,11 +57,22 @@
           </el-select>
           <p v-if="data.dicMethod == 'post'">
             请求参数
-            <avue-dynamic v-model="data.dicQuery"
+            <avue-dynamic v-model="data.dicQueryConfig"
                           :children="option"></avue-dynamic>
           </p>
         </el-tab-pane>
       </el-tabs>
+    </el-form-item>
+    <el-form-item label="字典key配置">
+      <ul>
+        <li v-for="(value, key) in data.props"
+            :key="key">
+          <span style="width: 50px">{{ key }}</span>
+          <el-input size="mini"
+                    v-model="data.props[key]"
+                    placeholder="key配置"></el-input>
+        </li>
+      </ul>
     </el-form-item>
     <el-form-item label="边框"
                   v-if="!data.button">
@@ -136,7 +147,7 @@ export default {
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
     handleTabClick ({ name }) {
-      if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
+      if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
     }
   },
   watch: {

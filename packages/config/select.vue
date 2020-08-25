@@ -76,10 +76,9 @@
           </el-select>
           <p v-if="data.dicMethod == 'post'">
             请求参数
-            <avue-dynamic v-model="data.dicQuery"
+            <avue-dynamic v-model="data.dicQueryConfig"
                           :children="option"></avue-dynamic>
           </p>
-
         </el-tab-pane>
       </el-tabs>
     </el-form-item>
@@ -118,12 +117,7 @@
                        :min="0"></el-input-number>
     </el-form-item>
     <el-form-item label="字典key配置">
-      <draggable tag="ul"
-                 :list="data.props"
-                 :sort="false"
-                 :group="{ name: 'props' }"
-                 ghost-class="ghost"
-                 handle=".drag-item">
+      <ul>
         <li v-for="(value, key) in data.props"
             :key="key">
           <span style="width: 50px">{{ key }}</span>
@@ -131,7 +125,7 @@
                     v-model="data.props[key]"
                     placeholder="key配置"></el-input>
         </li>
-      </draggable>
+      </ul>
     </el-form-item>
     <el-form-item label="尺寸">
       <el-radio-group v-model="data.size"
@@ -166,7 +160,7 @@ export default {
   name: "config-select",
   props: ['data'],
   components: { Draggable },
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -188,28 +182,28 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])
       })
       this.data.rules = rules
     },
-    handleRemoveFields (index) {
-      this.data.dicData.splice(index, 1)
+    handleRemoveFields(index) {
+      this.data.dic.splice(index, 1)
     },
-    handleAddFields () {
+    handleAddFields() {
       const i = Math.ceil(Math.random() * 99999)
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
-    handleRemoveCascaderItemFields (index) {
+    handleRemoveCascaderItemFields(index) {
       this.data.cascaderItem.splice(index, 1)
     },
-    handleAddCascaderItemFields () {
+    handleAddCascaderItemFields() {
       this.data.cascaderItem.push('')
     },
-    handleTabClick ({ name }) {
-      if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
+    handleTabClick({ name }) {
+      if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
     }
   },
   watch: {
@@ -219,15 +213,6 @@ export default {
 
       this.generateRule()
     },
-    data: {
-      handler () {
-        // 初始化props数据，字典的key配置加上默认值
-        if (!this.data.props) {
-          this.$set(this.data, 'props', { label: 'label', value: 'value' });
-        }
-      },
-      immediate: true
-    }
   }
 }
 </script>

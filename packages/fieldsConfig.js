@@ -101,7 +101,11 @@ export default [
       ],
       span: 24,
       display: true,
-      dicOption: 'static'
+      dicOption: 'static',
+      props: {
+        label: 'label',
+        value: 'value'
+      }
     }, {
       type: 'checkbox',
       label: '多选框组',
@@ -113,7 +117,11 @@ export default [
       ],
       span: 24,
       display: true,
-      dicOption: 'static'
+      dicOption: 'static',
+      props: {
+        label: 'label',
+        value: 'value'
+      }
     }, {
       type: 'select',
       label: '下拉选择器',
@@ -127,7 +135,11 @@ export default [
       cascaderItem: [],
       span: 24,
       display: true,
-      dicOption: 'static'
+      dicOption: 'static',
+      props: {
+        label: 'label',
+        value: 'value'
+      }
     }, {
       type: 'cascader',
       label: '级联选择器',
@@ -152,7 +164,11 @@ export default [
       cascaderIndex: 1,
       showAllLevels: true,
       dicOption: 'static',
-      separator: "/"
+      separator: "/",
+      props: {
+        label: 'label',
+        value: 'value'
+      }
     }, {
       type: 'tree',
       label: '树形选择器',
@@ -175,7 +191,11 @@ export default [
         { label: '选项二', value: 1 },
         { label: '选项三', value: 2 },
       ],
-      parent: true
+      parent: true,
+      props: {
+        label: 'label',
+        value: 'value'
+      }
     }]
   },
   {

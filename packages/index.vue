@@ -519,15 +519,17 @@ export default {
                 delete col.dicUrl
                 delete col.dicMethod
                 delete col.dicQuery
+                delete col.dicQueryConfig
               } else if (col.dicOption == 'remote') {
                 delete col.dicData
-                if (col.dicQuery && col.dicQuery.length > 0) {
+                if (col.dicQueryConfig && col.dicQueryConfig.length > 0) {
                   const query = {}
-                  col.dicQuery.forEach(q => {
+                  col.dicQueryConfig.forEach(q => {
                     if (q.key && q.value) query[q.key] = q.value
                   })
                   col.dicQuery = query
-                } else delete col.dicQuery
+                  delete col.dicQueryConfig
+                } else delete col.dicQueryConfig
               }
               delete col.dicOption
             } else if (['upload'].includes(col.type)) {
@@ -592,7 +594,7 @@ export default {
                       $cellEdit: true
                     })
                   }
-                  col.dicQuery = arr
+                  col.dicQueryConfig = arr
                 }
                 if (col.dicUrl) col.dicOption = 'remote'
                 else col.dicOption = 'static'

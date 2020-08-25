@@ -60,11 +60,22 @@
           </el-select>
           <p v-if="data.dicMethod == 'post'">
             请求参数
-            <avue-dynamic v-model="data.dicQuery"
+            <avue-dynamic v-model="data.dicQueryConfig"
                           :children="option"></avue-dynamic>
           </p>
         </el-tab-pane>
       </el-tabs>
+    </el-form-item>
+    <el-form-item label="字典key配置">
+      <ul>
+        <li v-for="(value, key) in data.props"
+            :key="key">
+          <span style="width: 50px">{{ key }}</span>
+          <el-input size="mini"
+                    v-model="data.props[key]"
+                    placeholder="key配置"></el-input>
+        </li>
+      </ul>
     </el-form-item>
     <el-form-item label="选项分隔符">
       <el-input v-model="data.separator"
@@ -131,7 +142,7 @@
 export default {
   name: "config-cascader",
   props: ['data'],
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -162,33 +173,33 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])
       })
       this.data.rules = rules
     },
-    handleTabClick ({ name }) {
-      if (name == 'remote' && !this.data.dicQuery) this.data.dicQuery = []
+    handleTabClick({ name }) {
+      if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
     },
-    handleParentNodeAdd () {
+    handleParentNodeAdd() {
       this.selectData = undefined
       this.dialogStatus = 'add';
       this.dialogVisible = true;
     },
-    handleNodeAdd (data) {
+    handleNodeAdd(data) {
       this.selectData = data;
       this.dialogStatus = 'add';
       this.dialogVisible = true;
     },
-    handleNodeRemove (node, data) {
+    handleNodeRemove(node, data) {
       const parent = node.parent;
       const children = parent.data.children || parent.data;
       const index = children.findIndex(d => d.id === data.id);
       children.splice(index, 1);
     },
-    handleDialogAdd () {
+    handleDialogAdd() {
       this.$refs.dialogForm.validate((valid) => {
         if (valid) {
           const { label, value } = this.dialogForm;
@@ -211,7 +222,7 @@ export default {
         }
       })
     },
-    beforeClose () {
+    beforeClose() {
       this.$refs.dialogForm.clearValidate()
       this.dialogForm = {}
       this.dialogVisible = false
