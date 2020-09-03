@@ -61,7 +61,14 @@
                          @click="widgetForm = handleRedo()">重做</el-button>
             </template>
           </div>
-          <div>
+          <div style="display: flex; align-items: center;">
+            <iframe src="https://ghbtns.com/github-btn.html?user=sscfaith&repo=avue-form-design&type=star&count=true"
+                    frameborder="0"
+                    scrolling="0"
+                    width="100"
+                    height="20"
+                    title="GitHub"
+                    v-if="showGithubStar"></iframe>
             <el-button v-if="showAvueDoc"
                        type="text"
                        size="medium"
@@ -258,6 +265,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showGithubStar: {
+      type: Boolean,
+      default: true
+    },
     undoRedo: {
       type: Boolean,
       default: true
@@ -265,7 +276,7 @@ export default {
   },
   watch: {
     beautifierOptions: {
-      handler (val) {
+      handler(val) {
         if (this.storage) {
           localStorage.setItem('avue-form-beautifier-options', JSON.stringify(val))
         }
@@ -273,7 +284,7 @@ export default {
       deep: true
     },
     options: {
-      handler (val) {
+      handler(val) {
         debugger
         this.transAvueOptionsToFormDesigner(val).then(res => {
           this.widgetForm = { ...this.widgetForm, ...res }
@@ -283,14 +294,14 @@ export default {
     }
   },
   computed: {
-    leftWidth () {
+    leftWidth() {
       if (typeof this.asideLeftWidth == 'string') {
         return this.asideLeftWidth
       } else {
         return `${this.asideLeftWidth}px`
       }
     },
-    rightWidth () {
+    rightWidth() {
       if (typeof this.asideRightWidth == 'string') {
         return this.asideRightWidth
       } else {
@@ -298,7 +309,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       widgetEmpty,
       fields,
@@ -338,14 +349,14 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.handleLoadStorage()
     this.loadBeautifierOptions()
     this.handleLoadCss()
   },
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
-    async handleLoadStorage () {
+    async handleLoadStorage() {
       this.widgetForm = this.initHistory({
         index: 0,
         maxStep: 20,
@@ -369,20 +380,26 @@ export default {
 
     },
     // 获取JSON格式化属性
-    loadBeautifierOptions () {
+    loadBeautifierOptions() {
       const bo = localStorage.getItem('avue-form-beautifier-options')
       if (bo) this.beautifierOptions = JSON.parse(bo)
     },
     // 加载icon
-    handleLoadCss () {
-      this.loadScript('css', 'https://at.alicdn.com/t/font_1254447_f1l6nj6r32p.css')
+    handleLoadCss() {
+      const head = document.getElementsByTagName('head')[0]
+      const script = document.createElement('link')
+      script.rel = 'stylesheet'
+      script.type = 'text/css'
+      script.href = 'https://at.alicdn.com/t/font_1254447_zc9iezc230c.css'
+      head.appendChild(script)
+      // this.loadScript('css', 'https://at.alicdn.com/t/font_1254447_zc9iezc230c.css')
     },
     // Avue文档链接
-    handleAvueDoc () {
+    handleAvueDoc() {
       window.open('https://avuejs.com/doc/form/form-doc', '_blank')
     },
     // 左侧字段点击
-    handleFieldClick (item) {
+    handleFieldClick(item) {
       const activeIndex = this.widgetForm.column.findIndex(c => c.prop == this.widgetFormSelect.prop) + 1
       let newIndex = 0
       if (activeIndex == -1) {
@@ -396,7 +413,7 @@ export default {
       this.$refs.widgetForm.handleWidgetAdd({ newIndex })
     },
     // 预览 - 弹窗
-    handlePreview () {
+    handlePreview() {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
       else {
         this.transformToAvueOptions(this.widgetForm).then(data => {
@@ -406,7 +423,7 @@ export default {
       }
     },
     // 导入JSON - 弹窗 - 确定
-    handleImportJsonSubmit () {
+    handleImportJsonSubmit() {
       try {
         this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
           this.widgetForm = res
@@ -418,20 +435,20 @@ export default {
       }
     },
     // 生成JSON - 弹窗
-    handleGenerateJson () {
+    handleGenerateJson() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.widgetFormPreview = data
         this.generateJsonVisible = true
       })
     },
     // 生成JSON - 弹窗 - 确定
-    handleGenerate () {
+    handleGenerate() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.$emit('submit', data)
       })
     },
     // 生成JSON - 弹窗 - 拷贝
-    handleCopy () {
+    handleCopy() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         let text;
         if (this.beautifierOptions.enabled) text = beautifier(data, this.beautifierOptions)
@@ -447,7 +464,7 @@ export default {
       })
     },
     // 预览 - 弹窗 - 确定
-    handlePreviewSubmit (form, done) {
+    handlePreviewSubmit(form, done) {
       if (done) {
         this.$alert(this.widgetModels).then(() => {
           done()
@@ -463,13 +480,13 @@ export default {
       }
     },
     // 预览 - 弹窗 - 关闭前
-    handleBeforeClose () {
+    handleBeforeClose() {
       this.$refs.form.resetForm()
       this.widgetModels = {}
       this.previewVisible = false
     },
     // 清空
-    handleClear () {
+    handleClear() {
       if (this.widgetForm && this.widgetForm.column && this.widgetForm.column.length > 0) {
         this.$confirm('确定要清空吗？', '警告', {
           type: 'warning'
@@ -483,7 +500,7 @@ export default {
       } else this.$message.error("没有需要清空的内容")
     },
     // 表单设计器配置项 转化为 Avue配置项
-    transformToAvueOptions (obj) {
+    transformToAvueOptions(obj) {
       return new Promise((resolve, reject) => {
         try {
           const data = this.deepClone(obj)
@@ -570,7 +587,7 @@ export default {
       })
     },
     // Avue配置项 转化为 表单设计器配置项
-    transAvueOptionsToFormDesigner (obj) {
+    transAvueOptionsToFormDesigner(obj) {
       const data = this.deepClone(obj)
       return new Promise((resolve, reject) => {
         try {
