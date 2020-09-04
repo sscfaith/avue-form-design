@@ -506,12 +506,15 @@ body {
   }
 
   .widget-config-container {
-    margin-top: 5px;
-    //position: relative;
+    height: 100%;
+    padding-top: 5px;
+
+    .el-tabs {
+      height: 100%;
+    }
 
     .el-tabs__header {
-      position: absolute;
-      top: 5px;
+      margin: 0;
       width: 380px;
       height: 45px;
       background: white;
@@ -519,7 +522,8 @@ body {
     }
 
     .el-tabs__content {
-      margin-top: 50px;
+      height: calc(100% - 45px);
+      overflow-y: scroll;
     }
 
     .widget-config {
@@ -566,6 +570,10 @@ body {
 
     .el-main {
       height: calc(100% - 45px);
+    }
+
+    .el-aside {
+      background: #fff;
     }
   }
 

@@ -1,7 +1,8 @@
 <template>
   <div>
     <span v-if="item.type == 'title'"
-          :style="item.styles">
+          :style="item.styles"
+          style="margin-left: 5px;">
       {{item.value}}
     </span>
     <component v-else

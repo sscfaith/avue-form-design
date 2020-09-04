@@ -30,9 +30,13 @@ export default [
       icon: 'icon-title',
       span: 24,
       display: true,
-      styles: {},
+      styles: {
+        fontSize: '18px',
+        color: '#000'
+      },
       label: '标题',
-      labelWidth: 20
+      labelWidth: '0px',
+      value: '标题',
     }]
   },
   {
