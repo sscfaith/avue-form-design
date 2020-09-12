@@ -262,10 +262,13 @@ export default {
     includeFields: {
       type: Array,
       default: () => {
-        return ['dynamic', 'group', 'title', 'input', 'password', 'textarea', 'number', 'url', 'array',
-          'img', 'map', 'radio', 'checkbox', 'select', 'cascader', 'tree', 'upload', 'year', 'month', 'week',
-          'date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange', 'divider', 'calendar', 'ueditor',
-          'icon', 'switch', 'rate', 'slider', 'color']
+        const arr = []
+        fields.forEach(f => {
+          f.list.forEach(c => {
+            arr.push(c.type)
+          })
+        })
+        return arr
       }
     }
   },

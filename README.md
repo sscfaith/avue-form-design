@@ -75,7 +75,7 @@ Vue.use(AvueFormDesign)
 | showAvueDoc | 是否显示Avue文档 | Boolean | false |
 | showGithubStar | 是否显示GitHub Star | Boolean | true |
 | undoRedo | 是否开启撤销重做功能 | Boolean | true |
-| includeFields | 左侧展示字段 | Array | ['dynamic', 'group', 'title', 'input', 'password', 'textarea', 'number', 'url', 'array','img', 'map', 'radio', 'checkbox', 'select', 'cascader', 'tree', 'upload', 'year', 'month', 'week','date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange', 'divider', 'calendar', 'ueditor','icon', 'switch', 'rate', 'slider', 'color'] |
+| includeFields | 左侧展示字段 | Array | fieldsConfig.js中配置的字段 |
 
 ### options字段配置
 
