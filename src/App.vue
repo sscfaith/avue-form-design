@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <avue-form-design :options="options"
+    <avue-form-design style="height: 100vh;"
+                      :options="options"
                       @submit="handleSubmit"
                       storage
                       show-avue-doc></avue-form-design>
@@ -10,7 +11,7 @@
 <script>
 export default {
   name: 'app',
-  data () {
+  data() {
     return {
       options: {
         column: [
@@ -35,7 +36,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit (val) {
+    handleSubmit(val) {
       console.log(val);
     },
   }

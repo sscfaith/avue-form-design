@@ -1,5 +1,15 @@
 # 更新日志
 
+## 2020-09-12
+
+#### 新特性
+
+- 组件增加includeFields属性，可配置左侧字段显示。如只需展示input组件：
+```html
+<avue-form-design style="height: 100vh;"
+                  :include-fields="['input']"></avue-form-design>
+```
+
 ## 2020-08-25
 
 #### Bug修复

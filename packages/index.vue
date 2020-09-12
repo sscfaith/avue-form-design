@@ -6,40 +6,26 @@
         <div class="fields-list">
           <div v-for="(field, index) in fields"
                :key="index">
-            <div v-if="!field.disabled">
+            <template v-if="field.list.find(f => includeFields.includes(f.type))">
               <div class="field-title">{{field.title}}</div>
               <draggable tag="ul"
                          :list="field.list"
                          :group="{ name: 'form', pull: 'clone', put: false }"
                          ghost-class="ghost"
                          :sort="false">
-                <li class="field-label"
-                    v-for="(item, index) in field.list"
-                    :key="index">
-                  <a @click="handleFieldClick(item)">
-                    <i class="icon iconfont"
-                       :class="item.icon"></i>
-                    <span>{{item.title || item.label}}</span>
-                  </a>
-                </li>
+                <template v-for="(item, index) in field.list">
+                  <li class="field-label"
+                      v-if="includeFields.includes(item.type)"
+                      :key="index">
+                    <a @click="handleFieldClick(item)">
+                      <i class="icon iconfont"
+                         :class="item.icon"></i>
+                      <span>{{item.title || item.label}}</span>
+                    </a>
+                  </li>
+                </template>
               </draggable>
-            </div>
-            <div v-else>
-              <div class="field-title">{{field.title}}
-                <span class="danger">（开发中）</span>
-              </div>
-              <ul>
-                <li class="field-label-disabled"
-                    v-for="(item, index) in field.list"
-                    :key="index">
-                  <a>
-                    <i class="icon iconfont"
-                       :class="item.icon"></i>
-                    <span>{{item.title || item.label}}</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            </template>
           </div>
         </div>
       </el-aside>
@@ -272,6 +258,15 @@ export default {
     undoRedo: {
       type: Boolean,
       default: true
+    },
+    includeFields: {
+      type: Array,
+      default: () => {
+        return ['dynamic', 'group', 'title', 'input', 'password', 'textarea', 'number', 'url', 'array',
+          'img', 'map', 'radio', 'checkbox', 'select', 'cascader', 'tree', 'upload', 'year', 'month', 'week',
+          'date', 'time', 'datetime', 'daterange', 'timerange', 'datetimerange', 'divider', 'calendar', 'ueditor',
+          'icon', 'switch', 'rate', 'slider', 'color']
+      }
     }
   },
   watch: {
