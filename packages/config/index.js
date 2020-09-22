@@ -1,3 +1,4 @@
+import Custom from './custom.vue'
 import Input from './input.vue'
 import Textarea from './textarea.vue'
 import Number from './number.vue'
@@ -20,6 +21,7 @@ import Array from './array.vue'
 import Title from './title.vue'
 
 const components = [
+  Custom,
   Input,
   Textarea,
   Number,

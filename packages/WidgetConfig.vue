@@ -6,7 +6,8 @@
       <el-collapse v-model="collapse">
         <el-collapse-item name="1"
                           title="基本属性">
-          <el-form-item label="类型">
+          <el-form-item label="类型"
+                        v-if="data.type && !data.component">
             <el-select v-model="data.type"
                        placeholder="请选择类型"
                        @change="handleChangeType">
@@ -23,10 +24,12 @@
           </el-form-item>
           <el-form-item label="属性值">
             <el-input v-model="data.prop"
+                      clearable
                       placeholder="属性值"></el-input>
           </el-form-item>
           <el-form-item label="标题">
             <el-input v-model="data.label"
+                      clearable
                       placeholder="标题"></el-input>
           </el-form-item>
           <el-form-item label="宽度"
@@ -35,11 +38,6 @@
                              controls-position="right"
                              placeholder="宽度"
                              :min="100"></el-input-number>
-          </el-form-item>
-          <el-form-item label="内容"
-                        v-if="data.component=='elDivider'">
-            <el-input v-model="data.params.html"
-                      placeholder="内容"></el-input>
           </el-form-item>
           <el-form-item label="表单栅格"
                         v-if="!data.subfield && !['group'].includes(data.type)">
@@ -63,7 +61,8 @@
                target="_blank"
                style="color: #409EFF;">详情</a><br>
           </el-form-item>
-          <el-form-item label="深结构">
+          <el-form-item label="深结构"
+                        v-if="data.type && !data.component">
             <a href="https://avuejs.com/doc/form/form-bind"
                target="_blank"
                style="color: #409EFF;">详情</a><br>
@@ -121,9 +120,10 @@ export default {
   name: 'widget-config',
   props: ['data'],
   computed: {
-    getComponent () {
+    getComponent() {
       const prefix = 'config-'
-      const { type } = this.data
+      const { type, component } = this.data
+      if (!type || component) return prefix + 'custom'
       let result = 'input'
 
       if ([undefined, 'input', 'password', 'url'].includes(type)) result = 'input'
@@ -134,14 +134,14 @@ export default {
       return prefix + result
     }
   },
-  data () {
+  data() {
     return {
       fields,
       collapse: "1"
     }
   },
   methods: {
-    async handleChangeType (type) {
+    async handleChangeType(type) {
       if (type) {
         const config = await this.getConfigByType(type);
         config.prop = this.data.prop;
@@ -153,7 +153,7 @@ export default {
         }
       }
     },
-    getConfigByType (type) {
+    getConfigByType(type) {
       return new Promise((resolve, reject) => {
         fields.forEach(field => {
           field.list.forEach(config => {

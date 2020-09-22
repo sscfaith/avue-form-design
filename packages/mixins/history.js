@@ -1,5 +1,7 @@
+import { stringify } from '@utils'
+
 export default {
-  data () {
+  data() {
     return {
       historySteps: {
         index: 0,
@@ -11,19 +13,19 @@ export default {
   },
   watch: {
     historySteps: {
-      handler (val) {
-        if (val.storage) localStorage.setItem("avue-form-history", JSON.stringify(val))
+      handler(val) {
+        if (val.storage) localStorage.setItem("avue-form-history", stringify(val))
         else localStorage.removeItem("avue-form-history")
       },
       deep: true
     }
   },
   methods: {
-    initHistory (data) {
+    initHistory(data) {
       if (data.storage) {
         const history = localStorage.getItem("avue-form-history")
         if (history) {
-          this.historySteps = JSON.parse(history)
+          this.historySteps = eval("(" + history + ")")
           const { index, steps } = this.historySteps
           return this.deepClone(steps[index])
         }
@@ -35,7 +37,7 @@ export default {
       const { index, steps } = this.historySteps
       return this.deepClone(steps[index])
     },
-    handleHistoryChange (data) {
+    handleHistoryChange(data) {
       if (this.historySteps.index == this.historySteps.maxStep - 1) this.historySteps.steps.shift()
       else this.historySteps.index++
       this.historySteps.steps[this.historySteps.index] = this.deepClone(data)
@@ -44,11 +46,11 @@ export default {
         this.historySteps.steps = this.historySteps.steps.slice(0, this.historySteps.index + 1)
       }
     },
-    handleUndo () {
+    handleUndo() {
       if (this.historySteps.index != 0) this.historySteps.index--
       return this.deepClone(this.historySteps.steps[this.historySteps.index])
     },
-    handleRedo () {
+    handleRedo() {
       if (this.historySteps.index != (this.historySteps.steps.length - 1)) this.historySteps.index++
       return this.deepClone(this.historySteps.steps[this.historySteps.index])
     }

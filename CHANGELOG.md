@@ -1,5 +1,50 @@
 # 更新日志
 
+## 2020-09-22
+
+#### 更新 [avue 2.6.16 版本](https://avuejs.com/doc/changelog)
+
+#### 新特性
+
+- 🎉🎉🎉 新增customFields属性，支持左侧自定义组件（理论上支持任何已注册的组件的属性和事件配置）。其中自定义组件的事件需要avue 2.6.16的支持。
+```html
+<template>
+    <avue-form-design style="height: 100vh;"
+                      :options="options"
+                      storage
+                      :custom-fields="customFields"></avue-form-design>
+</template>
+
+<script>
+export default {
+  name: 'app',
+  data() {
+    return {
+      customFields: [
+        {
+          component: 'el-alert',
+          label: '警告',
+          span: 24,
+          icon: 'el-icon-search',
+          params: { // 组件的属性
+            title: '标题标题标题标题标题标题标题',
+            type: 'success'
+          },
+          event: { // 组件的事件
+            close: () => {
+              console.log('111')
+            }
+          }
+        }
+      ],
+      options: {}
+    }
+  },
+}
+</script>
+
+```
+
 ## 2020-09-12
 
 #### 新特性

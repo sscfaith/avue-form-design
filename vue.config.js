@@ -1,3 +1,8 @@
+const path = require('path');
+function resolve (dir) {
+    return path.join(__dirname, dir)
+}
+
 module.exports = {
   transpileDependencies: ['avue-plugin-ueditor'],
 
@@ -14,6 +19,11 @@ module.exports = {
       'vue': 'Vue',
       'element-ui': 'ElementUI',
     })
+    config.resolve.alias
+      .set('@', resolve('packages'))
+      .set('@components', resolve('packages/components'))
+      .set('@utils', resolve('packages/utils'))
+      .set('@mixins', resolve('packages/mixins'))
   },
 
   devServer: {

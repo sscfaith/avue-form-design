@@ -16,7 +16,7 @@ element-ui 2.13.2+
 $ npm i element-ui
 ```
 
-@smallwei/avue 2.6.11+
+@smallwei/avue 2.6.16+
 
 ```sh
 $ npm i @smallwei/avue
@@ -76,6 +76,7 @@ Vue.use(AvueFormDesign)
 | showGithubStar | 是否显示GitHub Star | Boolean | true |
 | undoRedo | 是否开启撤销重做功能 | Boolean | true |
 | includeFields | 左侧展示字段 | Array | fieldsConfig.js中配置的字段 |
+| customFields | 自定义组件 | Array | [使用方法](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22) |
 
 ### options字段配置
 

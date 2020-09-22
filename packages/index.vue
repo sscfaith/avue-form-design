@@ -4,6 +4,42 @@
       <!-- 左侧字段 -->
       <el-aside :width="leftWidth">
         <div class="fields-list">
+          <template v-if="customFields && customFields.length > 0">
+            <el-link class="field-title"
+                     :underline="false"
+                     href="https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22"
+                     target="_blank">自定义字段 <i class="el-icon-question"></i></el-link>
+            <draggable tag="ul"
+                       :list="customFields"
+                       :group="{ name: 'form', pull: 'clone', put: false }"
+                       ghost-class="ghost"
+                       :sort="false">
+              <template v-for="(item, index) in customFields">
+                <el-tooltip v-if="item.tips"
+                            effect="dark"
+                            :content="item.tips"
+                            :key="index">
+                  <li class="field-label"
+                      :key="index">
+                    <a style="padding: 0 5px;"
+                       @click="handleFieldClick(item)">
+                      <i :class="item.icon"></i>
+                      <span style="margin-left: 5px;">{{item.title || item.label}}</span>
+                    </a>
+                  </li>
+                </el-tooltip>
+                <li v-else
+                    class="field-label"
+                    :key="index">
+                  <a style="padding: 0 5px;"
+                     @click="handleFieldClick(item)">
+                    <i :class="item.icon"></i>
+                    <span style="margin-left: 5px;">{{item.title || item.label}}</span>
+                  </a>
+                </li>
+              </template>
+            </draggable>
+          </template>
           <div v-for="(field, index) in fields"
                :key="index">
             <template v-if="field.list.find(f => includeFields.includes(f.type))">
@@ -111,9 +147,8 @@
                  size="50%"
                  append-to-body
                  destroy-on-close>
-        <v-json-editor v-model="importJson"
-                       :options="{ mode: 'code' }"
-                       height="82vh"></v-json-editor>
+        <monaco-editor v-model="importJson"
+                       height="82%"></monaco-editor>
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
@@ -129,9 +164,9 @@
                  size="50%"
                  append-to-body
                  destroy-on-close>
-        <v-json-editor v-model="widgetFormPreview"
-                       :options="{ mode: 'code' }"
-                       height="82vh"></v-json-editor>
+        <monaco-editor v-model="widgetFormPreview"
+                       height="82%"
+                       :read-only="true"></monaco-editor>
         <div class="drawer-foot">
           <el-button size="medium"
                      type="primary"
@@ -212,11 +247,11 @@
 import fields from './fieldsConfig.js'
 import { stringify } from './utils'
 import beautifier from './utils/json-beautifier'
+import MonacoEditor from './utils/monaco-editor'
 import widgetEmpty from './assets/widget-empty.png'
 import history from './mixins/history'
 
 import Draggable from 'vuedraggable'
-import VJsonEditor from 'v-jsoneditor'
 
 import WidgetForm from './WidgetForm'
 import FormConfig from './FormConfig'
@@ -224,7 +259,7 @@ import WidgetConfig from './WidgetConfig'
 
 export default {
   name: "FormDesign",
-  components: { Draggable, VJsonEditor, WidgetForm, FormConfig, WidgetConfig },
+  components: { Draggable, MonacoEditor, WidgetForm, FormConfig, WidgetConfig },
   mixins: [history],
   props: {
     options: {
@@ -270,6 +305,9 @@ export default {
         })
         return arr
       }
+    },
+    customFields: {
+      type: Array,
     }
   },
   watch: {
@@ -423,7 +461,7 @@ export default {
     // 导入JSON - 弹窗 - 确定
     handleImportJsonSubmit() {
       try {
-        this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
+        this.transAvueOptionsToFormDesigner(eval("(" + this.importJson + ")")).then(res => {
           this.widgetForm = res
           this.importJsonVisible = false
           this.handleHistoryChange(this.widgetForm)
@@ -467,12 +505,14 @@ export default {
         this.$alert(this.widgetModels).then(() => {
           done()
         }).catch(() => {
+          done()
         })
       } else {
         this.$refs.form.validate((valid, done) => {
           if (valid) this.$alert(this.widgetModels).then(() => {
             done()
           }).catch(() => {
+            done()
           })
         })
       }
