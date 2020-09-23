@@ -171,51 +171,11 @@
           <el-button size="medium"
                      type="primary"
                      @click="handleGenerate">生成</el-button>
-          <el-popover placement="top"
-                      trigger="hover"
-                      popper-class="popper-bo"
-                      width="250px">
-            <el-button size="medium"
-                       type="primary"
-                       slot="reference"
-                       @click="handleCopy"
-                       style="margin-left: 10px;">复制</el-button>
-            <div>
-              <el-form label-width="180px"
-                       label-position="left">
-                <el-alert :closable="false">
-                  在没有开启美化的情况下，当前编辑器内可见的文本，就是复制得到的内容。<br>
-                  如有需要，您可以开启美化，然后选取适合自己的美化配置。
-                  <a href="https://www.npmjs.com/package/csvjson-json_beautifier"
-                     target="_blank">参考资料</a>
-                </el-alert>
-                <el-form-item label="是否开启美化">
-                  <el-switch v-model="beautifierOptions.enabled" />
-                </el-form-item>
-                <el-form-item label="缩进长度-空格数量">
-                  <el-slider v-model="beautifierOptions.space"
-                             show-stops
-                             :marks="{ 1: '1', 2: '2', 3: '3', 4: '4' }"
-                             :min="1"
-                             :max="4"
-                             :step="1"></el-slider>
-                </el-form-item>
-                <el-form-item label="引号类型">
-                  <el-switch v-model="beautifierOptions.quoteType"
-                             active-value="single"
-                             inactive-value="double"
-                             active-text="单引号"
-                             inactive-text="双引号"></el-switch>
-                </el-form-item>
-                <el-form-item label="移除key的引号">
-                  <el-switch v-model="beautifierOptions.dropQuotesOnKeys"></el-switch>
-                </el-form-item>
-                <el-form-item label="移除数字字符串的引号">
-                  <el-switch v-model="beautifierOptions.dropQuotesOnNumbers"></el-switch>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-popover>
+          <el-button size="medium"
+                     type="primary"
+                     slot="reference"
+                     @click="handleCopy"
+                     style="margin-left: 10px;">复制</el-button>
         </div>
       </el-drawer>
       <!-- 预览 -->
@@ -245,7 +205,6 @@
 
 <script>
 import fields from './fieldsConfig.js'
-import { stringify } from './utils'
 import beautifier from './utils/json-beautifier'
 import MonacoEditor from './utils/monaco-editor'
 import widgetEmpty from './assets/widget-empty.png'
@@ -371,13 +330,6 @@ export default {
       importJson: {},
       widgetModels: {},
       configOption: {},
-      beautifierOptions: {
-        enabled: false,
-        space: 2,
-        quoteType: 'single',
-        dropQuotesOnKeys: true,
-        dropQuotesOnNumbers: false
-      },
       history: {
         index: 0, // 当前下标
         maxStep: 20, // 最大记录步数
@@ -387,7 +339,6 @@ export default {
   },
   mounted() {
     this.handleLoadStorage()
-    this.loadBeautifierOptions()
     this.handleLoadCss()
   },
   methods: {
@@ -414,11 +365,6 @@ export default {
         }, false)
       }
 
-    },
-    // 获取JSON格式化属性
-    loadBeautifierOptions() {
-      const bo = localStorage.getItem('avue-form-beautifier-options')
-      if (bo) this.beautifierOptions = JSON.parse(bo)
     },
     // 加载icon
     handleLoadCss() {
@@ -486,12 +432,8 @@ export default {
     // 生成JSON - 弹窗 - 拷贝
     handleCopy() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
-        let text;
-        if (this.beautifierOptions.enabled) text = beautifier(data, this.beautifierOptions)
-        else text = stringify(data)
-
         this.$Clipboard({
-          text
+          text: beautifier(data)
         }).then(() => {
           this.$message.success('复制成功')
         }).catch(() => {

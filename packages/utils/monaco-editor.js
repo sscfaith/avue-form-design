@@ -33,12 +33,7 @@ export default {
     value(val) {
       if (typeof val != 'object') return
 
-      val = beautifier(val, {
-        space: 2,
-        quoteType: 'single',
-        dropQuotesOnKeys: true,
-        dropQuotesOnNumbers: false
-      })
+      val = beautifier(val)
 
       if (this.editor && val !== this._getValue()) {
         this._setValue(val)
@@ -94,12 +89,7 @@ export default {
       const { value, language, theme, readOnly, options } = this;
       Object.assign(options, this._editorBeforeMount());      //编辑器初始化前
       this.editor = monaco.editor[this.diffEditor ? 'createDiffEditor' : 'create'](this.$el, {
-        value: beautifier(value, {
-          space: 2,
-          quoteType: 'single',
-          dropQuotesOnKeys: true,
-          dropQuotesOnNumbers: false
-        }),
+        value: (typeof value == 'string') ? value : beautifier(value),
         language: language,
         theme: theme,
         readOnly: readOnly,

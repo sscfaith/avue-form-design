@@ -68,6 +68,7 @@ export default {
   },
   methods: {
     handleSubmit(val) {
+      this.$message.success("查看控制台")
       console.log(val);
     },
   }

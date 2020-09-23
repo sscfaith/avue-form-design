@@ -1,4 +1,4 @@
-import { stringify } from '@utils'
+import beautifier from '@utils/json-beautifier'
 
 export default {
   data() {
@@ -14,7 +14,7 @@ export default {
   watch: {
     historySteps: {
       handler(val) {
-        if (val.storage) localStorage.setItem("avue-form-history", stringify(val))
+        if (val.storage) localStorage.setItem("avue-form-history", beautifier(val))
         else localStorage.removeItem("avue-form-history")
       },
       deep: true

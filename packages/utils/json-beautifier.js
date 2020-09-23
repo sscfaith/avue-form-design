@@ -16,13 +16,13 @@ let
   },
   rep;
 
-export default function convert (object, options) {
+export default function convert (object, options = {}) {
   var space = options.space || 2,
-    dropQuotesOnKeys = options.dropQuotesOnKeys || false,
+    dropQuotesOnKeys = options.dropQuotesOnKeys || true,
     dropQuotesOnNumbers = options.dropQuotesOnNumbers || false,
     inlineShortArrays = options.inlineShortArrays || false,
     inlineShortArraysDepth = options.inlineShortArraysDepth || 1,
-    quoteType = options.quoteType || 'double',
+    quoteType = options.quoteType || 'single',
     minify = options.minify || false;
 
   if (dropQuotesOnNumbers) walkObjectAndDropQuotesOnNumbers(object);
