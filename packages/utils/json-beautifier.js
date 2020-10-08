@@ -16,7 +16,7 @@ let
   },
   rep;
 
-export default function convert (object, options = {}) {
+export default function convert(object, options = {}) {
   var space = options.space || 2,
     dropQuotesOnKeys = options.dropQuotesOnKeys || true,
     dropQuotesOnNumbers = options.dropQuotesOnNumbers || false,
@@ -43,7 +43,7 @@ export default function convert (object, options = {}) {
   return result;
 }
 
-function walkObjectAndDropQuotesOnNumbers (object) {
+function walkObjectAndDropQuotesOnNumbers(object) {
   if (!isObject(object)) return;
   var keys = Object.keys(object);
   if (!keys) return;
@@ -59,13 +59,13 @@ function walkObjectAndDropQuotesOnNumbers (object) {
   });
 }
 
-function isObject (o) {
+function isObject(o) {
   return o && typeof o == 'object';
 }
 
 // Collapses arrays inline when they fit inside the specified width 
 // in characters (including indentation).
-function inlineShortArraysInResult (result, width) {
+function inlineShortArraysInResult(result, width) {
   width || (width = 80);
   if (typeof width != 'number' || width < 20) {
     throw "Invalid width '" + width + "'. Expecting number equal or larger than 20."
@@ -98,7 +98,7 @@ function inlineShortArraysInResult (result, width) {
   return list.join('\n');
 }
 
-function stringify (value, replacer, space, dropQuotesOnKeys, quoteType) {
+function stringify(value, replacer, space, dropQuotesOnKeys, quoteType) {
 
   // The stringify method takes a value and an optional replacer, and an optional
   // space parameter, and returns a JSON text. The replacer can be a function
@@ -140,7 +140,7 @@ function stringify (value, replacer, space, dropQuotesOnKeys, quoteType) {
   return str('', { '': value }, dropQuotesOnKeys, quoteType);
 }
 
-function str (key, holder, dropQuotesOnKeys, quoteType) {
+function str(key, holder, dropQuotesOnKeys, quoteType) {
 
   // Produce a string from holder[key].
 
@@ -270,7 +270,7 @@ function str (key, holder, dropQuotesOnKeys, quoteType) {
   }
 }
 
-function quote (string, quoteType) {
+function quote(string, quoteType) {
 
   // If the string contains no control characters, no quote characters, and no
   // backslash characters, then we can safely slap some quotes around it.
@@ -292,6 +292,6 @@ function quote (string, quoteType) {
   }) + surroundingQuote : surroundingQuote + string + surroundingQuote;
 }
 
-function condQuoteKey (string, quoteType) {
+function condQuoteKey(string, quoteType) {
   return keyable.test(string) ? string : quote(string, quoteType);
 }

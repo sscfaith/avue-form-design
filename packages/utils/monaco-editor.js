@@ -13,7 +13,7 @@ export default {
     width: { type: [String, Number], default: '100%' },
     height: { type: [String, Number], default: '100%' },
     original: String,       //只有在diff模式下有效
-    value: String,
+    value: [String, Object],
     language: { type: String, default: 'javascript' },
     theme: { type: String, default: 'vs' },
     readOnly: { type: Boolean, default: false },

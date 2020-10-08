@@ -15,7 +15,7 @@ body {
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -193,7 +193,7 @@ body {
 
         &.required {
           .el-form-item__label::before {
-            content: '*';
+            content: "*";
             color: #f56c6c;
             margin-right: 4px;
           }
@@ -255,7 +255,7 @@ body {
             border-left: 5px solid $primary-color;
             box-sizing: border-box;
             font-size: 0;
-            content: '';
+            content: "";
             overflow: hidden;
             padding: 0 !important;
             position: relative;
@@ -277,7 +277,7 @@ body {
 
           &.required {
             .el-table__header .cell::before {
-              content: '*';
+              content: "*";
               color: #f56c6c;
               margin-right: 4px;
             }
@@ -301,7 +301,7 @@ body {
             bottom: 0;
             top: 0;
             display: block;
-            content: '';
+            content: "";
             z-index: 1001;
           }
 
@@ -383,7 +383,7 @@ body {
             border-left: 5px solid $primary-color;
             box-sizing: border-box;
             font-size: 0;
-            content: '';
+            content: "";
             overflow: hidden;
             padding: 0 !important;
             position: relative;
@@ -405,7 +405,7 @@ body {
 
           &.required {
             .el-form-item__label::before {
-              content: '*';
+              content: "*";
               color: #f56c6c;
               margin-right: 4px;
             }
@@ -429,7 +429,7 @@ body {
             bottom: 0;
             top: 0;
             display: block;
-            content: '';
+            content: "";
             z-index: 1001;
           }
 
@@ -494,7 +494,7 @@ body {
       border-top: 5px solid $primary-color;
       box-sizing: border-box;
       font-size: 0;
-      content: '';
+      content: "";
       overflow: hidden;
       padding: 0 !important;
       position: relative;
