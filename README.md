@@ -3,7 +3,8 @@
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 [在线预览](https://form.beta.kim/)
 
-如果有任何使用上的问题，QQ群 1083980136
+如果有任何使用上的问题，QQ群 1083980136。
+另：安利我的另一个项目：基于bpmn.js的流程设计器。[在线预览](https://bpmn.beta.kim/)
 
 ## 更新日志
 [更新日志](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md)
