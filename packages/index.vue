@@ -90,29 +90,36 @@
                     width="100"
                     height="20"
                     title="GitHub"
-                    v-if="showGithubStar"></iframe>
-            <el-button v-if="showAvueDoc"
+                    style="margin-left: 10px;"
+                    v-if="toolbar.includes('github-star')"></iframe>
+            <slot name="toolbar-left"></slot>
+            <el-button v-if="toolbar.includes('avue-doc')"
                        type="text"
                        size="medium"
                        icon="el-icon-document"
                        @click="handleAvueDoc">Avue文档</el-button>
-            <el-button type="text"
+            <el-button v-if="toolbar.includes('import')"
+                       type="text"
                        size="medium"
                        icon="el-icon-upload2"
                        @click="importJsonVisible = true">导入JSON</el-button>
-            <el-button type="text"
+            <el-button v-if="toolbar.includes('generate')"
+                       type="text"
                        size="medium"
                        icon="el-icon-download"
                        @click="handleGenerateJson">生成JSON</el-button>
-            <el-button type="text"
+            <el-button v-if="toolbar.includes('preview')"
+                       type="text"
                        size="medium"
                        icon="el-icon-view"
                        @click="handlePreview">预览</el-button>
-            <el-button class="danger"
+            <el-button v-if="toolbar.includes('clear')"
+                       class="danger"
                        type="text"
                        size="medium"
                        icon="el-icon-delete"
                        @click="handleClear">清空</el-button>
+            <slot name="toolbar"></slot>
           </div>
         </el-header>
         <el-main :style="{background: widgetForm.column.length == 0 ? `url(${widgetEmpty}) no-repeat 50%`: ''}">
@@ -148,6 +155,7 @@
                  append-to-body
                  destroy-on-close>
         <monaco-editor v-model="importJson"
+                       key="import"
                        height="82%"></monaco-editor>
         <div class="drawer-foot">
           <el-button size="medium"
@@ -162,9 +170,9 @@
       <el-drawer title="生成JSON"
                  :visible.sync="generateJsonVisible"
                  size="50%"
-                 append-to-body
-                 destroy-on-close>
+                 append-to-body>
         <monaco-editor v-model="widgetFormPreview"
+                       key="generate"
                        height="82%"
                        :read-only="true"></monaco-editor>
         <div class="drawer-foot">
@@ -222,7 +230,7 @@ export default {
   mixins: [history],
   props: {
     options: {
-      type: Object,
+      type: [Object, String],
       default: () => {
         return {
           column: []
@@ -241,13 +249,11 @@ export default {
       type: [String, Number],
       default: '380px'
     },
-    showAvueDoc: {
-      type: Boolean,
-      default: false
-    },
-    showGithubStar: {
-      type: Boolean,
-      default: true
+    toolbar: {
+      type: Array,
+      default: () => {
+        return ['github-star', 'import', 'generate', 'preview', 'clear']
+      }
     },
     undoRedo: {
       type: Boolean,
@@ -270,18 +276,18 @@ export default {
     }
   },
   watch: {
-    beautifierOptions: {
-      handler(val) {
-        if (this.storage) {
-          localStorage.setItem('avue-form-beautifier-options', JSON.stringify(val))
-        }
-      },
-      deep: true
-    },
     options: {
       handler(val) {
-        debugger
-        this.transAvueOptionsToFormDesigner(val).then(res => {
+        let options = val
+        if (typeof options == 'string') {
+          try {
+            options = eval('(' + options + ')')
+          } catch (e) {
+            console.error('非法配置')
+            options = { column: [] }
+          }
+        }
+        this.transAvueOptionsToFormDesigner(options).then(res => {
           this.widgetForm = { ...this.widgetForm, ...res }
         })
       },
@@ -344,10 +350,20 @@ export default {
   methods: {
     // 组件初始化时加载本地存储中的options(需开启storage),若不存在则读取用户配置的options
     async handleLoadStorage() {
+      let options = this.options
+      if (typeof options == 'string') {
+        try {
+          options = eval('(' + options + ')')
+        } catch (e) {
+          console.error('非法配置')
+          options = { column: [] }
+        }
+      }
+      if (!options.column) options.column = []
       this.widgetForm = this.initHistory({
         index: 0,
         maxStep: 20,
-        steps: [await this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...this.options })],
+        steps: [await this.transAvueOptionsToFormDesigner({ ...this.widgetForm, ...options })],
         storage: this.storage
       })
 
@@ -407,7 +423,7 @@ export default {
     // 导入JSON - 弹窗 - 确定
     handleImportJsonSubmit() {
       try {
-        this.transAvueOptionsToFormDesigner(eval("(" + this.importJson + ")")).then(res => {
+        this.transAvueOptionsToFormDesigner(this.importJson).then(res => {
           this.widgetForm = res
           this.importJsonVisible = false
           this.handleHistoryChange(this.widgetForm)
@@ -568,6 +584,7 @@ export default {
     },
     // Avue配置项 转化为 表单设计器配置项
     transAvueOptionsToFormDesigner(obj) {
+      if (typeof obj == 'string') obj = eval('(' + obj + ')')
       const data = this.deepClone(obj)
       return new Promise((resolve, reject) => {
         try {
@@ -649,11 +666,14 @@ export default {
           reject(e)
         }
       })
+    },
+    async getData() {
+      return await this.transformToAvueOptions(this.widgetForm)
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import "./styles/index.scss";
+@import './styles/index.scss';
 </style>

@@ -8,10 +8,12 @@
     自定义属性
     <monaco-editor v-model="params"
                    height="300"
+                   :key="data.prop"
                    :options="options"></monaco-editor>
     自定义事件
     <monaco-editor v-model="event"
                    height="300"
+                   :key="data.prop"
                    :options="options"></monaco-editor>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>

@@ -19,7 +19,8 @@ export default {
     readOnly: { type: Boolean, default: false },
     options: { type: Object, default() { return {}; } },
     editorMounted: { type: Function, default: noop },
-    editorBeforeMount: { type: Function, default: noop }
+    editorBeforeMount: { type: Function, default: noop },
+    key: { type: String }
   },
 
   watch: {
@@ -30,13 +31,14 @@ export default {
       }
     },
 
-    value(val) {
-      if (typeof val != 'object') return
+    key() {
+      let data = this.value
+      if (typeof data != 'object') return
 
-      val = beautifier(val)
+      data = beautifier(data)
 
-      if (this.editor && val !== this._getValue()) {
-        this._setValue(val)
+      if (this.editor && data !== this._getValue()) {
+        this._setValue(data)
       }
     },
 

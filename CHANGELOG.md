@@ -1,5 +1,55 @@
 # 更新日志
 
+## 2020-10-18
+
+#### 更新 [avue 2.6.18 版本](https://avuejs.com/doc/changelog)
+
+#### 新特性
+- 新增toolbar属性，可控制顶部操作栏显隐。
+- 新增toolbar/toolbar-left两个插槽，可自定义顶部操作栏按钮。
+- options属性支持Object/String类型。由于function无法使用JSON.parse转化成json，现在可以后台请求来字符串数据后直接赋值。
+- 新增getData方法。
+```html
+<template>
+  <avue-form-design ref="form"
+                    style="height: 100vh;"
+                    :options="options"
+                    :toolbar="['github-star', 'import', 'preview', 'clear']">
+    <template slot="toolbar-left">
+      <el-button type="text"
+                  icon="el-icon-download"
+                  @click="handleGetData">获取JSON</el-button>
+    </template>
+  </avue-form-design>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      options: `{ column: [{ type: 'input', label: '输入框', prop: 'input', span: 24, display: true, event: { change: () => { console.log('111') } } }] }`
+    }
+  },
+  methods: {
+    handleGetData() {
+      this.$refs.form.getData().then(data => {
+        this.$message.success("查看控制台")
+        console.log(data)
+      })
+    }
+  }
+}
+</script>
+
+```
+
+#### Bug修复
+- 修复了自定义组件中的js编辑器无法输入的问题。
+
+#### 废弃属性
+- showAvueDoc，请使用toolbar属性。
+- showGithubStar，请使用toolbar属性。
+
 ## 2020-09-22
 
 #### 更新 [avue 2.6.16 版本](https://avuejs.com/doc/changelog)

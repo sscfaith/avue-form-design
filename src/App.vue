@@ -4,7 +4,6 @@
                       :options="options"
                       @submit="handleSubmit"
                       storage
-                      show-avue-doc
                       :custom-fields="customFields"></avue-form-design>
   </div>
 </template>
@@ -44,26 +43,7 @@ export default {
           }
         },
       ],
-      options: {
-        column: [
-          {
-            type: 'url',
-            prop: 'url',
-            label: '超链接',
-            icon: 'icon-url',
-            value: 'http://www.baidu.com',
-            span: 24,
-            display: true
-          },
-          {
-            prop: 'img',
-            type: 'img',
-            label: '图片',
-            span: '24',
-            display: true
-          }
-        ]
-      }
+      options: { column: [] }
     }
   },
   methods: {

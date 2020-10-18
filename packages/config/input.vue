@@ -25,6 +25,10 @@
                   v-if="data.type != 'password'">
       <el-switch v-model="data.showWordLimit"></el-switch>
     </el-form-item>
+    <el-form-item label="显示密码"
+                  v-if="data.type == 'password'">
+      <el-switch v-model="data.showPassword"></el-switch>
+    </el-form-item>
     <el-form-item label="是否只读">
       <el-switch v-model="data.readonly"></el-switch>
     </el-form-item>

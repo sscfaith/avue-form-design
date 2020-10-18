@@ -26,6 +26,8 @@ body {
 .form-designer {
   height: 100%;
   background: #fff;
+  outline: 1px solid #e4e7ed;
+  
   ::-webkit-scrollbar {
     width: 0px !important;
     height: 0px !important;
