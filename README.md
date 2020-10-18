@@ -59,8 +59,6 @@ Vue.use(AvueFormDesign)
 ```
 <avue-form-design style="height: 86vh;"
                   :options="options"
-                  :aside-left-width="270"
-                  :aside-right-width="380"
                   storage
                   @submit="handleSubmit"></avue-form-design>
 ```
@@ -73,8 +71,9 @@ Vue.use(AvueFormDesign)
 | storage | 开启本地存储功能，防止浏览器刷新丢失json | Boolean | false |
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
-| showAvueDoc | 是否显示Avue文档 | Boolean | false |
-| showGithubStar | 是否显示GitHub Star | Boolean | true |
+| showAvueDoc（已废弃，请使用toolbar） | 是否显示Avue文档 | Boolean | false |
+| showGithubStar（已废弃，请使用toolbar） | 是否显示GitHub Star | Boolean | true |
+| toolbar | 顶部工具栏 | Array | ['avue-doc', 'github-star', 'import', 'generate', 'preview', 'clear'] |
 | undoRedo | 是否开启撤销重做功能 | Boolean | true |
 | includeFields | 左侧展示字段 | Array | fieldsConfig.js中配置的字段 |
 | customFields | 自定义组件 | Array | [使用方法](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22) |
@@ -104,6 +103,18 @@ Vue.use(AvueFormDesign)
 | 名称 | 说明 | 回调参数 |
 | ------ | ------ | ------ |
 | submit | 生成json回调 | 当前配置的json |
+
+### 方法
+
+| 名称 | 说明 | 返回 |
+| ------ | ------ | ------ |
+| getData | 获取当前编辑器的JSON | Promise |
+
+### 插槽
+| 名称 | 说明 |
+| ------ | ------ | 
+| toolbar | 顶部工具栏右侧插槽 | 
+| toolbar-left | 顶部工具栏左侧插槽 | 
 
 ### Avue插件
 
