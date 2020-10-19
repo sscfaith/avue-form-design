@@ -48,7 +48,6 @@ export default {
 
 #### 废弃属性
 - showAvueDoc，请使用toolbar属性。
-- showGithubStar，请使用toolbar属性。
 
 ## 2020-09-22
 

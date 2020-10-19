@@ -20,7 +20,7 @@ export default {
     options: { type: Object, default() { return {}; } },
     editorMounted: { type: Function, default: noop },
     editorBeforeMount: { type: Function, default: noop },
-    key: { type: String }
+    keyIndex: { type: String }
   },
 
   watch: {
@@ -31,7 +31,7 @@ export default {
       }
     },
 
-    key() {
+    keyIndex() {
       let data = this.value
       if (typeof data != 'object') return
 

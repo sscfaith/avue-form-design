@@ -91,7 +91,7 @@
                     height="20"
                     title="GitHub"
                     style="margin-left: 10px;"
-                    v-if="toolbar.includes('github-star')"></iframe>
+                    v-if="showGithubStar"></iframe>
             <slot name="toolbar-left"></slot>
             <el-button v-if="toolbar.includes('avue-doc')"
                        type="text"
@@ -155,7 +155,7 @@
                  append-to-body
                  destroy-on-close>
         <monaco-editor v-model="importJson"
-                       key="import"
+                       keyIndex="import"
                        height="82%"></monaco-editor>
         <div class="drawer-foot">
           <el-button size="medium"
@@ -172,7 +172,7 @@
                  size="50%"
                  append-to-body>
         <monaco-editor v-model="widgetFormPreview"
-                       key="generate"
+                       keyIndex="generate"
                        height="82%"
                        :read-only="true"></monaco-editor>
         <div class="drawer-foot">
@@ -249,10 +249,14 @@ export default {
       type: [String, Number],
       default: '380px'
     },
+    showGithubStar: {
+      type: Boolean,
+      default: true
+    },
     toolbar: {
       type: Array,
       default: () => {
-        return ['github-star', 'import', 'generate', 'preview', 'clear']
+        return ['import', 'generate', 'preview', 'clear']
       }
     },
     undoRedo: {
