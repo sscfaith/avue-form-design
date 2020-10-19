@@ -45,7 +45,7 @@
               <i class="iconfont icon-delete"></i>
             </el-button>
             <el-button title="复制"
-                       @click.stop="handleWidgetTableClone(column, groupIndex)"
+                       @click.stop="handleWidgetTableClone(column, item)"
                        class="widget-form-group__item--clone"
                        v-if="selectWidget.prop == item.prop"
                        circle
