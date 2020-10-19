@@ -1,4 +1,10 @@
-# 更新日志
+## 2020-10-19
+
+### Bug Fixes
+
+* 分组中的复制问题 ([09a0de0](https://github.com/sscfaith/avue-form-design/commit/09a0de03e601273e7db24cc77b47fde9dfbd6375))
+* 超链接/图片绑定类型错误 ([1334847](https://github.com/sscfaith/avue-form-design/commit/13348476eb2a4b8ad0819bcfb692c19bcf9b6ecc))
+* 配置 图标 时错误 ([2197557](https://github.com/sscfaith/avue-form-design/commit/2197557454eaf3b49cb2b721ae3e803ce7e63abd))
 
 ## 2020-10-18
 

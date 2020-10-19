@@ -20,6 +20,7 @@ export default {
           span: 24,
           icon: 'el-icon-eleme',
           tips: '看我：自定义属性怎么用？',
+          labelWidth: '0px',
           params: {
             html: '<h3 style="color:red">分割线标题</h3>',
             contentPosition: "left",
@@ -28,7 +29,7 @@ export default {
         {
           title: '警告',
           component: 'el-alert',
-          labelWidth: '0',
+          labelWidth: '0px',
           span: 24,
           icon: 'el-icon-warning',
           tips: '看我：自定义事件怎么用？',
