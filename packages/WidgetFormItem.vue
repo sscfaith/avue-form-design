@@ -43,7 +43,7 @@ export default {
       let KEY_COMPONENT_NAME = 'avue-';
       let result = 'input';
       if (component) return component
-      else if (type === 'array') result = 'array';
+      else if (['array', 'img', 'url'].includes(type)) result = 'array';
       else if (type === 'select') result = 'select';
       else if (type === 'radio') result = 'radio';
       else if (type === 'checkbox') result = 'checkbox';
