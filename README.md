@@ -72,7 +72,7 @@ Vue.use(AvueFormDesign)
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
 | showAvueDoc（已废弃，请使用toolbar） | 是否显示Avue文档 | Boolean | false |
-| showGithubStar（已废弃，请使用toolbar） | 是否显示GitHub Star | Boolean | true |
+| showGithubStar | 是否显示GitHub Star | Boolean | true |
 | toolbar | 顶部工具栏 | Array | ['avue-doc', 'github-star', 'import', 'generate', 'preview', 'clear'] |
 | undoRedo | 是否开启撤销重做功能 | Boolean | true |
 | includeFields | 左侧展示字段 | Array | fieldsConfig.js中配置的字段 |
