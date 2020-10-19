@@ -170,7 +170,8 @@
       <el-drawer title="生成JSON"
                  :visible.sync="generateJsonVisible"
                  size="50%"
-                 append-to-body>
+                 append-to-body
+                 destroy-on-close>
         <monaco-editor v-model="widgetFormPreview"
                        keyIndex="generate"
                        height="82%"
