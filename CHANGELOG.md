@@ -14,7 +14,7 @@
   <avue-form-design ref="form"
                     style="height: 100vh;"
                     :options="options"
-                    :toolbar="['github-star', 'import', 'preview', 'clear']">
+                    :toolbar="['import', 'preview', 'clear']">
     <template slot="toolbar-left">
       <el-button type="text"
                   icon="el-icon-download"
