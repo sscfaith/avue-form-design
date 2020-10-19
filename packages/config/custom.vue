@@ -1,7 +1,6 @@
 <template>
   <div>
-    <el-form-item label="标题宽度"
-                  v-if="data.label">
+    <el-form-item label="标题宽度">
       <el-input v-model="data.labelWidth"
                 placeholder="标题宽度"></el-input>
     </el-form-item>

@@ -328,19 +328,22 @@ export default [
     list: [{
       type: 'icon',
       label: '图标',
+      component: 'avue-input-icon',
       icon: 'icon-icon',
       span: 24,
       display: true,
-      iconList: [{
-        label: '基本图标',
-        list: ['el-icon-info', 'el-icon-error', 'el-icon-error', 'el-icon-success', 'el-icon-warning', 'el-icon-question']
-      }, {
-        label: '方向图标',
-        list: ['el-icon-info', 'el-icon-back', 'el-icon-arrow-left', 'el-icon-arrow-down', 'el-icon-arrow-right', 'el-icon-arrow-up']
-      }, {
-        label: '符号图标',
-        list: ['el-icon-plus', 'el-icon-minus', 'el-icon-close', 'el-icon-check']
-      }]
+      params: {
+        iconList: [{
+          label: '基本图标',
+          list: ['el-icon-info', 'el-icon-error', 'el-icon-error', 'el-icon-success', 'el-icon-warning', 'el-icon-question']
+        }, {
+          label: '方向图标',
+          list: ['el-icon-info', 'el-icon-back', 'el-icon-arrow-left', 'el-icon-arrow-down', 'el-icon-arrow-right', 'el-icon-arrow-up']
+        }, {
+          label: '符号图标',
+          list: ['el-icon-plus', 'el-icon-minus', 'el-icon-close', 'el-icon-check']
+        }]
+      }
     }, {
       type: 'switch',
       label: '开关',
