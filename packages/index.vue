@@ -177,12 +177,40 @@
                        height="82%"
                        :read-only="true"></monaco-editor>
         <div class="drawer-foot">
+          <el-popover placement="top"
+                      trigger="hover"
+                      width="250px">
+            <el-form v-model="configOption"
+                     style="padding: 0 20px"
+                     label-suffix="："
+                     label-width="90px"
+                     label-position="left">
+              <el-form-item label="类型">
+                <el-popover placement="top-start"
+                            trigger="hover"
+                            content="复制json对象"
+                            style="margin-right: 15px;">
+                  <el-radio slot="reference"
+                            v-model="configOption.generateType"
+                            label="json">json</el-radio>
+                </el-popover>
+                <el-popover placement="top-start"
+                            trigger="hover"
+                            content="复制string字符串，可直接用于后端保存无需再次处理。">
+                  <el-radio slot="reference"
+                            v-model="configOption.generateType"
+                            label="string">string</el-radio>
+                </el-popover>
+              </el-form-item>
+            </el-form>
+
+            <el-button size="medium"
+                       type="primary"
+                       slot="reference"
+                       @click="handleGenerate">生成</el-button>
+          </el-popover>
           <el-button size="medium"
                      type="primary"
-                     @click="handleGenerate">生成</el-button>
-          <el-button size="medium"
-                     type="primary"
-                     slot="reference"
                      @click="handleCopy"
                      style="margin-left: 10px;">复制</el-button>
         </div>
@@ -340,7 +368,9 @@ export default {
       importJsonVisible: false,
       importJson: {},
       widgetModels: {},
-      configOption: {},
+      configOption: {
+        generateType: 'json'
+      },
       history: {
         index: 0, // 当前下标
         maxStep: 20, // 最大记录步数
@@ -447,14 +477,19 @@ export default {
     // 生成JSON - 弹窗 - 确定
     handleGenerate() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
-        this.$emit('submit', data)
+        if (this.configOption.generateType && this.configOption.generateType == 'string') this.$emit('submit', beautifier(data, {
+          minify: true
+        }))
+        else this.$emit('submit', data)
       })
     },
     // 生成JSON - 弹窗 - 拷贝
     handleCopy() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.$Clipboard({
-          text: beautifier(data)
+          text: beautifier(data, {
+            minify: true
+          })
         }).then(() => {
           this.$message.success('复制成功')
         }).catch(() => {
