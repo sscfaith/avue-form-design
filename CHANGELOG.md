@@ -1,3 +1,15 @@
+## 2020-10-29
+
+### Features
+
+* getData方法增加type参数，可选值'json'/'string'，默认json。 由于json格式的值无法是function，当type为string时返回格式化好的字符串，可直接用于后端保存无需再次处理。并且options属性支持String类型，从后端请求来数据后可直接赋值设计器，也无需再次处理。([95eda5a](https://github.com/sscfaith/avue-form-design/commit/95eda5afc940412757963c566ac6eaead461c7c2))
+```js
+this.$refs.form.getData('string').then(data => {
+  this.$message.success("查看控制台")
+  console.log(data) // type为string时获取到的data是字符串，可直接传给后端用于数据库保存。
+})
+```
+
 ## 2020-10-19
 
 ### Bug Fixes
