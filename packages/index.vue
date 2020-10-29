@@ -672,8 +672,11 @@ export default {
         }
       })
     },
-    async getData() {
-      return await this.transformToAvueOptions(this.widgetForm)
+    async getData(type = 'json') {
+      if (type == 'string') return beautifier(await this.transformToAvueOptions(this.widgetForm), {
+        minify: true
+      })
+      else return await this.transformToAvueOptions(this.widgetForm)
     }
   }
 }
