@@ -106,9 +106,9 @@ Vue.use(AvueFormDesign)
 
 ### 方法
 
-| 名称 | 说明 | 参数 ｜ 返回 |
+| 名称 | 说明 | 参数 | 返回 |
 | ------ | ------ | ------ | ------ |
-| getData | 获取当前编辑器的JSON | type: 'string'/'json' | Promise | 
+| getData | 获取当前编辑器的JSON | type: 'string'/'json' | Promise |
 
 ### 插槽
 | 名称 | 说明 |
