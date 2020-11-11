@@ -9,6 +9,9 @@
 ## 更新日志
 [更新日志](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md)
 
+## 文档及demo项目
+[Wiki](../../wikis)
+
 ## 依赖
 
 element-ui 2.13.2+
@@ -67,13 +70,13 @@ Vue.use(AvueFormDesign)
 
 | 参数 | 说明 | 类型 | 默认值 |
 | ------ | ------ | ------ | ------ |
-| options | 字段配置 | Object | { column: [] } |
+| options | 字段配置 | Object/String | { column: [] } |
 | storage | 开启本地存储功能，防止浏览器刷新丢失json | Boolean | false |
 | asideLeftWidth | 左工具栏宽度 | String/Number | '270px' |
 | asideRightWidth | 右工具栏宽度 | String/Number | '380px' |
 | showAvueDoc（已废弃，请使用toolbar） | 是否显示Avue文档 | Boolean | false |
 | showGithubStar | 是否显示GitHub Star | Boolean | true |
-| toolbar | 顶部工具栏 | Array | ['avue-doc', 'github-star', 'import', 'generate', 'preview', 'clear'] |
+| toolbar | 顶部工具栏 | Array | ['avue-doc', 'import', 'generate', 'preview', 'clear'] |
 | undoRedo | 是否开启撤销重做功能 | Boolean | true |
 | includeFields | 左侧展示字段 | Array | fieldsConfig.js中配置的字段 |
 | customFields | 自定义组件 | Array | [使用方法](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22) |
@@ -142,7 +145,7 @@ $ yarn build
 
 ## 捐赠
 如果你觉得本项目帮助到你的话，可以给作者买杯咖啡。
-<img src="http://112.74.43.150/images/donate.png">
+<img src="https://form.beta.kim/donate.png">
 
 ## License
 
