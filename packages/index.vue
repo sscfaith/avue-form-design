@@ -177,13 +177,17 @@
                        height="82%"
                        :read-only="true"></monaco-editor>
         <div class="drawer-foot">
+          <el-button size="medium"
+                     type="primary"
+                     @click="handleGenerate">生成</el-button>
+
           <el-popover placement="top"
                       trigger="hover"
-                      width="250px">
+                      width="350px">
             <el-form v-model="configOption"
                      style="padding: 0 20px"
                      label-suffix="："
-                     label-width="90px"
+                     label-width="180px"
                      label-position="left">
               <el-form-item label="类型">
                 <el-popover placement="top-start"
@@ -202,17 +206,34 @@
                             label="string">string</el-radio>
                 </el-popover>
               </el-form-item>
+              <el-form-item label="缩进长度-空格数量">
+                <el-slider v-model="configOption.space"
+                           show-stops
+                           :marks="{ 1: '1', 2: '2', 3: '3', 4: '4' }"
+                           :min="1"
+                           :max="4"
+                           :step="1"></el-slider>
+              </el-form-item>
+              <el-form-item label="引号类型">
+                <el-switch v-model="configOption.quoteType"
+                           active-value="single"
+                           inactive-value="double"
+                           active-text="单引号"
+                           inactive-text="双引号"></el-switch>
+              </el-form-item>
+              <el-form-item label="移除key的引号">
+                <el-switch v-model="configOption.dropQuotesOnKeys"></el-switch>
+              </el-form-item>
+              <el-form-item label="移除数字字符串的引号">
+                <el-switch v-model="configOption.dropQuotesOnNumbers"></el-switch>
+              </el-form-item>
             </el-form>
-
             <el-button size="medium"
                        type="primary"
+                       @click="handleCopy"
                        slot="reference"
-                       @click="handleGenerate">生成</el-button>
+                       style="margin-left: 10px;">复制</el-button>
           </el-popover>
-          <el-button size="medium"
-                     type="primary"
-                     @click="handleCopy"
-                     style="margin-left: 10px;">复制</el-button>
         </div>
       </el-drawer>
       <!-- 预览 -->
@@ -369,7 +390,10 @@ export default {
       importJson: {},
       widgetModels: {},
       configOption: {
-        generateType: 'json'
+        generateType: 'json',
+        space: 2,
+        quoteType: 'single',
+        dropQuotesOnKeys: true
       },
       history: {
         index: 0, // 当前下标
@@ -478,7 +502,8 @@ export default {
     handleGenerate() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         if (this.configOption.generateType && this.configOption.generateType == 'string') this.$emit('submit', beautifier(data, {
-          minify: true
+          minify: true,
+          ...this.configOption
         }))
         else this.$emit('submit', data)
       })
@@ -488,7 +513,8 @@ export default {
       this.transformToAvueOptions(this.widgetForm).then(data => {
         this.$Clipboard({
           text: beautifier(data, {
-            minify: true
+            minify: true,
+            ...this.configOption
           })
         }).then(() => {
           this.$message.success('复制成功')

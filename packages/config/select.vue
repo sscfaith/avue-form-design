@@ -111,7 +111,8 @@
       </div>
     </el-form-item>
     <el-form-item label="级联默认选中">
-      <el-input-number v-model="data.cascaderIndex"
+      <el-input-number style="width: calc(100% - 120px)"
+                       v-model="data.cascaderIndex"
                        controls-position="right"
                        placeholder="级联默认选中"
                        :min="0"></el-input-number>
@@ -190,7 +191,7 @@ export default {
       this.data.rules = rules
     },
     handleRemoveFields(index) {
-      this.data.dic.splice(index, 1)
+      this.data.dicData.splice(index, 1)
     },
     handleAddFields() {
       const i = Math.ceil(Math.random() * 99999)

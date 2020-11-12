@@ -7,8 +7,8 @@
     </span>
     <component v-else
                :is="getComponent(item.type, item.component)"
-               v-model="form[item.prop]"
                v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
+               :multiple="false"
                :placeholder="item.placeholder || getPlaceholder(item)"
                :dic="item.dicData">
       <span v-if="params.html"

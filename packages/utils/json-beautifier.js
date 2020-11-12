@@ -18,13 +18,13 @@ let
 
 export default function convert(object, options = {}) {
   var space = options.space || 2,
-    dropQuotesOnKeys = options.dropQuotesOnKeys || true,
-    dropQuotesOnNumbers = options.dropQuotesOnNumbers || false,
-    inlineShortArrays = options.inlineShortArrays || false,
-    inlineShortArraysDepth = options.inlineShortArraysDepth || 1,
-    quoteType = options.quoteType || 'single',
-    minify = options.minify || false;
-
+  dropQuotesOnKeys = options.dropQuotesOnKeys == false ? false: true,
+  dropQuotesOnNumbers = options.dropQuotesOnNumbers || false,
+  inlineShortArrays = options.inlineShortArrays || false,
+  inlineShortArraysDepth = options.inlineShortArraysDepth || 1,
+  quoteType = options.quoteType || 'single',
+  minify = options.minify || false;
+  
   if (dropQuotesOnNumbers) walkObjectAndDropQuotesOnNumbers(object);
 
   var result = stringify(object, null, minify ? undefined : space, dropQuotesOnKeys, quoteType);
