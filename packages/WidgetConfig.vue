@@ -48,7 +48,7 @@
                              :max="24"></el-input-number>
           </el-form-item>
           <el-form-item label="数据类型"
-                        v-if="['cascader','checkbox','upload','img','array'].includes(data.type)">
+                        v-if="['cascader','checkbox','radio','select','tree','upload','img','array'].includes(data.type)">
             <el-select v-model="data.dataType"
                        placeholder="数据类型"
                        clearable>
@@ -56,6 +56,8 @@
                          value="string"></el-option>
               <el-option label="Number"
                          value="number"></el-option>
+              <el-option label="Array"
+                         value="array"></el-option>
             </el-select>
             &nbsp;<a href="https://avuejs.com/doc/dataType"
                target="_blank"
