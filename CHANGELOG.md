@@ -1,3 +1,21 @@
+# 2020-11-25
+
+### Bug Fixes
+
+* select配置多选报错的问题 ([c355409](https://github.com/sscfaith/avue-form-design/commit/c355409f9c84b611025ab02d1bf733cfacc4281b))
+* 静态字典value类型不匹配的问题 ([88620c9](https://github.com/sscfaith/avue-form-design/commit/88620c9b8bbe027cbfc4c468fd9084883f8773b9))
+
+### Features
+
+* avue 2.7.1 ([e7ed3d0](https://github.com/sscfaith/avue-form-design/commit/e7ed3d0ec811b8607cfd3782d0537ad14ffebe63))
+* 增加字段提示配置 ([8795b81](https://github.com/sscfaith/avue-form-design/commit/8795b8170992eb6b19e2ca92eb51209d4d48613b))
+* 增加远程字典的dicFlag配置 ([1a13b6d](https://github.com/sscfaith/avue-form-design/commit/1a13b6db5c3fb7ee32bd24a445d5c95e6b36fd68))
+* 多个组件的数据类型配置 ([d08513f](https://github.com/sscfaith/avue-form-design/commit/d08513f5e0cbc6ce81c48b2658b1e1b7ee439f2a))
+
+### Performance Improvements
+
+* 优化右侧配置展示方式 ([700f468](https://github.com/sscfaith/avue-form-design/commit/700f468e9d60dc6ebfe5f87ab0bb2d1f0633a406))
+
 ## 2020-10-29
 
 ### Features
