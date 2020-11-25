@@ -132,9 +132,9 @@ export default [
       label: '下拉选择器',
       icon: 'icon-select',
       dicData: [
-        { label: '选项一', value: 0 },
-        { label: '选项二', value: 1 },
-        { label: '选项三', value: 2 },
+        { label: '选项一', value: '0' },
+        { label: '选项二', value: '1' },
+        { label: '选项三', value: '2' },
       ],
       // 用于做级联配置
       cascaderItem: [],
@@ -163,8 +163,8 @@ export default [
             value: 12,
           }]
         },
-        { label: '选项二', value: 1 },
-        { label: '选项三', value: 2 },
+        { label: '选项二', value: '1' },
+        { label: '选项三', value: '2' },
       ],
       cascaderIndex: 1,
       showAllLevels: true,
@@ -187,14 +187,14 @@ export default [
           value: 0,
           children: [{
             label: '选项1-1',
-            value: 11,
+            value: '11',
           }, {
             label: '选项1-2',
-            value: 12,
+            value: '12',
           }]
         },
-        { label: '选项二', value: 1 },
-        { label: '选项三', value: 2 },
+        { label: '选项二', value: '1' },
+        { label: '选项三', value: '2' },
       ],
       parent: true,
       props: {
@@ -350,7 +350,7 @@ export default [
       icon: 'icon-switch',
       span: 24,
       display: true,
-      value: 0,
+      value: '0',
       dicData: [{ label: '', value: '0' }, { label: '', value: '1' }]
     }, {
       type: 'rate',
