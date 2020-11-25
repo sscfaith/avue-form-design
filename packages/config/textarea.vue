@@ -2,10 +2,12 @@
   <div>
     <el-form-item label="占位内容">
       <el-input v-model="data.placeholder"
+                clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>
     <el-form-item label="默认值">
       <el-input v-model="data.value"
+                clearable
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="最大长度">
@@ -34,10 +36,11 @@
     <el-form-item label="是否可见">
       <el-switch v-model="data.display"></el-switch>
     </el-form-item>
-    <el-form-item label="校验"><br>
-      是否必填：
+    <el-form-item label="是否必填">
       <el-switch v-model="data.required"></el-switch>
-      <el-input v-model.lazy="data.pattern"
+      <el-input v-if="data.required"
+                v-model.lazy="data.pattern"
+                clearable
                 placeholder="正则表达式"></el-input>
     </el-form-item>
   </div>
@@ -47,7 +50,7 @@
 export default {
   name: "config-textarea",
   props: ['data'],
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -58,7 +61,7 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])

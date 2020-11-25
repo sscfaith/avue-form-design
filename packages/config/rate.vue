@@ -2,6 +2,7 @@
   <div>
     <el-form-item label="默认值">
       <el-input v-model="data.value"
+                clearable
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="最大星数">
@@ -9,12 +10,15 @@
                        controls-position="right"
                        placeholder="最大星数"></el-input-number>
     </el-form-item>
-    <el-form-item label="是否显示文本">
+    <el-form-item label="是否显示文本"
+                  label-width="110px">
       <el-switch v-model="data.showText"></el-switch>
     </el-form-item>
     <el-form-item label="自定义文本"
+                  label-width="110px"
                   v-if="data.showText">
       <el-tag :key="index"
+              size="small"
               v-for="(tag,index) in data.texts"
               closable
               @close="handleTextClose(tag)">{{tag}}
@@ -24,20 +28,23 @@
                 v-model="textValue"
                 size="mini"
                 ref="textTag"
+                clearable
                 @keyup.enter.native="handleTextConfirm"
                 @blur="handleTextConfirm">
       </el-input>
-      <el-button v-else
+      <el-button v-if="!textVisible && data.texts.length < data.max"
                  @click="showTextInput"
                  size="mini"
                  icon="el-icon-plus"
                  circle
                  style="margin-left: 5px;"></el-button>
     </el-form-item>
-    <el-form-item label="自定义颜色">
+    <el-form-item label="自定义颜色"
+                  label-width="110px">
       <el-tag :key="index"
               v-for="(tag,index) in data.colors"
               closable
+              size="small"
               @close="handleColorClose(tag)"
               :style="{color: tag}">{{tag}}
       </el-tag>
@@ -76,7 +83,7 @@
 export default {
   name: "config-rate",
   props: ['data'],
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -93,31 +100,31 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])
       })
       this.data.rules = rules
     },
-    handleTextClose (tag) {
+    handleTextClose(tag) {
       this.data.texts.splice(this.data.texts.indexOf(tag), 1);
     },
-    showTextInput () {
+    showTextInput() {
       this.textVisible = true;
       this.$nextTick(() => {
         this.$refs.textTag.$refs.input.focus();
       });
     },
-    handleTextConfirm () {
+    handleTextConfirm() {
       if (this.textValue) this.data.texts.push(this.textValue);
       this.textVisible = false;
       this.textValue = '';
     },
-    handleColorClose (tag) {
+    handleColorClose(tag) {
       this.data.colors.splice(this.data.colors.indexOf(tag), 1);
     },
-    handleColorConfirm () {
+    handleColorConfirm() {
       if (this.colorValue) this.data.colors.push(this.colorValue);
       this.colorValue = '';
     },

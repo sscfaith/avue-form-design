@@ -2,18 +2,29 @@
   <div>
     <el-form-item label="标题宽度">
       <el-input v-model="data.labelWidth"
+                clearable
                 placeholder="标题宽度"></el-input>
     </el-form-item>
-    自定义属性
-    <monaco-editor v-model="params"
-                   height="300"
-                   :keyIndex="data.prop"
-                   :options="options"></monaco-editor>
-    自定义事件
-    <monaco-editor v-model="event"
-                   height="300"
-                   :keyIndex="data.prop"
-                   :options="options"></monaco-editor>
+    <div class="el-form-item el-form-item--small el-form--label-top">
+      <label class="el-form-item__label"
+             style="padding: 0;">自定义属性：</label>
+      <div class="el-form-item__content">
+        <monaco-editor v-model="params"
+                       height="300"
+                       :keyIndex="data.prop"
+                       :options="options"></monaco-editor>
+      </div>
+    </div>
+    <div class="el-form-item el-form-item--small el-form--label-top">
+      <label class="el-form-item__label"
+             style="padding: 0;">自定义事件：</label>
+      <div class="el-form-item__content">
+        <monaco-editor v-model="event"
+                       height="300"
+                       :keyIndex="data.prop"
+                       :options="options"></monaco-editor>
+      </div>
+    </div>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
     </el-form-item>

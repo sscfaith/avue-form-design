@@ -2,6 +2,7 @@
   <div>
     <el-form-item label="默认值">
       <el-input v-model="data.value"
+                clearable
                 placeholder="默认值"></el-input>
     </el-form-item>
     <el-form-item label="自定义">
@@ -15,9 +16,11 @@
         <el-input size="mini"
                   v-model="item.label"
                   placeholder="自定义文字"
+                  clearable
                   style="margin-right: 5px"></el-input>
         <el-input size="mini"
                   v-model="item.value"
+                  clearable
                   placeholder="自定义值"></el-input>
       </div>
     </el-form-item>
@@ -35,7 +38,7 @@ export default {
   name: "config-switch",
   props: ['data'],
   methods: {
-    handleDicClear () {
+    handleDicClear() {
       this.data.dicData = [{ label: '', value: '0' }, { label: '', value: '1' }]
     }
   },

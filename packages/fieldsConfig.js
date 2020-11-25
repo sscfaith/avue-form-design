@@ -297,30 +297,19 @@ export default [
     }],
   },
   {
-    title: '插件字段（富文本需要单独引入）',
+    title: '插件字段（需单独引入依赖）',
     list: [{
-      title: '日历',
-      component: 'elCalendar',//ele日期
-      labelWidth: '40',
-      icon: 'icon-map',
-      span: 24,
-      params: {
-
-      }
-    }, {
       type: 'ueditor',
       component: 'avue-ueditor',
       label: '富文本',
       icon: 'icon-richtext',
       span: 24,
       display: true,
-      options: {
-        action: '',
-        oss: '',
-        props: {},
-        ali: {},
-        qiniu: {}
-      }
+      action: '',
+      oss: '',
+      props: {},
+      ali: {},
+      qiniu: {}
     },],
   },
   {

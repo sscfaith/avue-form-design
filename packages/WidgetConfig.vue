@@ -2,6 +2,8 @@
   <div class="widget-config">
     <el-form label-suffix="："
              v-if="this.data && Object.keys(this.data).length > 0"
+             labelPosition="left"
+             labelWidth="90px"
              size="small">
       <el-collapse v-model="collapse">
         <el-collapse-item name="1"
@@ -9,6 +11,7 @@
           <el-form-item label="类型"
                         v-if="data.type && !data.component">
             <el-select v-model="data.type"
+                       style="width:100%;"
                        placeholder="请选择类型"
                        @change="handleChangeType">
               <el-option-group v-for="group in fields"
@@ -34,21 +37,28 @@
           </el-form-item>
           <el-form-item label="宽度"
                         v-if="data.subfield">
-            <el-input-number v-model="data.width"
+            <el-input-number style="width:100%;"
+                             v-model="data.width"
                              controls-position="right"
                              placeholder="宽度"
                              :min="100"></el-input-number>
           </el-form-item>
           <el-form-item label="表单栅格"
                         v-if="!data.subfield && !['group'].includes(data.type)">
-            <el-input-number v-model="data.span"
+            <el-input-number style="width:100%;"
+                             v-model="data.span"
                              controls-position="right"
                              placeholder="表单栅格"
                              :min="8"
                              :max="24"></el-input-number>
           </el-form-item>
           <el-form-item label="数据类型"
-                        v-if="['cascader','checkbox','radio','select','tree','upload','img','array'].includes(data.type)">
+                        v-if="['cascader','checkbox','radio','select','tree','upload','img','array','slider','timerange','daterange','datetimerange'].includes(data.type)">
+            <template slot="label">
+              <el-link :underline="false"
+                       href="https://avuejs.com/doc/dataType"
+                       target="_blank">数据类型 <i class="el-icon-question"></i></el-link>
+            </template>
             <el-select v-model="data.dataType"
                        placeholder="数据类型"
                        clearable>
@@ -59,16 +69,16 @@
               <el-option label="Array"
                          value="array"></el-option>
             </el-select>
-            &nbsp;<a href="https://avuejs.com/doc/dataType"
-               target="_blank"
-               style="color: #409EFF;">详情</a><br>
           </el-form-item>
           <el-form-item label="深结构"
                         v-if="data.type && !data.component">
-            <a href="https://avuejs.com/doc/form/form-bind"
-               target="_blank"
-               style="color: #409EFF;">详情</a><br>
+            <template slot="label">
+              <el-link :underline="false"
+                       href="https://avuejs.com/doc/form/form-bind"
+                       target="_blank">深结构 <i class="el-icon-question"></i></el-link>
+            </template>
             <el-input v-model="data.bind"
+                      clearable
                       placeholder="深结构"></el-input>
           </el-form-item>
           <el-form-item label="字段提示">
@@ -76,8 +86,9 @@
                       clearable
                       placeholder="字段提示"></el-input>
           </el-form-item>
-          <el-form-item v-if="data.tip"
-                        label="字段提示位置">
+          <el-form-item v-if="data.tip && !['upload'].includes(data.type)"
+                        label="字段提示位置"
+                        label-width="110px">
             <el-select v-model="data.tipPlacement"
                        placeholder="字段提示位置"
                        clearable>
@@ -145,12 +156,14 @@ export default {
     getComponent() {
       const prefix = 'config-'
       const { type, component } = this.data
-      if (!type || component) return prefix + 'custom'
+      if ((!type || component) && type != 'ueditor') return prefix + 'custom'
       let result = 'input'
 
       if ([undefined, 'input', 'password', 'url'].includes(type)) result = 'input'
       else if (dateArr.includes(type)) result = 'date'
       else if (['array', 'img'].includes(type)) result = 'array'
+      else if (['tree', 'cascader'].includes(type)) result = 'tree'
+      else if (['radio', 'checkbox', 'select'].includes(type)) result = 'select'
       else result = type
 
       return prefix + result

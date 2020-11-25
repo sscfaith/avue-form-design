@@ -7,10 +7,7 @@ import Switch from './switch.vue'
 import Rate from './rate.vue'
 import Slider from './slider.vue'
 import Color from './color.vue'
-import Radio from './radio.vue'
-import Checkbox from './checkbox.vue'
 import Select from './select.vue'
-import Cascader from './cascader.vue'
 import Tree from './tree.vue'
 import Date from './date.vue'
 import Upload from './upload.vue'
@@ -30,10 +27,7 @@ const components = [
   Rate,
   Slider,
   Color,
-  Radio,
-  Checkbox,
   Select,
-  Cascader,
   Tree,
   Date,
   UEditor,

@@ -2,10 +2,13 @@
   <div>
     <el-form-item label="默认值">
       <el-input v-model="data.value"
+                clearable
                 placeholder="默认值"></el-input>
     </el-form-item>
-    <el-form-item label="距左边边距">
+    <el-form-item label="距左边边距"
+                  label-width="100px">
       <el-input v-model="data.labelWidth"
+                clearable
                 placeholder="距左边边距"></el-input>
     </el-form-item>
     <el-form-item label="颜色">
@@ -14,11 +17,13 @@
     </el-form-item>
     <el-form-item label="字体大小">
       <el-input v-model="data.styles.fontSize"
+                clearable
                 placeholder="字体大小"></el-input>
     </el-form-item>
     <el-form-item label="粗体">
       <el-select v-model="data.styles.fontWeight"
-                 placeholder="粗体">
+                 placeholder="粗体"
+                 clearable>
         <el-option v-for="item in options"
                    :key="item"
                    :label="item"

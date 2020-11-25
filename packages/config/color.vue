@@ -2,6 +2,7 @@
   <div>
     <el-form-item label="占位内容">
       <el-input v-model="data.placeholder"
+                clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>
     <el-form-item label="是否禁用">
@@ -20,7 +21,7 @@
 export default {
   name: "config-color",
   props: ['data'],
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -31,7 +32,7 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])

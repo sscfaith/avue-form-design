@@ -2,7 +2,8 @@
   <div>
     <el-form-item label="对齐方式">
       <el-select v-model="data.children.align"
-                 placeholder="对齐方式">
+                 placeholder="对齐方式"
+                 clearable>
         <el-option label="居左"
                    value="left"></el-option>
         <el-option label="居中"
@@ -11,9 +12,11 @@
                    value="right"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="头部对齐方式">
+    <el-form-item label="头部对齐方式"
+                  label-width="110px">
       <el-select v-model="data.children.headerAlign"
-                 placeholder="对齐方式">
+                 placeholder="对齐方式"
+                 clearable>
         <el-option label="居左"
                    value="left"></el-option>
         <el-option label="居中"
@@ -24,7 +27,8 @@
     </el-form-item>
     <el-form-item label="表单格式">
       <el-select v-model="data.children.type"
-                 placeholder="表单格式">
+                 placeholder="表单格式"
+                 clearable>
         <el-option label="表格"
                    value=""></el-option>
         <el-option label="表单"

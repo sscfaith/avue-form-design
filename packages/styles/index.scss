@@ -27,7 +27,7 @@ body {
   height: 100%;
   background: #fff;
   outline: 1px solid #e4e7ed;
-  
+
   ::-webkit-scrollbar {
     width: 0px !important;
     height: 0px !important;
@@ -517,7 +517,6 @@ body {
 
     .el-tabs__header {
       margin: 0;
-      width: 380px;
       height: 45px;
       background: white;
       z-index: 1000;
@@ -585,6 +584,14 @@ body {
 
   .warning {
     color: #e6a23c;
+  }
+
+  .el-input-number {
+    width: 100%;
+  }
+
+  .el-select {
+    width: 100%;
   }
 }
 
