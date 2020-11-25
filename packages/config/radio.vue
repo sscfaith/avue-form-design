@@ -74,6 +74,10 @@
         </li>
       </ul>
     </el-form-item>
+    <el-form-item v-if="data.dicOption == 'remote'"
+                  label="重新请求字典(crud)">
+      <el-switch v-model="data.dicFlag"></el-switch>
+    </el-form-item>
     <el-form-item label="边框">
       <el-switch v-model="data.border"></el-switch>
     </el-form-item>
@@ -106,7 +110,7 @@ export default {
   name: "config-radio",
   props: ['data'],
   components: { Draggable },
-  data () {
+  data() {
     return {
       validator: {
         type: null,
@@ -128,21 +132,21 @@ export default {
     }
   },
   methods: {
-    generateRule () {
+    generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {
         if (this.validator[key]) rules.push(this.validator[key])
       })
       this.data.rules = rules
     },
-    handleRemoveFields (index) {
+    handleRemoveFields(index) {
       this.data.dicData.splice(index, 1)
     },
-    handleAddFields () {
+    handleAddFields() {
       const i = Math.ceil(Math.random() * 99999)
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
-    handleTabClick ({ name }) {
+    handleTabClick({ name }) {
       if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
     }
   },

@@ -77,6 +77,10 @@
         </li>
       </ul>
     </el-form-item>
+    <el-form-item v-if="data.dicOption == 'remote'"
+                  label="重新请求字典(crud)">
+      <el-switch v-model="data.dicFlag"></el-switch>
+    </el-form-item>
     <el-form-item label="当有子级时,是否可选择父级">
       <el-switch v-model="data.parent"></el-switch>
     </el-form-item>

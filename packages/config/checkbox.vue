@@ -74,6 +74,10 @@
         </li>
       </ul>
     </el-form-item>
+    <el-form-item v-if="data.dicOption == 'remote'"
+                  label="重新请求字典(crud)">
+      <el-switch v-model="data.dicFlag"></el-switch>
+    </el-form-item>
     <el-form-item label="边框"
                   v-if="!data.button">
       <el-switch v-model="data.border"></el-switch>
