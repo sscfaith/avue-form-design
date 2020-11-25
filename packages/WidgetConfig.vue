@@ -71,6 +71,26 @@
             <el-input v-model="data.bind"
                       placeholder="深结构"></el-input>
           </el-form-item>
+          <el-form-item label="字段提示">
+            <el-input v-model="data.tip"
+                      clearable
+                      placeholder="字段提示"></el-input>
+          </el-form-item>
+          <el-form-item v-if="data.tip"
+                        label="字段提示位置">
+            <el-select v-model="data.tipPlacement"
+                       placeholder="字段提示位置"
+                       clearable>
+              <el-option label="上"
+                         value="top"></el-option>
+              <el-option label="下"
+                         value="bottom"></el-option>
+              <el-option label="左"
+                         value="left"></el-option>
+              <el-option label="右"
+                         value="right"></el-option>
+            </el-select>
+          </el-form-item>
           <component :is="getComponent"
                      :data="data"></component>
         </el-collapse-item>
