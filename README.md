@@ -3,11 +3,8 @@
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 [在线预览](https://form.beta.kim/)
 
-如果有任何使用上的问题，QQ群 1083980136。
-另：安利我的另一个项目：基于bpmn.js的流程设计器。[在线预览](https://bpmn.beta.kim/)
-
 ## 更新日志
-[更新日志](https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md)
+[更新日志](../../blob/master/CHANGELOG.md)
 
 ## 文档及demo项目
 [Wiki](../../wikis)
@@ -40,7 +37,8 @@ $ yarn add @sscfaith/avue-form-design
 
 ### 源码
 
-<a href="https://github.com/sscfaith/avue-form-design" target="_blank">github</a>
+<a href="https://github.com/sscfaith/avue-form-design" target="_blank">github</a> or
+<a href="https://gitee.com/sscgh/avue-from-design" target="_blank">gitee</a>
 
 ```sh
 $ yarn
@@ -88,13 +86,13 @@ Vue.use(AvueFormDesign)
 | 属性 | 说明 | 类型 | 可选值 | 默认值 |
 | ------| ------ | ------ | ------ | ------ |
 | column | Avue字段 | Array | - | [] |
-| labelPosition | 字段位置 |  String | 'left'/'center'/'right' | 'left' |
-| labelWidth | 字段宽度 | Number | - | 120 |
+| labelPosition | 字段位置 |  String | 'left'/'center'/'right' | - |
+| labelWidth | 字段宽度 | Number | - | - |
 | gutter | 字段间隔 | Number | - | 0 |
-| menuBtn | 表单按钮 | Boolean | true/false | false |
-| submitBtn | 显示提交按钮 | Boolean | true/false | false |
+| menuBtn | 表单按钮 | Boolean | true/false | true |
+| submitBtn | 显示提交按钮 | Boolean | true/false | true |
 | submitText | 提交按钮文本 | String | - | '提交' |
-| emptyBtn | 显示清空按钮 | Boolean | true/false | false |
+| emptyBtn | 显示清空按钮 | Boolean | true/false | true |
 | emptyText | 清空按钮文本 | String | - | '清空' |
 | tabs | 多分组转标签 | Boolean | true/false | false |
 | detail | 详情模式 | Boolean | true/false | false |
