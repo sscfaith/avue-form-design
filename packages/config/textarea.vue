@@ -2,6 +2,8 @@
   <div>
     <el-form-item label="占位内容">
       <el-input v-model="data.placeholder"
+                type="textarea"
+                autosize
                 clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>

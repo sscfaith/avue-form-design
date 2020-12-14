@@ -5,7 +5,7 @@
     "url": "https://github.com/sscfaith",
     "email": "273702440@qq.com"
   },
-  "version": "1.4.0",
+  "version": "1.4.1",
   "main": "lib/index.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -24,10 +24,10 @@
     "@vue/cli-service": "^4.5.9",
     "avue-plugin-ueditor": "^0.1.7",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.7.0",
-    "eslint": "^7.14.0",
+    "core-js": "^3.8.1",
+    "eslint": "^7.15.0",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.29.0",
+    "sass": "^1.30.0",
     "sass-loader": "^10.1.0",
     "vue-template-compiler": "^2.6.12"
   },
