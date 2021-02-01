@@ -5,7 +5,7 @@
     "url": "https://github.com/sscfaith",
     "email": "273702440@qq.com"
   },
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "lib/index.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -15,19 +15,19 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "dependencies": {
-    "monaco-editor": "^0.21.2",
+    "monaco-editor": "^0.22.1",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.10",
-    "@vue/cli-plugin-eslint": "^4.5.10",
-    "@vue/cli-service": "^4.5.10",
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
     "avue-plugin-ueditor": "^0.1.7",
     "babel-eslint": "^10.1.0",
-    "core-js": "^3.8.2",
-    "eslint": "^7.17.0",
+    "core-js": "^3.8.3",
+    "eslint": "^7.19.0",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.32.4",
+    "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
     "vue-template-compiler": "^2.6.12"
   },
