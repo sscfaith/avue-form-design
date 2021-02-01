@@ -1,3 +1,12 @@
+## 2021-02-01
+
+### Features
+
+* 增加标题提示配置 ([913c9f9](https://github.com/sscfaith/avue-form-design/commit/913c9f900858034d20c70fd79ed017534cdb6d83))
+* avue 2.7.8 ([7b26c40](https://github.com/sscfaith/avue-form-design/commit/7b26c40cf0bf90b244ca25047348abf868574717))
+* select增加选项描述配置 ([363fbde](https://github.com/sscfaith/avue-form-design/commit/363fbde6a07095f4e95d1bcbc35ec7e08658bb3c))
+
+
 # 2020-11-25
 
 ### Bug Fixes
