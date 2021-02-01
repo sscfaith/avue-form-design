@@ -34,10 +34,16 @@
                           clearable
                           v-model="item.label"
                           placeholder="label"></el-input>
-                <el-input size="mini"
+                <el-input :style="{'margin-right': data.type == 'select'? '5px': '0'}"
+                          size="mini"
                           clearable
                           v-model="item.value"
                           placeholder="value"></el-input>
+                <el-input v-if="data.type == 'select'" 
+                          size="mini"
+                          clearable
+                          v-model="item.desc"
+                          placeholder="描述"></el-input>
                 <el-button @click="handleRemoveFields(index)"
                            circle
                            plain
