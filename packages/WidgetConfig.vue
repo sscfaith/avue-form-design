@@ -82,6 +82,11 @@
                       placeholder="深结构"></el-input>
           </el-form-item>
           <el-form-item label="字段提示">
+            <template slot="label">
+              <el-link :underline="false"
+                       href="https://avuejs.com/doc/form/form-tip"
+                       target="_blank">字段提示 <i class="el-icon-question"></i></el-link>
+            </template>
             <el-input v-model="data.tip"
                       clearable
                       placeholder="字段提示"></el-input>
@@ -91,6 +96,32 @@
                         label-width="110px">
             <el-select v-model="data.tipPlacement"
                        placeholder="字段提示位置"
+                       clearable>
+              <el-option label="上"
+                         value="top"></el-option>
+              <el-option label="下"
+                         value="bottom"></el-option>
+              <el-option label="左"
+                         value="left"></el-option>
+              <el-option label="右"
+                         value="right"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="标题提示">
+            <template slot="label">
+              <el-link :underline="false"
+                       href="https://avuejs.com/doc/form/form-tip"
+                       target="_blank">标题提示 <i class="el-icon-question"></i></el-link>
+            </template>
+            <el-input v-model="data.labelTip"
+                      clearable
+                      placeholder="标题提示"></el-input>
+          </el-form-item>
+          <el-form-item v-if="data.labelTip && !['upload'].includes(data.type)"
+                        label="标题提示位置"
+                        label-width="110px">
+            <el-select v-model="data.labelTipPlacement"
+                       placeholder="标题提示位置"
                        clearable>
               <el-option label="上"
                          value="top"></el-option>

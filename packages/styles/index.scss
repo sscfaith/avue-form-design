@@ -591,6 +591,16 @@ body {
     width: 100%;
   }
 
+  .el-input-number.is-controls-right {
+    .el-input-number__decrease {
+      border-left: none;
+    }
+    .el-input-number__increase {
+      border-left: none;
+      border-bottom: none;
+    }
+  }
+
   .el-select {
     width: 100%;
   }
