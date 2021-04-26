@@ -587,10 +587,6 @@ body {
     color: #e6a23c;
   }
 
-  .el-input-number {
-    width: 100%;
-  }
-
   .el-input-number.is-controls-right {
     .el-input-number__decrease {
       border-left: none;
@@ -601,7 +597,10 @@ body {
     }
   }
 
-  .el-select {
+  .el-date-editor,
+  .el-cascader,
+  .el-select,
+  .el-input-number {
     width: 100%;
   }
 }
