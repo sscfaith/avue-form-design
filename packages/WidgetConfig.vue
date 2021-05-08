@@ -30,7 +30,7 @@
                       clearable
                       placeholder="属性值"></el-input>
           </el-form-item>
-          <el-form-item label="标题">
+          <el-form-item label="标题" v-show="data.type !== 'title'">
             <el-input v-model="data.label"
                       clearable
                       placeholder="标题"></el-input>

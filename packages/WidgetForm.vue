@@ -44,7 +44,7 @@
                     :xs="24"
                     :offset="column.offset || 0">
               <el-form-item class="widget-form-item"
-                            :label="column.label"
+                            :label="column.type === 'title' ? '' : column.label"
                             :labelWidth="column.labelWidth"
                             :prop="column.prop"
                             :class="{ active: selectWidget.prop == column.prop, 'required': column.required }"

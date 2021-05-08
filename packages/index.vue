@@ -629,6 +629,8 @@ export default {
                 col.data = data
               } else delete col.data
               delete col.dataConfig
+            } else if (['title'].includes(col.type)) {
+              col.label = ""
             }
             if (col.change) col.change = eval(col.change)
             else delete col.change
