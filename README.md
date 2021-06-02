@@ -1,7 +1,11 @@
 ## 简介
 
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
-[在线预览](https://form.beta.kim/)
+
+:tada: 基于Bladex的工作流插件已上市。[授权地址](https://bladex.vip/#/market/flow)<br/>
+[表单设计器预览地址](https://form.nutflow.vip)<br>
+[流程设计器预览地址](https://bpmn.nutflow.vip)<br>
+[工作流插件预览地址](https://demo1.nutflow.vip)
 
 ## 更新日志
 [更新日志](../../blob/master/CHANGELOG.md)
