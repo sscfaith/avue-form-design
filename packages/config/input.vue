@@ -5,11 +5,6 @@
                 clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>
-    <el-form-item label="默认值">
-      <el-input v-model="data.value"
-                clearable
-                placeholder="默认值"></el-input>
-    </el-form-item>
     <el-form-item label="前缀">
       <el-input v-model="data.prepend"
                 clearable
@@ -51,7 +46,7 @@
 <script>
 export default {
   name: "config-input",
-  props: ['data'],
+  props: ['data', 'defaultValues'],
   data() {
     return {
       validator: {

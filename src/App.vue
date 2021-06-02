@@ -3,8 +3,8 @@
     <avue-form-design style="height: 100vh;"
                       :options="options"
                       @submit="handleSubmit"
-                      storage
-                      :custom-fields="customFields"></avue-form-design>
+                      :custom-fields="customFields"
+                      :default-values="defaultValues"></avue-form-design>
   </div>
 </template>
 
@@ -44,7 +44,13 @@ export default {
           }
         },
       ],
-      options: { column: [] }
+      options: { column: [] },
+      defaultValues: {
+        input: [{
+          label: '当前操作人部门',
+          value: '${this.$store.getters.userInfo.dept_name}'
+        }],
+      }
     }
   },
   methods: {

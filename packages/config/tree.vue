@@ -5,11 +5,6 @@
                 clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>
-    <el-form-item label="默认值">
-      <el-input v-model="data.value"
-                clearable
-                placeholder="默认值"></el-input>
-    </el-form-item>
     <div class="el-form-item el-form-item--small el-form--label-top">
       <label class="el-form-item__label"
              style="padding: 0;">字典配置：</label>

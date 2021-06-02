@@ -1,10 +1,5 @@
 <template>
   <div>
-    <el-form-item label="默认值">
-      <el-input v-model="data.value"
-                clearable
-                placeholder="默认值"></el-input>
-    </el-form-item>
     <el-form-item label="最小值">
       <el-input-number v-model="data.min"
                        controls-position="right"

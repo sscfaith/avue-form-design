@@ -137,7 +137,8 @@
           <el-tab-pane label="字段属性"
                        name="widget"
                        style="padding: 0 10px;">
-            <widget-config :data="widgetFormSelect"></widget-config>
+            <widget-config :data="widgetFormSelect"
+                           :default-values="defaultValues"></widget-config>
           </el-tab-pane>
           <el-tab-pane label="表单属性"
                        name="form"
@@ -327,7 +328,10 @@ export default {
     },
     customFields: {
       type: Array,
-    }
+    },
+    defaultValues: {
+      type: Object
+    },
   },
   watch: {
     options: {

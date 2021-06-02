@@ -1,10 +1,5 @@
 <template>
   <div>
-    <el-form-item label="默认值">
-      <el-input v-model="data.value"
-                clearable
-                placeholder="默认值"></el-input>
-    </el-form-item>
     <el-form-item label="最大星数">
       <el-input-number v-model="data.max"
                        controls-position="right"

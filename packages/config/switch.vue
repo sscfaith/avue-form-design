@@ -1,10 +1,5 @@
 <template>
   <div>
-    <el-form-item label="默认值">
-      <el-input v-model="data.value"
-                clearable
-                placeholder="默认值"></el-input>
-    </el-form-item>
     <el-form-item label="自定义">
       <el-button type="text"
                  @click="handleDicClear"

@@ -133,8 +133,30 @@
                          value="right"></el-option>
             </el-select>
           </el-form-item>
+          <el-form-item v-if="!['color', 'dynamic', 'group', 'ueditor', 'upload', 'map'].includes(data.type)"
+                        label="默认值">
+            <template v-if="defaultValues && defaultValues[data.type]">
+              <el-select v-model="data.value"
+                         allow-create
+                         clearable
+                         filterable
+                         placeholder="默认值">
+                <el-option v-for="item in defaultValues[data.type]"
+                           :key="item.value"
+                           :label="item.label"
+                           :value="item.value">
+                </el-option>
+              </el-select>
+            </template>
+            <template v-else>
+              <el-input v-model="data.value"
+                        clearable
+                        placeholder="默认值"></el-input>
+            </template>
+          </el-form-item>
           <component :is="getComponent"
-                     :data="data"></component>
+                     :data="data"
+                     :default-values="defaultValues"></component>
         </el-collapse-item>
         <el-collapse-item name="2"
                           title="事件属性"
@@ -182,7 +204,7 @@ const dateArr = [
 
 export default {
   name: 'widget-config',
-  props: ['data'],
+  props: ['data', 'defaultValues'],
   computed: {
     getComponent() {
       const prefix = 'config-'
@@ -205,6 +227,9 @@ export default {
       fields,
       collapse: "1"
     }
+  },
+  mounted() {
+    console.log(this.defaultValues)
   },
   methods: {
     async handleChangeType(type) {
