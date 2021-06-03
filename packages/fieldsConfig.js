@@ -305,11 +305,13 @@ export default [
       icon: 'icon-richtext',
       span: 24,
       display: true,
-      action: '',
-      oss: '',
-      props: {},
-      ali: {},
-      qiniu: {}
+      options: {
+        action: '',
+        oss: '',
+        props: {},
+        ali: {},
+        qiniu: {}
+      },
     },],
   },
   {
