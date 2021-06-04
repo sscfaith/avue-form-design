@@ -5,21 +5,55 @@
       <el-aside :width="leftWidth">
         <div class="fields-list">
           <template v-if="customFields && customFields.length > 0">
-            <el-link class="field-title"
-                     :underline="false"
-                     href="https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22"
-                     target="_blank">自定义字段 <i class="el-icon-question"></i></el-link>
-            <draggable tag="ul"
-                       :list="customFields"
-                       :group="{ name: 'form', pull: 'clone', put: false }"
-                       ghost-class="ghost"
-                       :sort="false">
-              <template v-for="(item, index) in customFields">
-                <el-tooltip v-if="item.tips"
-                            effect="dark"
-                            :content="item.tips"
-                            :key="index">
-                  <li class="field-label"
+            <template v-if="customFields[0].title && customFields[0].list && customFields[0].list.length > 0">
+              <template v-for="(field, index) in customFields">
+                <div class="field-title"
+                     :key="index">{{field.title}}</div>
+                <draggable tag="ul"
+                           :list="field.list"
+                           :group="{ name: 'form', pull: 'clone', put: false }"
+                           ghost-class="ghost"
+                           :sort="false"
+                           :key="index">
+                  <template v-for="(item, index) in field.list">
+                    <li class="field-label"
+                        :key="index">
+                      <a @click="handleFieldClick(item)">
+                        <i class="icon iconfont"
+                           :class="item.icon"></i>
+                        <span>{{item.title || item.label}}</span>
+                      </a>
+                    </li>
+                  </template>
+                </draggable>
+              </template>
+            </template>
+            <template v-else>
+              <el-link class="field-title"
+                       :underline="false"
+                       href="https://github.com/sscfaith/avue-form-design/blob/master/CHANGELOG.md#2020-09-22"
+                       target="_blank">自定义字段 <i class="el-icon-question"></i></el-link>
+              <draggable tag="ul"
+                         :list="customFields"
+                         :group="{ name: 'form', pull: 'clone', put: false }"
+                         ghost-class="ghost"
+                         :sort="false">
+                <template v-for="(item, index) in customFields">
+                  <el-tooltip v-if="item.tips"
+                              effect="dark"
+                              :content="item.tips"
+                              :key="index">
+                    <li class="field-label"
+                        :key="index">
+                      <a style="padding: 0 5px;"
+                         @click="handleFieldClick(item)">
+                        <i :class="item.icon"></i>
+                        <span style="margin-left: 5px;">{{item.title || item.label}}</span>
+                      </a>
+                    </li>
+                  </el-tooltip>
+                  <li v-else
+                      class="field-label"
                       :key="index">
                     <a style="padding: 0 5px;"
                        @click="handleFieldClick(item)">
@@ -27,18 +61,9 @@
                       <span style="margin-left: 5px;">{{item.title || item.label}}</span>
                     </a>
                   </li>
-                </el-tooltip>
-                <li v-else
-                    class="field-label"
-                    :key="index">
-                  <a style="padding: 0 5px;"
-                     @click="handleFieldClick(item)">
-                    <i :class="item.icon"></i>
-                    <span style="margin-left: 5px;">{{item.title || item.label}}</span>
-                  </a>
-                </li>
-              </template>
-            </draggable>
+                </template>
+              </draggable>
+            </template>
           </template>
           <div v-for="(field, index) in fields"
                :key="index">

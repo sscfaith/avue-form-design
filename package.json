@@ -5,7 +5,7 @@
     "url": "https://github.com/sscfaith",
     "email": "273702440@qq.com"
   },
-  "version": "1.4.3",
+  "version": "1.4.4",
   "main": "lib/index.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
