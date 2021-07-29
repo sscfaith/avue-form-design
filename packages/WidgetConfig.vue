@@ -161,31 +161,7 @@
         <el-collapse-item name="2"
                           title="事件属性"
                           v-if="!['group', 'dynamic'].includes(data.type)">
-          <el-form-item label="change">
-            <avue-input v-model="data.change"
-                        type="textarea"
-                        placeholder="改变事件"
-                        rows="5"
-                        clearable></avue-input>
-          </el-form-item>
-          <el-form-item label="click">
-            <el-input v-model="data.click"
-                      type="textarea"
-                      placeholder="点击事件"
-                      rows="5"></el-input>
-          </el-form-item>
-          <el-form-item label="focus">
-            <el-input v-model="data.focus"
-                      type="textarea"
-                      placeholder="获取焦点事件"
-                      rows="5"></el-input>
-          </el-form-item>
-          <el-form-item label="blur">
-            <el-input v-model="data.blur"
-                      type="textarea"
-                      placeholder="失去焦点事件"
-                      rows="5"></el-input>
-          </el-form-item>
+          <config-event :data="data"></config-event>
         </el-collapse-item>
       </el-collapse>
     </el-form>
@@ -225,11 +201,8 @@ export default {
   data() {
     return {
       fields,
-      collapse: "1"
+      collapse: ['1', '2']
     }
-  },
-  mounted() {
-    console.log(this.defaultValues)
   },
   methods: {
     async handleChangeType(type) {

@@ -8,16 +8,16 @@
             <template v-if="customFields[0].title && customFields[0].list && customFields[0].list.length > 0">
               <template v-for="(field, index) in customFields">
                 <div class="field-title"
-                     :key="index">{{field.title}}</div>
+                     :key="'f_' + index">{{field.title}}</div>
                 <draggable tag="ul"
                            :list="field.list"
                            :group="{ name: 'form', pull: 'clone', put: false }"
                            ghost-class="ghost"
                            :sort="false"
-                           :key="index">
-                  <template v-for="(item, index) in field.list">
+                           :key="'d_' + index">
+                  <template v-for="(item, cIndex) in field.list">
                     <li class="field-label"
-                        :key="index">
+                        :key="'c_' + cIndex">
                       <a @click="handleFieldClick(item)">
                         <i class="icon iconfont"
                            :class="item.icon"></i>
@@ -74,10 +74,10 @@
                          :group="{ name: 'form', pull: 'clone', put: false }"
                          ghost-class="ghost"
                          :sort="false">
-                <template v-for="(item, index) in field.list">
+                <template v-for="(item, cIndex) in field.list">
                   <li class="field-label"
                       v-if="includeFields.includes(item.type)"
-                      :key="index">
+                      :key="'c_' + cIndex">
                     <a @click="handleFieldClick(item)">
                       <i class="icon iconfont"
                          :class="item.icon"></i>
@@ -659,17 +659,6 @@ export default {
               } else delete col.data
               delete col.dataConfig
             }
-            if (col.change) col.change = eval(col.change)
-            else delete col.change
-
-            if (col.click) col.click = eval(col.click)
-            else delete col.click
-
-            if (col.focus) col.focus = eval(col.focus)
-            else delete col.focus
-
-            if (col.blur) col.blur = eval(col.blur)
-            else delete col.blur
           }
           resolve(data)
         } catch (e) {
