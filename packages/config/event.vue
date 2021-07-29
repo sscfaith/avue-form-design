@@ -6,7 +6,7 @@
       <div class="el-form-item__content">
         <monaco-editor v-model="change"
                        height="200"
-                       keyIndex="event-change"
+                       :keyIndex="`event-change-${data.prop}`"
                        :options="options"></monaco-editor>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <div class="el-form-item__content">
         <monaco-editor v-model="click"
                        height="200"
-                       keyIndex="event-click"
+                       :keyIndex="`event-click-${data.prop}`"
                        :options="options"></monaco-editor>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="el-form-item__content">
         <monaco-editor v-model="focus"
                        height="200"
-                       keyIndex="event-focus"
+                       :keyIndex="`event-focus-${data.prop}`"
                        :options="options"></monaco-editor>
       </div>
     </div>
@@ -36,7 +36,7 @@
       <div class="el-form-item__content">
         <monaco-editor v-model="blur"
                        height="200"
-                       keyIndex="event-blur"
+                       :keyIndex="`event-blur-${data.prop}`"
                        :options="options"></monaco-editor>
       </div>
     </div>
@@ -50,12 +50,24 @@ export default {
   name: "config-event",
   components: { MonacoEditor },
   props: ['data'],
+  watch: {
+    'data.prop': {
+      handler() {
+        const { change, click, focus, blur } = this.data
+        this.$set(this, 'change', change ? change + '' : '({value}) => {\r\n\r\n}')
+        this.$set(this, 'click', click ? click + '' : '({value}) => {\r\n\r\n}')
+        this.$set(this, 'focus', focus ? focus + '' : '({value}) => {\r\n\r\n}')
+        this.$set(this, 'blur', blur ? blur + '' : '({value}) => {\r\n\r\n}')
+      },
+      immediate: true
+    }
+  },
   data() {
     return {
-      change: this.data.change ? this.data.change + '' : '({value}) => {\r\n\r\n}',
-      click: this.data.click ? this.data.click + '' : '({value}) => {\r\n\r\n}',
-      focus: this.data.focus ? this.data.focus + '' : '({value}) => {\r\n\r\n}',
-      blur: this.data.blur ? this.data.blur + '' : '({value}) => {\r\n\r\n}',
+      change: '',
+      click: '',
+      focus: '',
+      blur: '',
       options: {
         minimap: {
           enabled: false,

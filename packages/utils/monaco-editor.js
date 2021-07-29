@@ -33,9 +33,10 @@ export default {
 
     keyIndex() {
       let data = this.value
-      if (typeof data != 'object') return
 
-      data = beautifier(data)
+      if (typeof data == 'object') {
+        data = beautifier(data)
+      }
 
       if (this.editor && data !== this._getValue()) {
         this._setValue(data)
