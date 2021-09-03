@@ -167,6 +167,8 @@ export default [
         { label: '选项三', value: '2' },
       ],
       cascaderIndex: 1,
+      // 用于做级联配置
+      cascaderItem: [],
       showAllLevels: true,
       dicOption: 'static',
       separator: "/",
@@ -197,6 +199,8 @@ export default [
         { label: '选项三', value: '2' },
       ],
       parent: true,
+      // 用于做级联配置
+      cascaderItem: [],
       props: {
         label: 'label',
         value: 'value'

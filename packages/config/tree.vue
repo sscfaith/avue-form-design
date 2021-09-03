@@ -49,6 +49,8 @@
             网址
             <el-input v-model="data.dicUrl"
                       placeholder="远端数据字典网址"></el-input>
+            远程搜索
+            <el-switch v-model="data.remote"></el-switch><br>
             请求方法
             <el-select v-model="data.dicMethod"
                        placeholder="请求方法"
@@ -86,6 +88,39 @@
                   label="重新请求字典(crud)">
       <el-switch v-model="data.dicFlag"></el-switch>
     </el-form-item>
+    <div class="el-form-item el-form-item--small el-form--label-top">
+        <label class="el-form-item__label"
+               style="padding: 0;">级联配置：</label>
+        <div class="el-form-item__content">
+          <draggable tag="ul"
+                     :list="data.cascaderItem"
+                     :group="{ name: 'cascaderItem' }"
+                     ghost-class="ghost"
+                     handle=".drag-item">
+            <li v-for="(item, index) in data.cascaderItem"
+                :key="index">
+              <i class="drag-item el-icon-s-operation"
+                 style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
+              <el-input size="mini"
+                        v-model="data.cascaderItem[index]"
+                        clearable
+                        placeholder="级联属性值"></el-input>
+              <el-button @click="handleRemoveCascaderItemFields(index)"
+                         circle
+                         plain
+                         type="danger"
+                         size="mini"
+                         icon="el-icon-minus"
+                         style="padding: 4px; margin-left: 5px;">
+              </el-button>
+            </li>
+          </draggable>
+          <div style="margin-left: 22px;">
+            <el-button type="text"
+                       @click="handleAddCascaderItemFields">添加列</el-button>
+          </div>
+        </div>
+      </div>
     <template v-if="data.type == 'tree'">
       <el-form-item label="当有子级时,是否可选择父级"
                     label-width="200px">
@@ -195,6 +230,12 @@ export default {
     }
   },
   methods: {
+    handleRemoveCascaderItemFields(index) {
+      this.data.cascaderItem.splice(index, 1)
+    },
+    handleAddCascaderItemFields() {
+      this.data.cascaderItem.push('')
+    },
     generateRule() {
       const rules = [];
       Object.keys(this.validator).forEach(key => {

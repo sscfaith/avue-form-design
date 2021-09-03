@@ -34,7 +34,7 @@
                           clearable
                           v-model="item.value"
                           placeholder="value"></el-input>
-                <el-input v-if="data.type == 'select'" 
+                <el-input v-if="data.type == 'select'"
                           size="mini"
                           clearable
                           v-model="item.desc"
@@ -59,6 +59,8 @@
             网址
             <el-input v-model="data.dicUrl"
                       placeholder="远端数据字典网址"></el-input>
+            远程搜索
+            <el-switch v-model="data.remote"></el-switch><br>
             请求方法
             <el-select v-model="data.dicMethod"
                        placeholder="请求方法"
