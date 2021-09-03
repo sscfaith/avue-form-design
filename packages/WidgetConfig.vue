@@ -154,13 +154,16 @@
                         placeholder="默认值"></el-input>
             </template>
           </el-form-item>
+          <el-form-item label="详情模式">
+            <el-switch v-model="data.detail"></el-switch>
+          </el-form-item>
           <component :is="getComponent"
                      :data="data"
                      :default-values="defaultValues"></component>
         </el-collapse-item>
         <el-collapse-item name="2"
                           title="事件属性"
-                          v-if="!['group', 'dynamic'].includes(data.type)">
+                          v-if="!['group'].includes(data.type)">
           <config-event :data="data"></config-event>
         </el-collapse-item>
       </el-collapse>
