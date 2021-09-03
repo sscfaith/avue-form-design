@@ -198,7 +198,7 @@
                  size="50%"
                  append-to-body
                  destroy-on-close>
-        <monaco-editor v-model="widgetFormPreview"
+        <monaco-editor v-model="option"
                        keyIndex="generate"
                        height="82%"
                        :read-only="true"></monaco-editor>
@@ -271,8 +271,8 @@
         <avue-form v-if="previewVisible"
                    ref="form"
                    class="preview-form"
-                   :option="widgetFormPreview"
-                   v-model="widgetModels"
+                   :option="option"
+                   v-model="form"
                    @submit="handlePreviewSubmit"></avue-form>
         <div class="drawer-foot">
           <el-button size="medium"
@@ -410,14 +410,14 @@ export default {
         emptyText: '清空',
         menuPosition: 'center'
       },
-      widgetFormPreview: {},
+      option: {},
       configTab: 'widget',
       widgetFormSelect: {},
       previewVisible: false,
       generateJsonVisible: false,
       importJsonVisible: false,
       importJson: {},
-      widgetModels: {},
+      form: {},
       configOption: {
         generateType: 'json',
         space: 2,
@@ -502,8 +502,8 @@ export default {
     handlePreview() {
       if (!this.widgetForm.column || this.widgetForm.column.length == 0) this.$message.error("没有需要展示的内容")
       else {
-        this.transformToAvueOptions(this.widgetForm).then(data => {
-          this.widgetFormPreview = data
+        this.transformToAvueOptions(this.widgetForm, true).then(data => {
+          this.option = data
           this.previewVisible = true
         })
       }
@@ -523,7 +523,7 @@ export default {
     // 生成JSON - 弹窗
     handleGenerateJson() {
       this.transformToAvueOptions(this.widgetForm).then(data => {
-        this.widgetFormPreview = data
+        this.option = data
         this.generateJsonVisible = true
       })
     },
@@ -555,14 +555,14 @@ export default {
     // 预览 - 弹窗 - 确定
     handlePreviewSubmit(form, done) {
       if (done) {
-        this.$alert(this.widgetModels).then(() => {
+        this.$alert(this.form).then(() => {
           done()
         }).catch(() => {
           done()
         })
       } else {
         this.$refs.form.validate((valid, done) => {
-          if (valid) this.$alert(this.widgetModels).then(() => {
+          if (valid) this.$alert(this.form).then(() => {
             done()
           }).catch(() => {
             done()
@@ -573,7 +573,7 @@ export default {
     // 预览 - 弹窗 - 关闭前
     handleBeforeClose() {
       this.$refs.form.resetForm()
-      this.widgetModels = {}
+      this.form = {}
       this.previewVisible = false
     },
     // 清空
@@ -583,7 +583,7 @@ export default {
           type: 'warning'
         }).then(() => {
           this.$set(this.widgetForm, 'column', [])
-          this.$set(this, 'widgetModels', {})
+          this.$set(this, 'form', {})
           this.$set(this, 'widgetFormSelect', {})
           this.handleHistoryChange(this.widgetForm)
         }).catch(() => {
@@ -591,18 +591,28 @@ export default {
       } else this.$message.error("没有需要清空的内容")
     },
     // 表单设计器配置项 转化为 Avue配置项
-    transformToAvueOptions(obj) {
+    transformToAvueOptions(obj, isPreview = false) {
+      const _this = this
       return new Promise((resolve, reject) => {
         try {
-          const data = this.deepClone(obj)
+          const data = _this.deepClone(obj)
           for (let i = 0; i < data.column.length; i++) {
             const col = data.column[i]
+
+            if (isPreview) { // 预览调整事件中的this指向
+              let event = ['change', 'blur', 'click', 'focus']
+              event.forEach(e => {
+                if (col[e]) col[e] = eval((col[e] + '').replace(/this/g, '_this'))
+              })
+              if (col.event) Object.keys(col.event).forEach(key => col.event[key] = eval((col.event[key] + '').replace(/this/g, '_this')))
+            }
+
             if (col.type == 'dynamic' && col.children && col.children.column && col.children.column.length > 0) {
               const c = col.children.column;
               c.forEach(item => {
                 delete item.subfield
               })
-              this.transformToAvueOptions(col.children).then(res => {
+              this.transformToAvueOptions(col.children, isPreview).then(res => {
                 col.children = res
               })
             } else if (col.type == 'group') {
@@ -616,7 +626,7 @@ export default {
                 collapse: col.collapse,
                 display: col.display
               }
-              this.transformToAvueOptions(col.children).then(res => {
+              this.transformToAvueOptions(col.children, isPreview).then(res => {
                 group.column = res.column
                 data.group.push(group)
               })
@@ -751,9 +761,10 @@ export default {
         }
       })
     },
-    async getData(type = 'json') {
+    async getData(type = 'json', option = {}) {
       if (type == 'string') return beautifier(await this.transformToAvueOptions(this.widgetForm), {
-        minify: true
+        minify: true,
+        ...option
       })
       else return await this.transformToAvueOptions(this.widgetForm)
     }
