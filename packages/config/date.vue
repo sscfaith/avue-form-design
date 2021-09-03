@@ -36,6 +36,9 @@
                   v-if="['timerange', 'daterange', 'datetimerange'].includes(data.type)">
       <el-switch v-model="data.unlinkPanels"></el-switch>
     </el-form-item>
+    <el-form-item label="是否只读">
+      <el-switch v-model="data.readonly"></el-switch>
+    </el-form-item>
     <el-form-item label="是否禁用">
       <el-switch v-model="data.disabled"></el-switch>
     </el-form-item>
