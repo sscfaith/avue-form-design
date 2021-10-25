@@ -1,10 +1,11 @@
 <template>
   <div>
-    <el-form-item label="距左边边距"
-                  label-width="100px">
-      <el-input v-model="data.labelWidth"
-                clearable
-                placeholder="距左边边距"></el-input>
+    <el-form-item label="文本对齐">
+      <el-radio-group v-model="data.styles.textAlign">
+        <el-radio label="left">左</el-radio>
+        <el-radio label="center">中</el-radio>
+        <el-radio label="right">右</el-radio>
+      </el-radio-group>
     </el-form-item>
     <el-form-item label="颜色">
       <el-color-picker v-model="data.styles.color"

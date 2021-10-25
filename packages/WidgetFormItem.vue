@@ -1,10 +1,10 @@
 <template>
   <div>
-    <span v-if="item.type == 'title'"
+    <div v-if="item.type == 'title'"
           :style="item.styles"
           style="margin-left: 5px;">
       {{item.value}}
-    </span>
+    </div>
     <component v-else
                :is="getComponent(item.type, item.component)"
                v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
