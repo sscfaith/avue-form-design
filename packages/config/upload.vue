@@ -123,7 +123,12 @@
                        :min="1"
                        style="width: 100%;"></el-input-number>
     </el-form-item>
-    <div class="el-form-item el-form-item--small el-form--label-top">
+    <el-form-item label="水印配置，开启后只能上传图片"
+                  label-width="230px">
+      <el-switch v-model="data.showCanvas"></el-switch>
+    </el-form-item>
+    <div class="el-form-item el-form-item--small el-form--label-top"
+         v-if="data.canvasOption">
       <label class="el-form-item__label"
              style="padding: 0;">水印设置：</label>
       <div class="el-form-item__content">
@@ -229,6 +234,14 @@ export default {
     },
     'data.drag': function (val) {
       if (val) delete this.data.listType
+    },
+    'data.showCanvas'(val) {
+      if (val) {
+        this.$set(this.data, 'canvasOption', {})
+        this.$set(this.data, 'accept', 'image/*')
+      } else {
+        this.$delete(this.data, 'canvasOption')
+      }
     }
   }
 }

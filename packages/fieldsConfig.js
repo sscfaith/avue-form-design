@@ -220,7 +220,6 @@ export default [
       limit: 10,
       // props: {},
       propsHttp: {},
-      canvasOption: {},
       headersConfig: [],
       dataConfig: []
     }],
