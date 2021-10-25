@@ -126,9 +126,9 @@ export default {
     },
     handleWidgetCloneTable (index) {
       let cloneData = this.deepClone(this.data.column[index])
-      cloneData.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+      cloneData.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       cloneData.children.column.forEach(t => {
-        t.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+        t.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       })
       this.data.column.splice(index, 0, cloneData)
       this.$nextTick(() => {
@@ -141,7 +141,7 @@ export default {
     },
     handleWidgetTableClone (column, item) {
       const data = this.deepClone(item);
-      data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+      data.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       this.$set(column.children.column, column.children.column.length, { ...data })
       this.$nextTick(() => {
         this.selectWidget = column.children.column[column.children.column.length - 1]
@@ -169,7 +169,7 @@ export default {
       }
 
       const data = this.deepClone(column.children.column[newIndex]);
-      if (!data.prop) data.prop = Date.now() + '_' + Math.ceil(Math.random() * 99999)
+      if (!data.prop) data.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       delete data.icon
       if (data.type == 'dynamic') data.span = 24
       else data.span = 12
