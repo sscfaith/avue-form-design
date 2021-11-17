@@ -268,8 +268,7 @@
                  size="60%"
                  append-to-body
                  :before-close="handleBeforeClose">
-        <avue-form v-if="previewVisible"
-                   ref="form"
+        <avue-form ref="form"
                    class="preview-form"
                    :option="option"
                    v-model="form"
@@ -766,7 +765,24 @@ export default {
         minify: true,
         ...option
       })
+      else if (type == 'app') {
+        const option = await this.transformToAvueOptions(this.widgetForm)
+        this.parseJson(option)
+        return option
+      }
       else return await this.transformToAvueOptions(this.widgetForm)
+    },
+    parseJson(jsonObj) {
+      // 循环所有键
+      for (var key in jsonObj) {
+        //如果对象类型为object类型且数组长度大于0 或者 是对象 ，继续递归解析
+        var element = jsonObj[key]
+        if (element && element.length > 0 && typeof (element) == "object" || typeof (element) == "object") {
+          this.parseJson(element)
+        } else if (typeof element == 'function') {
+          jsonObj[key] = element + ''
+        }
+      }
     }
   }
 }
