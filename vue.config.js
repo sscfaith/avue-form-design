@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path');
 function resolve (dir) {
     return path.join(__dirname, dir)
@@ -24,6 +25,10 @@ module.exports = {
       .set('@components', resolve('packages/components'))
       .set('@utils', resolve('packages/utils'))
       .set('@mixins', resolve('packages/mixins'))
+    config.plugin('optimize')
+      .use(webpack.optimize.LimitChunkCountPlugin, [{
+        maxChunks: 1
+      }])
   },
 
   devServer: {
