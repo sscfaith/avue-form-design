@@ -35,6 +35,16 @@
                       clearable
                       placeholder="标题"></el-input>
           </el-form-item>
+          <el-form-item label="标题宽度"
+                        v-if="!['group','dynamic','title'].includes(data.type)"
+          >
+            <el-input-number v-model="data.labelWidth"
+                :min="80"
+                :step="10"
+                controls-position="right"
+                placeholder="标签宽度"
+                style="width: 100%"></el-input-number>
+          </el-form-item>
           <el-form-item label="宽度"
                         v-if="data.subfield">
             <el-input-number style="width:100%;"
