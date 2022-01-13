@@ -1,7 +1,7 @@
 const webpack = require('webpack')
-const path = require('path');
-function resolve (dir) {
-    return path.join(__dirname, dir)
+const path = require('path')
+function resolve(dir) {
+  return path.join(__dirname, dir)
 }
 
 module.exports = {
@@ -25,7 +25,9 @@ module.exports = {
       .set('@components', resolve('packages/components'))
       .set('@utils', resolve('packages/utils'))
       .set('@mixins', resolve('packages/mixins'))
-    config.plugin('optimize')
+
+    const output = config.output.store.get('path')
+    if (output.includes('lib')) config.plugin('optimize')
       .use(webpack.optimize.LimitChunkCountPlugin, [{
         maxChunks: 1
       }])
