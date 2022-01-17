@@ -45,7 +45,7 @@
                     :offset="column.offset || 0">
               <el-form-item class="widget-form-item"
                             :label="column.label"
-                            :labelWidth="column.labelWidth"
+                            :labelWidth="column.labelWidth && (column.labelWidth + 'px')"
                             :prop="column.prop"
                             :class="{ active: selectWidget.prop == column.prop, 'required': column.required }"
                             @click.native="handleSelectWidget(index)">
