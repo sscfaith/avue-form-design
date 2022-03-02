@@ -1,5 +1,7 @@
 ## 简介
 
+[Vue3版本](https://github.com/sscfaith/avue-form-design/tree/3.x)，因Avue还存在部分bug，请慎重使用。
+
 本项目是一款基于 <a href="https://avuejs.com/" target="_blank">Avue</a> 的表单设计器，拖拽式操作让你快速构建一个表单。
 
 :tada: 基于Bladex的工作流插件已上市。[授权地址](https://bladex.vip/#/market/flow)<br/>
