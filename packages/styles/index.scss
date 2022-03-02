@@ -1,0 +1,250 @@
+$primary-color: #409eff;
+$primary-active-color: #ecf5ff;
+$primary-background-color: #ecf8ff;
+
+.avue-form-design {
+  height: 100%;
+  background: #fff;
+  outline: 1px solid #e4e7ed;
+
+  ::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0) !important;
+    border-radius: 10px !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px !important;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0) !important;
+    background-color: #fff !important;
+  }
+
+  .widget {
+    height: calc(100% - 45px);
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    border-left: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+
+    .widget-list {
+      width: 100%;
+      padding-bottom: 50px;
+      overflow: hidden;
+      overflow-y: scroll;
+
+      .widget-item {
+        min-height: 30px;
+        padding: 5px 10px 18px;
+        margin: 0;
+        position: relative;
+      }
+
+      .widget-table {
+        position: relative;
+        padding: 2px;
+        float: left;
+        width: 100%;
+
+        &__body {
+          display: flex;
+          padding: 10px 5px;
+          width: 100%;
+          height: 100%;
+          overflow-y: hidden;
+          outline: 1px dashed #ccc;
+          outline-offset: -1px;
+          min-height: 103px;
+
+          .ghost {
+            background: white;
+            box-sizing: border-box;
+            font-size: 0;
+            content: "";
+            overflow: hidden;
+            padding: 0 !important;
+            position: relative;
+            outline: none 0;
+            height: 100%;
+            min-height: 90px;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin: 1px 2px 0 2px;
+          }
+        }
+
+        &__item {
+          position: relative;
+          min-width: 33.3%;
+          width: 33.3%;
+          padding: 1px;
+          height: 100%;
+        }
+      }
+
+      .widget-group {
+        position: relative;
+        width: 100%;
+        float: left;
+        padding: 2px;
+
+        &__head {
+          margin: 10px;
+        }
+
+        &__body {
+          min-height: 150px;
+          height: 100%;
+          outline: 1px dashed #ccc;
+          outline-offset: -1px;
+          overflow: hidden;
+          padding-bottom: 15px;
+
+          .ghost {
+            background: white;
+            border-left: 5px solid $primary-color;
+            box-sizing: border-box;
+            font-size: 0;
+            content: "";
+            overflow: hidden;
+            padding: 0 !important;
+            position: relative;
+            outline: none 0;
+            height: 100%;
+            min-height: 57px;
+            width: 0 !important;
+            min-width: 0 !important;
+            margin: 1px 2px 0 2px;
+          }
+        }
+
+        &__item {
+          padding: 10px;
+          margin: 3px;
+          position: relative;
+          border-left: 5px solid transparent;
+          background: white;
+        }
+      }
+    }
+
+    .ghost {
+      background: white;
+      border-top: 5px solid $primary-color;
+      box-sizing: border-box;
+      font-size: 0;
+      content: "";
+      overflow: hidden;
+      padding: 0 !important;
+      position: relative;
+      outline: none 0;
+      height: 0 !important;
+      width: 100%;
+      margin: 2px 0;
+    }
+  }
+
+  .required {
+    .el-form-item__label::before {
+      content: "*";
+      color: #f56c6c;
+      margin-right: 4px;
+    }
+  }
+
+  .required-item {
+    .el-table__header .cell::before {
+      content: "*";
+      color: #f56c6c;
+      margin-right: 4px;
+    }
+  }
+
+  .drag::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: block;
+    z-index: 1001;
+    content: "";
+  }
+
+  .hover:hover {
+    background: $primary-background-color;
+    cursor: move;
+  }
+
+  .hover-item:hover {
+    outline: 1px solid $primary-color;
+    outline-offset: -1px;
+    cursor: move;
+  }
+
+  .active {
+    border-left: 3px solid $primary-color;
+    background: $primary-active-color;
+  }
+
+  .active-item {
+    outline: 1px solid $primary-color;
+    outline-offset: -1px;
+  }
+
+  .danger {
+    color: #f56c6c;
+  }
+
+  .el-container {
+    height: 100%;
+  }
+
+  .el-form {
+    height: 100%;
+    .el-row {
+      height: 100%;
+    }
+  }
+
+  .avue-date,
+  .avue-time,
+  .avue-input-map,
+  .el-date-editor,
+  .el-cascader,
+  .el-select,
+  .el-input-number {
+    width: 100%;
+  }
+}
+
+.afd-drawer {
+  .el-drawer__body {
+    padding: 0 0 60px 0;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    padding: 10px 16px;
+    box-sizing: border-box;
+    border-top: 1px solid #f0f0f0;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #fff;
+    display: flex;
+
+    .el-button {
+      width: 50%;
+    }
+  }
+}

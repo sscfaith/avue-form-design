@@ -1,0 +1,42 @@
+{
+  "name": "@sscfaith/avue-form-design",
+  "author": {
+    "name": "SSC",
+    "url": "https://github.com/sscfaith",
+    "email": "273702440@qq.com"
+  },
+  "version": "3.0.0-beta.1",
+  "main": "lib/index.umd.js",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/sscfaith/avue-form-design"
+  },
+  "keywords": [
+    "vue3",
+    "element-plus",
+    "avue",
+    "form",
+    "design"
+  ],
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.32.1",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@smallwei/avue": "^3.0.1",
+    "@vitejs/plugin-vue": "^2.2.4",
+    "element-plus": "^2.0.4",
+    "sass": "^1.49.9",
+    "vite": "^2.8.5",
+    "vue": "^3.2.31"
+  },
+  "license": "MIT"
+}
