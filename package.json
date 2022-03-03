@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "lib": "vite build --mode lib",
     "preview": "vite preview"
   },
   "dependencies": {
