@@ -136,8 +136,8 @@
     <el-switch v-model="data.multiple"></el-switch>
   </el-form-item>
 
-  <el-dialog :visible.sync="dialogVisible" :rules="dialogRules" :before-close="beforeClose">
-    <el-form ref="dialogForm" :model="dialogForm" label-width="80px">
+  <el-dialog v-model="dialogVisible" :before-close="beforeClose">
+    <el-form ref="dialogForm" :model="dialogForm" label-width="80px" :rules="dialogRules">
       <el-form-item label="label">
         <el-input v-model="dialogForm.label" placeholder="label"></el-input>
       </el-form-item>
