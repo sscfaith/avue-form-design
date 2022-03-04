@@ -1,13 +1,13 @@
 <template>
-  <div class="widget-table hover">
+  <div class="widget-dynamic hover" :class="{ 'required-title': column.required }">
     <h3 style="margin: 10px" v-show="column.label">{{ column.label }}</h3>
     <draggable
-      class="widget-table__body"
+      class="widget-dynamic__body"
       :list="column.children.column"
       :group="{ name: 'form' }"
       ghost-class="ghost"
       :animation="200"
-      handle=".widget-table__item"
+      handle=".widget-dynamic__item"
       item-key="prop"
       @add="handleWidgetTableAdd($event, column)"
       @end="$emit('change')"
@@ -15,18 +15,14 @@
       <template #item="{ element, index }">
         <template v-if="column.children.column.length > 0">
           <div
-            class="widget-table__item hover-item drag"
+            class="widget-dynamic__item hover-item drag"
             :class="{ 'active-item': selectWidget.prop == element.prop, required: element.required }"
             :style="{ minWidth: element.width ? `${element.width}px` : '25%', width: element.width ? `${element.width}px` : '25%' }"
             @click.stop="handleWidgetTableSelect(element)"
           >
-            <el-table :data="[element]" size="medium" border>
-              <el-table-column
-                :prop="element.prop"
-                :label="element.label"
-                :align="column.children.align"
-                :header-align="column.children.headerAlign"
-              >
+            <div class="wf-table">
+              <div class="wf-table__header">{{ element.label }}</div>
+              <div class="wf-table__body">
                 <widget-item :item="element" :params="column.params"></widget-item>
                 <widget-button
                   v-if="selectWidget.prop == element.prop"
@@ -34,8 +30,8 @@
                   @delete="handleWidgetTableDelete(column, index)"
                   @copy="handleWidgetTableClone(column, element)"
                 ></widget-button>
-              </el-table-column>
-            </el-table>
+              </div>
+            </div>
           </div>
         </template>
         <template v-else>
@@ -58,7 +54,7 @@ import WidgetItem from './item.vue'
 import WidgetButton from './button.vue'
 
 export default {
-  name: 'widget-table',
+  name: 'widget-dynamic',
   props: ['data', 'column', 'select', 'index'],
   emits: ['update:select', 'change'],
   components: { WidgetItem, WidgetButton, Draggable },

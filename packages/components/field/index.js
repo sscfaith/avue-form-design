@@ -17,6 +17,7 @@ export default [
       icon: 'icon-table',
       span: 24,
       display: true,
+      labelPosition: 'top',
       children: {
         align: 'center',
         headerAlign: 'center',

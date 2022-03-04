@@ -31,7 +31,7 @@
           <el-form-item label="标题">
             <el-input v-model="data.label" clearable placeholder="标题"></el-input>
           </el-form-item>
-          <el-form-item label="标题宽度" v-if="!['group', 'dynamic', 'title'].includes(data.type)">
+          <el-form-item label="标签宽度" v-if="!['group', 'dynamic', 'title'].includes(data.type)">
             <el-input-number
               v-model="data.labelWidth"
               :min="90"
@@ -40,14 +40,12 @@
               placeholder="标签宽度"
             ></el-input-number>
           </el-form-item>
-          <el-form-item label="宽度" v-if="data.subfield">
-            <el-input-number
-              style="width:100%;"
-              v-model="data.width"
-              controls-position="right"
-              placeholder="宽度"
-              :min="100"
-            ></el-input-number>
+          <el-form-item label="标签位置" v-if="!data.subfield">
+            <el-select v-model="data.labelPosition" placeholder="标签位置" clearable>
+              <el-option label="上" value="top"></el-option>
+              <el-option label="左" value="left"></el-option>
+              <el-option label="右" value="right"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="宽度" v-if="data.subfield">
             <el-input-number

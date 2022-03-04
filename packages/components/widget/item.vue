@@ -3,7 +3,7 @@
   <component
     v-else
     :is="getComponent(item.type, item.component)"
-    v-bind="Object.assign(deepClone(item), params)"
+    v-bind="Object.assign(deepClone(item), params, { size: 'default' })"
     :multiple="false"
     :placeholder="item.placeholder || getPlaceholder(item)"
     :dic="item.dicData"

@@ -15,7 +15,7 @@
       @end="$emit('change')"
     >
       <template #item="{ element, index }">
-        <widget-table
+        <widget-dynamic
           v-if="element.type == 'dynamic'"
           :class="{ active: selectWidget.prop == element.prop }"
           @click.stop="handleWidgetTableSelect(element)"
@@ -24,13 +24,13 @@
           :index="index"
           v-model:select="selectWidget"
           @change="$emit('change')"
-        ></widget-table>
+        ></widget-dynamic>
         <div v-else :style="{width: `${element.span / 24 * 100}%`, float: 'left'}">
           <el-form-item
             class="widget-group__item hover drag"
             :label="element.label"
             :prop="element.prop"
-            :class="{ 'active-item': selectWidget.prop == element.prop, 'required': element.required }"
+            :class="[{ 'active-item': selectWidget.prop == element.prop, 'required': element.required }, 'avue-form__item--' + element.labelPosition || '']"
             @click.stop="handleWidgetTableSelect(element)"
           >
             <widget-item :item="element" :params="column.params"></widget-item>
@@ -56,12 +56,12 @@
 <script>
 import Draggable from 'vuedraggable'
 import WidgetItem from './item.vue'
-import WidgetTable from './table.vue'
+import WidgetDynamic from './dynamic.vue'
 import WidgetButton from './button.vue'
 
 export default {
   name: 'widget-group',
-  components: { WidgetItem, WidgetTable, WidgetButton, Draggable },
+  components: { WidgetItem, WidgetDynamic, WidgetButton, Draggable },
   props: ['data', 'column', 'select', 'index'],
   emits: ['update:select', 'change'],
   data() {
@@ -137,6 +137,7 @@ export default {
       const data = this.deepClone(column.children.column[newIndex]);
       if (!data.prop) data.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       delete data.icon
+      delete data.subfield
       if (data.type == 'dynamic') data.span = 24
       else data.span = 12
       column.children.column[newIndex] = { ...data }

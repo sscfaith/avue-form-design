@@ -8,7 +8,7 @@
       :label-width="data.labelWidth ? `${data.labelWidth}px` : '100px'"
       :label-suffix="data.labelSuffix"
       :model="form"
-      :size="data.size"
+      :size="data.size || 'default'"
       ref="widgetForm"
     >
       <el-row :gutter="data.gutter">
@@ -23,8 +23,8 @@
           @end="$emit('change')"
         >
           <template #item="{ element, index }">
-            <widget-table
-              v-if="element.type == 'dynamic'"
+            <widget-dynamic
+              v-if="['dynamic'].includes(element.type)"
               :class="{ active: selectWidget.prop == element.prop }"
               @click="handleSelectWidget(index)"
               :data="data"
@@ -32,7 +32,7 @@
               :index="index"
               v-model:select="selectWidget"
               @change="$emit('change')"
-            ></widget-table>
+            ></widget-dynamic>
             <widget-group
               v-else-if="element.type == 'group'"
               :class="{ active: selectWidget.prop == element.prop }"
@@ -54,8 +54,8 @@
                 class="widget-item hover drag"
                 :label="element.label"
                 :prop="element.prop"
-                :size="data.size || element.size"
-                :class="{ active: selectWidget.prop == element.prop, 'required': element.required }"
+                :size="data.size || element.size || 'default'"
+                :class="[{ active: selectWidget.prop == element.prop, 'required': element.required }, 'avue-form__item--' + element.labelPosition || '']"
                 :label-width="element.labelWidth"
                 @click="handleSelectWidget(index)"
               >
@@ -79,13 +79,13 @@ import widgetEmptyImg from '../../assets/widget-empty.png' // 空白图片
 
 import Draggable from 'vuedraggable'
 import WidgetItem from './item.vue'
-import WidgetTable from './table.vue'
+import WidgetDynamic from './dynamic.vue'
 import WidgetGroup from './group.vue'
 import WidgetButton from './button.vue'
 
 export default {
   name: 'widget',
-  components: { Draggable, WidgetItem, WidgetTable, WidgetGroup, WidgetButton },
+  components: { Draggable, WidgetItem, WidgetDynamic, WidgetGroup, WidgetButton },
   props: ['data', 'select'],
   emits: ['update:select', 'change'],
   data() {
@@ -128,7 +128,7 @@ export default {
     handleWidgetClone(index) {
       let cloneData = this.deepClone(this.data.column[index])
       cloneData.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
-      this.data.column.splice(index, 0, cloneData)
+      this.data.column.push(cloneData)
       this.$nextTick(() => {
         this.handleSelectWidget(index + 1)
         this.$emit("change")
