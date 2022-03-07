@@ -36,18 +36,6 @@
                   v-if="['timerange', 'daterange', 'datetimerange'].includes(data.type)">
       <el-switch v-model="data.unlinkPanels"></el-switch>
     </el-form-item>
-    <el-form-item label="是否只读">
-      <el-switch v-model="data.readonly"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否禁用">
-      <el-switch v-model="data.disabled"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否可见">
-      <el-switch v-model="data.display"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否必填">
-      <el-switch v-model="data.required"></el-switch>
-    </el-form-item>
   </div>
 </template>
 
@@ -55,32 +43,5 @@
 export default {
   name: "config-date",
   props: ['data'],
-  data() {
-    return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
-      }
-    }
-  },
-  methods: {
-    generateRule() {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
-    },
-  },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
-      else this.validator.required = null
-
-      this.generateRule()
-    }
-  }
 }
 </script>

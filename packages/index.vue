@@ -374,7 +374,13 @@ export default {
         })
       },
       deep: true
-    }
+    },
+    widgetFormSelect: {
+      handler() {
+        if (this.configTab == 'form') this.configTab = 'widget'
+      },
+      deep: true
+    },
   },
   computed: {
     leftWidth() {
@@ -410,7 +416,7 @@ export default {
         menuPosition: 'center'
       },
       option: {},
-      configTab: 'widget',
+      configTab: 'form',
       widgetFormSelect: {},
       previewVisible: false,
       generateJsonVisible: false,

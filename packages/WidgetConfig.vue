@@ -36,20 +36,25 @@
                       placeholder="标题"></el-input>
           </el-form-item>
           <el-form-item label="标题宽度"
-                        v-if="!['group','dynamic','title'].includes(data.type)"
-          >
+                        v-if="!['group','dynamic','title'].includes(data.type)">
             <el-input-number v-model="data.labelWidth"
-                :min="80"
-                :step="10"
-                controls-position="right"
-                placeholder="标签宽度"
-                style="width: 100%"></el-input-number>
+                             :min="80"
+                             :step="10"
+                             controls-position="right"
+                             placeholder="标签宽度"
+                             style="width: 100%"></el-input-number>
           </el-form-item>
-           <el-form-item label="标签位置" v-if="!data.subfield">
-            <el-select v-model="data.labelPosition" placeholder="标签位置" clearable>
-              <el-option label="上" value="top"></el-option>
-              <el-option label="左" value="left"></el-option>
-              <el-option label="右" value="right"></el-option>
+          <el-form-item label="标签位置"
+                        v-if="!data.subfield">
+            <el-select v-model="data.labelPosition"
+                       placeholder="标签位置"
+                       clearable>
+              <el-option label="上"
+                         value="top"></el-option>
+              <el-option label="左"
+                         value="left"></el-option>
+              <el-option label="右"
+                         value="right"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="宽度"
@@ -87,7 +92,7 @@
                          value="array"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="深结构"
+          <!-- <el-form-item label="深结构"
                         v-if="data.type && !data.component">
             <template slot="label">
               <el-link :underline="false"
@@ -97,7 +102,7 @@
             <el-input v-model="data.bind"
                       clearable
                       placeholder="深结构"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="字段提示">
             <template slot="label">
               <el-link :underline="false"
@@ -174,11 +179,30 @@
           <el-form-item label="详情模式">
             <el-switch v-model="data.detail"></el-switch>
           </el-form-item>
+          <el-form-item label="是否只读">
+            <el-switch v-model="data.readonly"></el-switch>
+          </el-form-item>
+          <el-form-item label="是否禁用">
+            <el-switch v-model="data.disabled"></el-switch>
+          </el-form-item>
+          <el-form-item label="是否可见">
+            <el-switch v-model="data.display"></el-switch>
+          </el-form-item>
+          <el-form-item label="是否必填">
+            <el-switch v-model="data.required"></el-switch>
+            <el-input v-if="data.required"
+                      v-model.lazy="data.pattern"
+                      placeholder="正则表达式"></el-input>
+          </el-form-item>
+
+        </el-collapse-item>
+        <el-collapse-item name="2"
+                          title="组件属性">
           <component :is="getComponent"
                      :data="data"
                      :default-values="defaultValues"></component>
         </el-collapse-item>
-        <el-collapse-item name="2"
+        <el-collapse-item name="3"
                           title="事件属性"
                           v-if="!['group'].includes(data.type)">
           <config-event :data="data"></config-event>
@@ -218,35 +242,47 @@ export default {
       return prefix + result
     }
   },
+  watch: {
+    'data.required'(val) {
+      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
+      else this.validator.required = null
+      this.generateRule()
+    },
+    'data.pattern'(val) {
+      if (val) this.validator.pattern = { pattern: new RegExp(val), message: `${this.data.label}格式不匹配` }
+      else this.validator.pattern = null
+      this.generateRule()
+    }
+  },
   data() {
     return {
       fields,
-      collapse: ['1', '2']
+      collapse: ['1', '2', '3'],
+      validator: {
+        type: null,
+        required: null,
+        pattern: null,
+        length: null
+      }
     }
   },
   methods: {
-    async handleChangeType(type) {
-      if (type) {
-        const config = await this.getConfigByType(type);
-        config.prop = this.data.prop;
-        for (let key in config) {
-          if (config && Object.prototype.hasOwnProperty.call(config, key) && !['icon', 'label', 'span'].includes(key)) {
-            const val = config[key]
-            this.$set(this.data, key, val);
-          }
-        }
+    handleChangeType(type) {
+      if (!type) return
+      const config = this.fields.find(f => f.list.find(l => l.type == type))
+      if (!config) return
+      for (let key in config) {
+        if (config && Object.prototype.hasOwnProperty.call(config, key) && !['icon', 'label', 'span'].includes(key)) this.data[key] = config[key]
       }
     },
-    getConfigByType(type) {
-      return new Promise((resolve, reject) => {
-        fields.forEach(field => {
-          field.list.forEach(config => {
-            if (config.type == type) resolve(config)
-          })
-        })
-        reject()
+    generateRule() {
+      const rules = []
+      Object.keys(this.validator).forEach(key => {
+        if (this.validator[key]) rules.push(this.validator[key])
       })
-    }
+      if (rules.length == 0) delete this.data.rules
+      else this.data.rules = rules
+    },
   }
 }
 </script>

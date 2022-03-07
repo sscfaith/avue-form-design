@@ -192,15 +192,6 @@
         <el-radio-button label="mini">超小</el-radio-button>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="是否禁用">
-      <el-switch v-model="data.disabled"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否可见">
-      <el-switch v-model="data.display"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否必填">
-      <el-switch v-model="data.required"></el-switch>
-    </el-form-item>
   </div>
 </template>
 
@@ -213,12 +204,6 @@ export default {
   components: { Draggable },
   data() {
     return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
-      },
       option: {
         column: [{
           type: 'input',
@@ -233,13 +218,6 @@ export default {
     }
   },
   methods: {
-    generateRule() {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
-    },
     handleRemoveFields(index) {
       this.data.dicData.splice(index, 1)
     },
@@ -257,13 +235,5 @@ export default {
       if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
     }
   },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-  }
 }
 </script>

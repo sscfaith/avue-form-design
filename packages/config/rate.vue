@@ -62,15 +62,6 @@
     <!--      <el-button v-else @click="showIconInput" size="mini" icon="el-icon-plus" circle-->
     <!--                 style="margin-left: 5px;"></el-button>-->
     <!--    </el-form-item>-->
-    <el-form-item label="是否禁用">
-      <el-switch v-model="data.disabled"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否可见">
-      <el-switch v-model="data.display"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否必填">
-      <el-switch v-model="data.required"></el-switch>
-    </el-form-item>
   </div>
 </template>
 
@@ -80,12 +71,6 @@ export default {
   props: ['data'],
   data() {
     return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
-      },
       textVisible: false,
       textValue: '',
       colorVisible: false,
@@ -95,13 +80,6 @@ export default {
     }
   },
   methods: {
-    generateRule() {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
-    },
     handleTextClose(tag) {
       this.data.texts.splice(this.data.texts.indexOf(tag), 1);
     },
@@ -138,14 +116,6 @@ export default {
     //   this.iconValue = '';
     // }
   },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `${this.data.label}必须填写` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-  }
 }
 </script>
 <style lang="scss" scoped>

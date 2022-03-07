@@ -146,15 +146,6 @@
     <el-form-item label="是否多选">
       <el-switch v-model="data.multiple"></el-switch>
     </el-form-item>
-    <el-form-item label="是否禁用">
-      <el-switch v-model="data.disabled"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否可见">
-      <el-switch v-model="data.display"></el-switch>
-    </el-form-item>
-    <el-form-item label="是否必填">
-      <el-switch v-model="data.required"></el-switch>
-    </el-form-item>
 
     <el-dialog :visible.sync="dialogVisible"
                :rules="dialogRules"
@@ -201,12 +192,6 @@ export default {
   props: ['data'],
   data() {
     return {
-      validator: {
-        type: null,
-        required: null,
-        pattern: null,
-        length: null
-      },
       dialogForm: {},
       dialogVisible: false,
       dialogRules: {
@@ -235,13 +220,6 @@ export default {
     },
     handleAddCascaderItemFields() {
       this.data.cascaderItem.push('')
-    },
-    generateRule() {
-      const rules = [];
-      Object.keys(this.validator).forEach(key => {
-        if (this.validator[key]) rules.push(this.validator[key])
-      })
-      this.data.rules = rules
     },
     handleTabClick({ name }) {
       if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
@@ -291,18 +269,6 @@ export default {
       this.dialogVisible = false
     }
   },
-  watch: {
-    'data.required': function (val) {
-      if (val) this.validator.required = { required: true, message: `请选择${this.data.label}` }
-      else this.validator.required = null
-
-      this.generateRule()
-    },
-    'data.multiple': function (val) {
-      if (val) this.data.defaultValue = []
-      else delete this.data.defaultValue
-    }
-  }
 }
 </script>
 <style lang="scss" scoped>
