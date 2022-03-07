@@ -5,7 +5,7 @@
              style="padding: 0;">change：</label>
       <div class="el-form-item__content">
         <monaco-editor v-model="change"
-                       height="200"
+                       height="300"
                        :keyIndex="`event-change-${data.prop}`"
                        :options="options"></monaco-editor>
       </div>
@@ -69,6 +69,7 @@ export default {
       focus: '',
       blur: '',
       options: {
+        fullScreen: true,
         minimap: {
           enabled: false,
         },

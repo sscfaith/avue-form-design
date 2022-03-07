@@ -61,7 +61,13 @@ export default {
       this.editor && this.$nextTick(() => {
         this.editor.layout();
       });
-    }
+    },
+
+    value(val) {
+      if (this.editor && val !== this._getValue()) {
+        this._setValue(val)
+      }
+    },
   },
 
   computed: {
@@ -81,10 +87,11 @@ export default {
     this.editor && this.editor.dispose();
   },
 
-  render() {
-    return (
-      <div class="monaco_editor_container" style={this.style}></div>
-    );
+  render(h) {
+    const fullScreen = this.options.fullScreen
+    return h('div', { class: 'monaco_editor_container', style: this.style }, [
+      fullScreen ? h('i', { class: 'el-icon-full-screen', style: { width: '1.2em', height: '1.2em', position: 'absolute', left: '0px', top: '0px', zIndex: '1', cursor: 'pointer' }, on: { click: this._handleFullScreen } }) : ''
+    ])
   },
 
   methods: {
@@ -100,6 +107,42 @@ export default {
       });
       this.diffEditor && this._setModel(this.value, this.original);
       this._editorMounted(this.editor);      //编辑器初始化后
+    },
+
+    _handleFullScreen() {
+      if (this.isMaximum) this.minEditor()
+      else this.maxEditor()
+    },
+    // 放大
+    maxEditor() {
+      this.isMaximum = true
+      let dom = this.$el
+      this.originSize = {
+        width: dom.clientWidth,
+        height: dom.clientHeight
+      }
+      dom.classList.add('editor-fullscreen')
+      this.editor.layout({
+        height: document.body.clientHeight,
+        width: document.body.clientWidth
+      })
+
+      document.addEventListener('keyup', (e) => {
+        if (e.keyCode == 27) {
+          this.minEditor()
+        }
+      })
+    },
+    // 缩小
+    minEditor() {
+      this.isMaximum = false
+      let dom = this.$el
+      dom.classList.remove('editor-fullscreen')
+      this.editor.layout({
+        height: this.originSize.height,
+        width: this.originSize.width
+      })
+      document.removeEventListener('keyup', () => { })
     },
 
     _getEditor() {

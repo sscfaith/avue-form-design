@@ -582,9 +582,28 @@ $primary-background-color: #ecf8ff;
   .el-input-number {
     width: 100%;
   }
+
+  .editor-fullscreen {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100% !important;
+    z-index: 1003;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff;
+
+    i {
+      top: 20px !important;
+      left: 25px !important;
+    }
+  }
 }
 
-.drawer-foot {
+.afd-drawer-foot {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -605,15 +624,9 @@ $primary-background-color: #ecf8ff;
   }
 }
 
-.preview-form {
+.afd-preview-form {
   overflow-y: scroll;
   height: 83vh;
-}
-
-.popper-bo {
-  .el-alert {
-    margin-bottom: 10px;
-  }
 }
 
 .el-drawer__wrapper {
