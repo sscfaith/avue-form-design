@@ -210,6 +210,37 @@ export default [
         value: 'value',
         desc: 'desc'
       }
+    }, {
+      type: 'table',
+      label: '表格选择器',
+      icon: 'icon-table',
+      display: true,
+      span: 24,
+      children: {
+        border: true,
+        searchMenuSpan: 6,
+        searchIcon: true,
+        column: [],
+        props: {
+          url: '',
+          method: 'get',
+          rowKey: 'id',
+          needPage: true,
+          currentPageKey: 'current',
+          pageSizeKey: 'size',
+          totalKey: 'total',
+          recordsKey: 'records',
+          resKey: 'data.data',
+          auto: true
+        }
+      },
+      formatter: (row) => {
+        return row.name
+      },
+      props: {
+        label: 'name',
+        value: 'id'
+      },
     }]
   },
   {
