@@ -47,7 +47,7 @@
                             :label="column.label"
                             :labelWidth="column.labelWidth && (column.labelWidth + 'px')"
                             :prop="column.prop"
-                            :class="{ active: selectWidget.prop == column.prop, 'required': column.required }"
+                            :class="[{ active: selectWidget.prop == column.prop, 'required': column.required }, 'avue-form__item--' + column.labelPosition || '']"
                             @click.native="handleSelectWidget(index)">
                 <widget-form-item :item="column"
                                   :params="column.params"></widget-form-item>

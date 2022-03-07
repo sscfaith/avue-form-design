@@ -45,6 +45,13 @@
                 placeholder="标签宽度"
                 style="width: 100%"></el-input-number>
           </el-form-item>
+           <el-form-item label="标签位置" v-if="!data.subfield">
+            <el-select v-model="data.labelPosition" placeholder="标签位置" clearable>
+              <el-option label="上" value="top"></el-option>
+              <el-option label="左" value="left"></el-option>
+              <el-option label="右" value="right"></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="宽度"
                         v-if="data.subfield">
             <el-input-number style="width:100%;"
