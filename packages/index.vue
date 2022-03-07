@@ -487,7 +487,7 @@ export default {
     },
     // Avue文档链接
     handleAvueDoc() {
-      window.open('https://avuejs.com/doc/form/form-doc', '_blank')
+      window.open('https://avuejs.com/form/form.html', '_blank')
     },
     // 左侧字段点击
     handleFieldClick(item) {

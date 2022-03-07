@@ -16,7 +16,7 @@
     <el-form-item label="OSS">
       <template slot="label">
         <el-link :underline="false"
-                 href="https://avuejs.com/doc/form/form-upload-qiniu"
+                 href="https://avuejs.com/form/form-upload.html#%E9%98%BF%E9%87%8C%E4%BA%91oss%E4%B8%8A%E4%BC%A0"
                  target="_blank">OSS <i class="el-icon-question"></i></el-link>
       </template>
       <el-select v-model="data.oss"
@@ -65,7 +65,7 @@
       <label class="el-form-item__label"
              style="padding: 0;">
         <el-link :underline="false"
-                 href="https://avuejs.com/doc/form/form-upload"
+                 href="https://avuejs.com/form/form-upload.html"
                  target="_blank">上传参数设置 <i class="el-icon-question"></i></el-link>
       </label>
       <div class="el-form-item__content">

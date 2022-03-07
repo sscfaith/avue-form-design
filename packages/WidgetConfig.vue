@@ -78,7 +78,7 @@
                         v-if="['cascader','checkbox','radio','select','tree','upload','img','array','slider','timerange','daterange','datetimerange'].includes(data.type)">
             <template slot="label">
               <el-link :underline="false"
-                       href="https://avuejs.com/doc/dataType"
+                       href="https://avuejs.com/docs/datatype.html"
                        target="_blank">数据类型 <i class="el-icon-question"></i></el-link>
             </template>
             <el-select v-model="data.dataType"
@@ -96,7 +96,7 @@
                         v-if="data.type && !data.component">
             <template slot="label">
               <el-link :underline="false"
-                       href="https://avuejs.com/doc/form/form-bind"
+                       href="https://avuejs.com/form/form-bind.html"
                        target="_blank">深结构 <i class="el-icon-question"></i></el-link>
             </template>
             <el-input v-model="data.bind"
@@ -106,7 +106,7 @@
           <el-form-item label="字段提示">
             <template slot="label">
               <el-link :underline="false"
-                       href="https://avuejs.com/doc/form/form-tip"
+                       href="https://avuejs.com/form/form-tip.html"
                        target="_blank">字段提示 <i class="el-icon-question"></i></el-link>
             </template>
             <el-input v-model="data.tip"
@@ -132,7 +132,7 @@
           <el-form-item label="标题提示">
             <template slot="label">
               <el-link :underline="false"
-                       href="https://avuejs.com/doc/form/form-tip"
+                       href="https://avuejs.com/form/form-tip.html"
                        target="_blank">标题提示 <i class="el-icon-question"></i></el-link>
             </template>
             <el-input v-model="data.labelTip"

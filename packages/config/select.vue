@@ -109,7 +109,7 @@
                     v-if="data.multiple">
         <template slot="label">
           <el-link :underline="false"
-                   href="https://avuejs.com/doc/form/form-select-drag"
+                   href="https://avuejs.com/form/form-select.html#%E6%8B%96%E6%8B%BD"
                    target="_blank">是否可拖拽 <i class="el-icon-question"></i></el-link>
         </template>
         <el-switch v-model="data.drag"></el-switch>
