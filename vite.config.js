@@ -5,7 +5,15 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig(({ mode }) => {
   const config = {
-    plugins: [vue()]
+    plugins: [vue()],
+    server: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost',
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
+    },
   }
   if (mode == 'lib') {
     config.build = {

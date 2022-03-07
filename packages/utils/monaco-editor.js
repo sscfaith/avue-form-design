@@ -3,12 +3,15 @@ import 'monaco-editor/esm/vs/basic-languages/javascript/javascript.contribution'
 import beautifier from './json-beautifier'
 import { h } from "vue";
 
+import { FullScreen } from '@element-plus/icons-vue'
+
 function noop() { }
 
 export { monaco };
 
 export default {
   name: 'MonacoEditor',
+  components: { FullScreen },
   props: {
     diffEditor: { type: Boolean, default: false },      //是否使用diff模式
     width: { type: [String, Number], default: '100%' },
@@ -63,14 +66,21 @@ export default {
       this.editor && this.$nextTick(() => {
         this.editor.layout();
       });
-    }
+    },
+
+    modelValue(val) {
+      if (this.editor && val !== this._getValue()) {
+        this._setValue(val)
+      }
+    },
   },
 
   computed: {
     style() {
       return {
         width: !/^\d+$/.test(this.width) ? this.width : `${this.width}px`,
-        height: !/^\d+$/.test(this.height) ? this.height : `${this.height}px`
+        height: !/^\d+$/.test(this.height) ? this.height : `${this.height}px`,
+        position: 'relative'
       }
     }
   },
@@ -86,7 +96,10 @@ export default {
   },
 
   render() {
-    return h('div', { class: 'monaco_editor_container', style: this.style })
+    const fullScreen = this.options.fullScreen
+    return h('div', { class: 'monaco_editor_container', style: this.style }, [
+      fullScreen ? h(FullScreen, { style: { width: '1.2em', height: '1.2em', position: 'absolute', left: '0px', top: '0px', zIndex: '1', cursor: 'pointer' }, onClick: this._handleFullScreen }) : ''
+    ])
   },
 
   methods: {
@@ -98,10 +111,50 @@ export default {
         language: language,
         theme: theme,
         readOnly: readOnly,
+        scrollbar: {
+          verticalScrollbarSize: '5px',
+          horizontalScrollbarSize: '5px'
+        },
+        automaticLayout: true,
         ...options
       });
       this.diffEditor && this._setModel(this.modelValue, this.original);
       this._editorMounted(this.editor);      //编辑器初始化后
+    },
+    _handleFullScreen() {
+      if (this.isMaximum) this.minEditor()
+      else this.maxEditor()
+    },
+    // 放大
+    maxEditor() {
+      this.isMaximum = true
+      let dom = this.$el
+      this.originSize = {
+        width: dom.clientWidth,
+        height: dom.clientHeight
+      }
+      dom.classList.add('editor-fullscreen')
+      this.editor.layout({
+        height: document.body.clientHeight,
+        width: document.body.clientWidth
+      })
+
+      document.addEventListener('keyup', (e) => {
+        if (e.keyCode == 27) {
+          this.minEditor()
+        }
+      })
+    },
+    // 缩小
+    minEditor() {
+      this.isMaximum = false
+      let dom = this.$el
+      dom.classList.remove('editor-fullscreen')
+      this.editor.layout({
+        height: this.originSize.height,
+        width: this.originSize.width
+      })
+      document.removeEventListener('keyup', () => { })
     },
 
     _getEditor() {

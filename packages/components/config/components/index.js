@@ -17,6 +17,7 @@ import Group from './group.vue'
 import Array from './array.vue'
 import Title from './title.vue'
 import Event from './event.vue'
+import Table from './table/index.vue'
 
 const components = [
   Custom,
@@ -37,7 +38,8 @@ const components = [
   Group,
   Array,
   Title,
-  Event
+  Event,
+  Table
 ]
 
 const Config = {
