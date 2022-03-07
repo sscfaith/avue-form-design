@@ -105,7 +105,7 @@
       <template slot="label">
         <el-link
           :underline="false"
-          href="https://avuejs.com/doc/form/form-select-drag"
+          href="https://avuejs.com/form/form-select.html#%E6%8B%96%E6%8B%BD"
           target="_blank"
         >
           是否可拖拽

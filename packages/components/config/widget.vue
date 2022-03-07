@@ -71,7 +71,7 @@
             v-if="['cascader', 'checkbox', 'radio', 'select', 'tree', 'upload', 'img', 'array', 'slider', 'timerange', 'daterange', 'datetimerange'].includes(data.type)"
           >
             <template slot="label">
-              <el-link :underline="false" href="https://avuejs.com/doc/dataType" target="_blank">
+              <el-link :underline="false" href="https://avuejs.com/docs/datatype.html" target="_blank">
                 数据类型
                 <i class="el-icon-question"></i>
               </el-link>
@@ -86,7 +86,7 @@
             <template slot="label">
               <el-link
                 :underline="false"
-                href="https://avuejs.com/doc/form/form-tip"
+                href="https://avuejs.com/form/form-tip.html"
                 target="_blank"
               >
                 字段提示
@@ -111,7 +111,7 @@
             <template slot="label">
               <el-link
                 :underline="false"
-                href="https://avuejs.com/doc/form/form-tip"
+                href="https://avuejs.com/form/form-tip.html"
                 target="_blank"
               >
                 标题提示

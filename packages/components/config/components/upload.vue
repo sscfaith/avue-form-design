@@ -46,7 +46,7 @@
     </div>
     <div class="el-form-item">
       <label class="el-form-item__label" style="padding: 0;">
-        <el-link :underline="false" href="https://avuejs.com/doc/form/form-upload" target="_blank">
+        <el-link :underline="false" href="https://avuejs.com/form/form-upload.html" target="_blank">
           上传参数设置
           <i class="el-icon-question"></i>
         </el-link>

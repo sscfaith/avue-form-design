@@ -1,8 +1,5 @@
 <template>
   <div class="el-form--label-top">
-    <el-form-item label="标题宽度">
-      <el-input v-model="data.labelWidth" clearable placeholder="标题宽度"></el-input>
-    </el-form-item>
     <div class="el-form-item el-form-item--small">
       <label class="el-form-item__label" style="padding: 0;">自定义属性：</label>
       <div class="el-form-item__content">
@@ -29,6 +26,7 @@ export default {
       params: this.data.params || {},
       event: this.data.event || {},
       options: {
+        fullScreen: true,
         minimap: {
           enabled: false,
         },

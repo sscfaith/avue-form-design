@@ -6,7 +6,7 @@
     <label class="el-form-item__label" style="padding: 0;">
       <el-link
         :underline="false"
-        href="https://avuejs.com/doc/plugins/ueditor-plugins"
+        href="https://avuejs.com/plugins/ueditor-plugins.html"
         target="_blank"
       >
         参数设置
