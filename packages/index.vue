@@ -183,7 +183,7 @@
         <monaco-editor v-model="importJson"
                        keyIndex="import"
                        height="82%"></monaco-editor>
-        <div class="drawer-foot">
+        <div class="afd-drawer-foot">
           <el-button size="medium"
                      type="primary"
                      @click="handleImportJsonSubmit">确定</el-button>
@@ -202,7 +202,7 @@
                        keyIndex="generate"
                        height="82%"
                        :read-only="true"></monaco-editor>
-        <div class="drawer-foot">
+        <div class="afd-drawer-foot">
           <el-button size="medium"
                      type="primary"
                      @click="handleGenerate">生成</el-button>
@@ -269,11 +269,11 @@
                  append-to-body
                  :before-close="handleBeforeClose">
         <avue-form ref="form"
-                   class="preview-form"
+                   class="afd-preview-form"
                    :option="option"
                    v-model="form"
                    @submit="handlePreviewSubmit"></avue-form>
-        <div class="drawer-foot">
+        <div class="afd-drawer-foot">
           <el-button size="medium"
                      type="primary"
                      @click="handlePreviewSubmit">确定</el-button>
