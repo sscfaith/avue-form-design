@@ -70,10 +70,16 @@
             label="数据类型"
             v-if="['cascader', 'checkbox', 'radio', 'select', 'tree', 'upload', 'img', 'array', 'slider', 'timerange', 'daterange', 'datetimerange'].includes(data.type)"
           >
-            <template slot="label">
-              <el-link :underline="false" href="https://avuejs.com/docs/datatype.html" target="_blank">
+            <template #label>
+              <el-link
+                :underline="false"
+                href="https://avuejs.com/docs/datatype.html"
+                target="_blank"
+              >
                 数据类型
-                <i class="el-icon-question"></i>
+                <el-icon>
+                  <question-filled></question-filled>
+                </el-icon>
               </el-link>
             </template>
             <el-select v-model="data.dataType" placeholder="数据类型" clearable>
@@ -83,14 +89,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="字段提示">
-            <template slot="label">
+            <template #label>
               <el-link
                 :underline="false"
                 href="https://avuejs.com/form/form-tip.html"
                 target="_blank"
               >
                 字段提示
-                <i class="el-icon-question"></i>
+                <el-icon>
+                  <question-filled></question-filled>
+                </el-icon>
               </el-link>
             </template>
             <el-input v-model="data.tip" clearable placeholder="字段提示"></el-input>
@@ -108,14 +116,16 @@
             </el-select>
           </el-form-item>
           <el-form-item label="标题提示">
-            <template slot="label">
+            <template #label>
               <el-link
                 :underline="false"
                 href="https://avuejs.com/form/form-tip.html"
                 target="_blank"
               >
                 标题提示
-                <i class="el-icon-question"></i>
+                <el-icon>
+                  <question-filled></question-filled>
+                </el-icon>
               </el-link>
             </template>
             <el-input v-model="data.labelTip" clearable placeholder="标题提示"></el-input>
@@ -180,6 +190,8 @@
 </template>
 
 <script>
+import { QuestionFilled } from '@element-plus/icons-vue'
+
 import fields from '../field/index'
 import props from './mixins/props'
 
@@ -187,6 +199,7 @@ export default {
   name: 'widget-config',
   mixins: [props],
   props: ['defaultValues'],
+  components: { QuestionFilled },
   computed: {
     getComponent() {
       const prefix = 'afd-config-'

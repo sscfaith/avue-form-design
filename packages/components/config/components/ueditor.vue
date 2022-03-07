@@ -10,7 +10,9 @@
         target="_blank"
       >
         参数设置
-        <i class="el-icon-question"></i>
+        <el-icon>
+          <question-filled></question-filled>
+        </el-icon>
       </el-link>
     </label>
     <div class="el-form-item__content">
@@ -69,6 +71,8 @@
 </template>
 
 <script>
+import { QuestionFilled } from '@element-plus/icons-vue'
+
 export default {
   name: "config-ueditor",
   props: ['data'],

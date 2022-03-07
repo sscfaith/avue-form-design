@@ -143,23 +143,20 @@
       </el-form-item>
       <el-form-item label="value">
         <el-input v-model="dialogForm.value" placeholder="value" :type="this.dialogInputType">
-          <el-select
-            v-model="dialogInputType"
-            slot="append"
-            placeholder="数据类型"
-            style="width: 100px"
-          >
-            <el-option label="String" value="text"></el-option>
-            <el-option label="Number" value="number"></el-option>
-          </el-select>
+          <template #append>
+            <el-select v-model="dialogInputType" placeholder="数据类型" style="width: 100px">
+              <el-option label="String" value="text"></el-option>
+              <el-option label="Number" value="number"></el-option>
+            </el-select>
+          </template>
         </el-input>
       </el-form-item>
     </el-form>
-    <span slot="footer" class="dialog-footer">
+    <template #footer>
       <el-button @click="dialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="handleDialogAdd" v-if="dialogStatus == 'add'">确 定</el-button>
       <!--        <el-button type="primary" @click="handleDialogUpdate" v-else>确 定</el-button>-->
-    </span>
+    </template>
   </el-dialog>
 </template>
 

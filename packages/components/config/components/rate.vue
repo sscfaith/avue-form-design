@@ -9,7 +9,7 @@
     <el-tag
       :key="index"
       size="small"
-      v-for="(tag,index) in data.texts"
+      v-for="(tag, index) in data.texts"
       closable
       @close="handleTextClose(tag)"
     >{{ tag }}</el-tag>
@@ -17,36 +17,31 @@
       class="input-new-tag"
       v-if="textVisible"
       v-model="textValue"
-      
       ref="textTag"
       clearable
+      size="small"
       @keyup.enter.native="handleTextConfirm"
       @blur="handleTextConfirm"
     ></el-input>
     <el-button
       v-if="!textVisible && data.texts.length < data.max"
       @click="showTextInput"
-      
       icon="el-icon-plus"
       circle
+      size="small"
       style="margin-left: 5px;"
     ></el-button>
   </el-form-item>
   <el-form-item label="自定义颜色" label-width="110px">
     <el-tag
       :key="index"
-      v-for="(tag,index) in data.colors"
+      v-for="(tag, index) in data.colors"
       closable
       size="small"
       @close="handleColorClose(tag)"
       :style="{ color: tag }"
     >{{ tag }}</el-tag>
-    <el-color-picker
-      v-model="colorValue"
-      
-      @change="handleColorConfirm"
-      class="color-picker"
-    ></el-color-picker>
+    <el-color-picker v-model="colorValue" @change="handleColorConfirm" class="color-picker"></el-color-picker>
   </el-form-item>
   <!--    <el-form-item label="自定义图标">-->
   <!--      <el-tag :key="index" v-for="(tag,index) in data.iconClasses" closable @close="handleIconClose(tag)">{{tag}}-->
