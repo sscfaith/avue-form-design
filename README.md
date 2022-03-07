@@ -9,9 +9,6 @@
 [流程设计器预览地址](https://bpmn.nutflow.vip)<br>
 [工作流插件预览地址](https://demo1.nutflow.vip)
 
-## 更新日志
-[更新日志](../../blob/master/CHANGELOG.md)
-
 ## 文档及demo项目
 [Wiki](../../wikis)
 
@@ -87,7 +84,7 @@ Vue.use(AvueFormDesign)
 
 ### options字段配置
 
-<a href="https://avuejs.com/doc/form/form-doc" target="_blank">Avue文档</a>
+<a href="https://avuejs.com/form/form.html" target="_blank">Avue文档</a>
 
 | 属性 | 说明 | 类型 | 可选值 | 默认值 |
 | ------| ------ | ------ | ------ | ------ |
