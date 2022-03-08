@@ -1,13 +1,13 @@
 <template>
   <div>
     <div v-if="item.type == 'title'"
-          :style="item.styles"
-          style="margin-left: 5px;">
+         :style="item.styles"
+         style="margin-left: 5px;">
       {{item.value}}
     </div>
     <component v-else
                :is="getComponent(item.type, item.component)"
-               v-bind="Object.assign(deepClone(item), params, { size:item.size || 'small' })"
+               v-bind="vBind"
                :multiple="false"
                :placeholder="item.placeholder || getPlaceholder(item)"
                :dic="item.dicData"
@@ -34,13 +34,22 @@ export default {
       }
     }
   },
-  data () {
+  computed: {
+    vBind() {
+      const vBind = Object.assign(this.deepClone(this.item), this.params, { size: this.item.size || 'small' })
+      let event = ['change', 'blur', 'click', 'focus']
+      event.forEach(e => delete vBind[e])
+      if (vBind.event) delete vBind.event
+      return vBind
+    }
+  },
+  data() {
     return {
       form: {}
     }
   },
   methods: {
-    getComponent (type, component) {
+    getComponent(type, component) {
       let KEY_COMPONENT_NAME = 'avue-';
       let result = 'input';
       if (component) return component
@@ -64,7 +73,7 @@ export default {
       else if (type === 'map') result = 'input-map';
       return KEY_COMPONENT_NAME + result;
     },
-    getPlaceholder (item) {
+    getPlaceholder(item) {
       const label = item.label;
       if (['select', 'checkbox', 'radio', 'tree', 'color', 'dates', 'date', 'datetime', 'datetimerange', 'daterange', 'week', 'month', 'year', 'map', 'icon'].includes(item.type))
         return `请选择 ${label}`;
