@@ -131,7 +131,7 @@ export default {
       cloneData.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       this.data.column.push(cloneData)
       this.$nextTick(() => {
-        this.handleSelectWidget(index + 1)
+        this.handleSelectWidget(this.data.column.length - 1)
         this.$emit("change")
       })
     },
