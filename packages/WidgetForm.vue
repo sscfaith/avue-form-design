@@ -129,7 +129,7 @@ export default {
     handleWidgetClone (index) {
       let cloneData = this.deepClone(this.data.column[index])
       cloneData.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
-      this.data.column.splice(index, 0, cloneData)
+      this.data.column.push(cloneData)
       this.$nextTick(() => {
         this.handleSelectWidget(index + 1)
         this.$emit("change")
