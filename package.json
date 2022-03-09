@@ -5,7 +5,7 @@
     "url": "https://github.com/sscfaith",
     "email": "273702440@qq.com"
   },
-  "version": "3.0.0-beta.1",
+  "version": "3.0.0-beta.2",
   "main": "lib/index.umd.js",
   "files": [
     "lib"
@@ -34,9 +34,9 @@
   "devDependencies": {
     "@smallwei/avue": "^3.0.1",
     "@vitejs/plugin-vue": "^2.2.4",
-    "element-plus": "^2.0.4",
+    "element-plus": "^2.0.5",
     "sass": "^1.49.9",
-    "vite": "^2.8.5",
+    "vite": "^2.8.6",
     "vue": "^3.2.31"
   },
   "license": "MIT"

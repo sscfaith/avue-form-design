@@ -43,7 +43,90 @@ export default {
           }
         },
       ],
-      options: {},
+      options: `{
+        column: [
+          {
+            label: '预览查看下方字段联动',
+            span: 24,
+            labelPosition: 'top',
+            labelWidth: 120
+          },
+          {
+            type: 'switch',
+            label: '控制显隐',
+            span: 24,
+            display: true,
+            value: '0',
+            dicData: [
+              {
+                label: '',
+                value: '0'
+              },
+              {
+                label: '',
+                value: '1'
+              }
+            ],
+            prop: '1629695558953_19833',
+            change: ({ value }) => {
+              const input = this.findObject(this.option.column, 'input')
+              if (input == -1) return
+              if (value == 0) {
+                input.display = false
+              } else {
+                input.display = true
+              }
+            }
+          },
+          {
+            type: 'input',
+            label: '单行文本',
+            span: 24,
+            display: true,
+            prop: 'input'
+          },
+          {
+            type: 'select',
+            label: '值改变',
+            dicData: [
+              {
+                label: '一天',
+                value: '1'
+              },
+              {
+                label: '两天',
+                value: '2'
+              },
+              {
+                label: '三天',
+                value: '3'
+              }
+            ],
+            cascaderItem: [],
+            span: 24,
+            display: true,
+            props: {
+              label: 'label',
+              value: 'value'
+            },
+            prop: '1629695859796_23456',
+            change: ({ value }) => {
+              let text = value
+              if (value) {
+                text = '请假 ' + value + ' 天'
+              }
+              this.form.input2 = value
+            }
+          },
+          {
+            type: 'input',
+            label: '单行文本',
+            span: 24,
+            display: true,
+            prop: 'input2'
+          }
+        ],
+      }`,
     }
   },
   methods: {
