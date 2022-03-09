@@ -232,6 +232,15 @@ $primary-background-color: #ecf8ff;
           outline-offset: -1px;
           min-height: 103px;
 
+          &::-webkit-scrollbar {
+            width: 6px !important;
+            height: 6px !important;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: #e5e7eb !important;
+          }
+
           .ghost {
             background: white;
             border-left: 5px solid $primary-color;
