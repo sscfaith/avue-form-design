@@ -29,26 +29,54 @@
                    value="qiniu"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="是否拖拽上传"
-                  label-width="110px">
-      <el-switch v-model="data.drag"></el-switch>
-    </el-form-item>
-    <el-form-item label="文件列表类型"
-                  label-width="110px"
-                  v-if="!data.drag">
-      <el-select v-model="data.listType"
-                 placeholder="文件列表类型"
-                 clearable>
-        <el-option label="附件"
-                   value="text"></el-option>
-        <el-option label="照片墙"
-                   value="picture-card"></el-option>
-        <el-option label="头像"
-                   value="picture-img"></el-option>
-        <el-option label="缩略图"
-                   value="picture"></el-option>
-      </el-select>
-    </el-form-item>
+    <template v-if="avueVersion('2.9.0')">
+      <el-form-item label="是否拖拽上传"
+                    label-width="110px">
+        <el-switch v-model="data.drag"></el-switch>
+      </el-form-item>
+      <el-form-item label="文件列表类型"
+                    label-width="110px"
+                    v-if="!data.drag">
+        <el-select v-model="data.listType"
+                   placeholder="文件列表类型"
+                   clearable>
+          <el-option label="附件"
+                     value="text"></el-option>
+          <el-option label="照片墙"
+                     value="picture-card"></el-option>
+          <el-option label="头像"
+                     value="picture-img"></el-option>
+          <el-option label="缩略图"
+                     value="picture"></el-option>
+        </el-select>
+      </el-form-item>
+    </template>
+    <template v-else>
+      <el-form-item label="拖拽上传"
+                    label-width="110px">
+        <el-switch v-model="data.dragFile"></el-switch>
+      </el-form-item>
+      <el-form-item label="文件列表类型"
+                    label-width="110px"
+                    v-if="!data.dragFile">
+        <el-select v-model="data.listType"
+                   placeholder="文件列表类型"
+                   clearable>
+          <el-option label="附件"
+                     value="text"></el-option>
+          <el-option label="照片墙"
+                     value="picture-card"></el-option>
+          <el-option label="头像"
+                     value="picture-img"></el-option>
+          <el-option label="缩略图"
+                     value="picture"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="拖拽排序"
+                    label-width="110px">
+        <el-switch v-model="data.drag"></el-switch>
+      </el-form-item>
+    </template>
     <div class="el-form-item el-form-item--small el-form--label-top">
       <label class="el-form-item__label"
              style="padding: 0;">参数设置：</label>
@@ -202,8 +230,21 @@ export default {
     }
   },
   watch: {
+    'data.prop': {
+      handler() {
+        if (!this.avueVersion('2.9.0') && this.data.drag != undefined) {
+          this.$set(this.data, 'dragFile', this.data.drag)
+          this.$delete(this.data, 'drag')
+        }
+      },
+      immediate: true
+    },
     'data.drag': function (val) {
-      if (val) delete this.data.listType
+      if (!this.avueVersion('2.9.0')) return
+      if (val) this.$delete(this.data, 'listType')
+    },
+    'data.dragFile': function (val) {
+      if (val) this.$delete(this.data, 'listType')
     },
     'data.showCanvas'(val) {
       if (val) {

@@ -128,16 +128,22 @@
                style="padding: 0;">级联配置：</label>
         <div class="el-form-item__content">
           <draggable tag="ul"
-                     :list="data.cascaderItem"
+                     :list="data.cascaderItem || data.cascader"
                      :group="{ name: 'cascaderItem' }"
                      ghost-class="ghost"
                      handle=".drag-item">
-            <li v-for="(item, index) in data.cascaderItem"
+            <li v-for="(item, index) in data.cascaderItem || data.cascader"
                 :key="index">
               <i class="drag-item el-icon-s-operation"
                  style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
-              <el-input size="mini"
+              <el-input v-if="avueVersion('2.9.0')"
+                        size="mini"
                         v-model="data.cascaderItem[index]"
+                        clearable
+                        placeholder="级联属性值"></el-input>
+              <el-input v-else
+                        size="mini"
+                        v-model="data.cascader[index]"
                         clearable
                         placeholder="级联属性值"></el-input>
               <el-button @click="handleRemoveCascaderItemFields(index)"
@@ -156,7 +162,7 @@
           </div>
         </div>
       </div>
-      <el-form-item v-if="data.cascaderItem && data.cascaderItem.length > 0"
+      <el-form-item v-if="(data.cascaderItem || data.cascader) && (data.cascaderItem || data.cascader).length > 0"
                     label="级联默认选中"
                     label-width="110px">
         <el-input-number v-model="data.cascaderIndex"
@@ -217,6 +223,17 @@ export default {
       },
     }
   },
+  watch: {
+    'data.prop': {
+      handler() {
+        if (!this.avueVersion('2.9.0') && this.data.cascaderItem) {
+          this.$set(this.data, 'cascader', this.data.cascaderItem)
+          this.$delete(this.data, 'cascaderItem')
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     handleRemoveFields(index) {
       this.data.dicData.splice(index, 1)
@@ -226,10 +243,18 @@ export default {
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
     handleRemoveCascaderItemFields(index) {
-      this.data.cascaderItem.splice(index, 1)
+      if (this.avueVersion('2.9.0')) this.data.cascaderItem.splice(index, 1)
+      else this.data.cascader.splice(index, 1)
     },
     handleAddCascaderItemFields() {
-      this.data.cascaderItem.push('')
+      if (this.avueVersion('2.9.0')) this.data.cascaderItem.push('')
+      else {
+        if (!this.data.cascader) {
+          this.$set(this.data, 'cascader', [])
+          delete this.data.cascaderItem
+        }
+        this.data.cascader.push('')
+      }
     },
     handleTabClick({ name }) {
       if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []
