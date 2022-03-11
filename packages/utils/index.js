@@ -34,7 +34,7 @@ export function getAsVal(obj, bind = '') {
   return result
 }
 
-export function validatenull (val) {
+export function validatenull(val) {
   if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number') return false;
   if (val instanceof Array) {
     if (val.length === 0) return true;
@@ -107,3 +107,37 @@ export const getObjType = obj => {
   }
   return map[toString.call(obj)];
 };
+
+/**
+ * 是否小于等于某个Avue版本
+ * Avue:2.8.27 v2:2.8.27 -> true
+ * Avue:2.9.1 v2:2.9.0 -> false
+ */
+export const avueVersion = (v2) => {
+  if (!window.AVUE) return
+  let v1 = window.AVUE.version.split('.')
+  v2 = v2.split('.')
+  const len = Math.max(v1.length, v2.length)
+
+  // 调整两个版本号位数相同
+  while (v1.length < len) {
+    v1.push('0')
+  }
+  while (v2.length < len) {
+    v2.push('0')
+  }
+
+  // 循环判断每位数的大小
+  for (let i = 0; i < len; i++) {
+    const num1 = parseInt(v1[i])
+    const num2 = parseInt(v2[i])
+
+    if (num1 > num2) {
+      return false
+    } else if (num1 < num2) {
+      return true
+    }
+  }
+
+  return true
+}
