@@ -71,7 +71,7 @@
                              v-model="data.span"
                              controls-position="right"
                              placeholder="表单栅格"
-                             :min="8"
+                             :min="2"
                              :max="24"></el-input-number>
           </el-form-item>
           <el-form-item label="数据类型"
