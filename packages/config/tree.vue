@@ -48,11 +48,13 @@
                        name="remote">
             网址
             <el-input v-model="data.dicUrl"
+                      size="small"
                       placeholder="远端数据字典网址"></el-input>
             远程搜索
             <el-switch v-model="data.remote"></el-switch><br>
             请求方法
             <el-select v-model="data.dicMethod"
+                       size="small"
                        placeholder="请求方法"
                        style="width: 100%;">
               <el-option label="POST"
@@ -64,6 +66,13 @@
               请求参数
               <avue-dynamic v-model="data.dicQueryConfig"
                             :children="option"></avue-dynamic>
+            </p>
+            <p v-if="data.dicUrl">
+              返回结构
+              <monaco-editor v-model="dicFormatter"
+                             height="80"
+                             :keyIndex="`dict-formatter-${data.prop}`"
+                             :options="options"></monaco-editor>
             </p>
           </el-tab-pane>
         </el-tabs>
@@ -89,44 +98,44 @@
       <el-switch v-model="data.dicFlag"></el-switch>
     </el-form-item>
     <div class="el-form-item el-form-item--small el-form--label-top">
-        <label class="el-form-item__label"
-               style="padding: 0;">级联配置：</label>
-        <div class="el-form-item__content">
-          <draggable tag="ul"
-                     :list="data.cascaderItem|| data.cascader"
-                     :group="{ name: 'cascaderItem' }"
-                     ghost-class="ghost"
-                     handle=".drag-item">
-            <li v-for="(item, index) in data.cascaderItem|| data.cascader"
-                :key="index">
-              <i class="drag-item el-icon-s-operation"
-                 style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
-              <el-input v-if="avueVersion('2.9.0')"
-                        size="mini"
-                        v-model="data.cascaderItem[index]"
-                        clearable
-                        placeholder="级联属性值"></el-input>
-              <el-input v-else
-                        size="mini"
-                        v-model="data.cascader[index]"
-                        clearable
-                        placeholder="级联属性值"></el-input>
-              <el-button @click="handleRemoveCascaderItemFields(index)"
-                         circle
-                         plain
-                         type="danger"
-                         size="mini"
-                         icon="el-icon-minus"
-                         style="padding: 4px; margin-left: 5px;">
-              </el-button>
-            </li>
-          </draggable>
-          <div style="margin-left: 22px;">
-            <el-button type="text"
-                       @click="handleAddCascaderItemFields">添加列</el-button>
-          </div>
+      <label class="el-form-item__label"
+             style="padding: 0;">级联配置：</label>
+      <div class="el-form-item__content">
+        <draggable tag="ul"
+                   :list="data.cascaderItem|| data.cascader"
+                   :group="{ name: 'cascaderItem' }"
+                   ghost-class="ghost"
+                   handle=".drag-item">
+          <li v-for="(item, index) in data.cascaderItem|| data.cascader"
+              :key="index">
+            <i class="drag-item el-icon-s-operation"
+               style="font-size: 16px; margin: 0 5px; cursor: move;"></i>
+            <el-input v-if="avueVersion('2.9.0')"
+                      size="mini"
+                      v-model="data.cascaderItem[index]"
+                      clearable
+                      placeholder="级联属性值"></el-input>
+            <el-input v-else
+                      size="mini"
+                      v-model="data.cascader[index]"
+                      clearable
+                      placeholder="级联属性值"></el-input>
+            <el-button @click="handleRemoveCascaderItemFields(index)"
+                       circle
+                       plain
+                       type="danger"
+                       size="mini"
+                       icon="el-icon-minus"
+                       style="padding: 4px; margin-left: 5px;">
+            </el-button>
+          </li>
+        </draggable>
+        <div style="margin-left: 22px;">
+          <el-button type="text"
+                     @click="handleAddCascaderItemFields">添加列</el-button>
         </div>
       </div>
+    </div>
     <template v-if="data.type == 'tree'">
       <el-form-item label="当有子级时,是否可选择父级"
                     label-width="200px">
@@ -191,11 +200,12 @@
   </div>
 </template>
 <script>
-
+import MonacoEditor from '@utils/monaco-editor'
 
 export default {
   name: "config-tree",
   props: ['data'],
+  components: { MonacoEditor },
   data() {
     return {
       dialogForm: {},
@@ -218,6 +228,13 @@ export default {
           label: 'value'
         }]
       },
+      options: {
+        fullScreen: true,
+        minimap: {
+          enabled: false,
+        },
+      },
+      dicFormatter: '',
     }
   },
   watch: {
@@ -227,8 +244,19 @@ export default {
           this.$set(this.data, 'cascader', this.data.cascaderItem)
           this.$delete(this.data, 'cascaderItem')
         }
+        const { dicFormatter } = this.data
+        this.dicFormatter = dicFormatter ? dicFormatter + '' : '(res) => {\r\n  return res.data\r\n}'
       },
       immediate: true
+    },
+    dicFormatter: {
+      handler(val) {
+        try {
+          this.data.dicFormatter = eval(val)
+        } catch (e) {
+          // console.error(e)
+        }
+      }
     }
   },
   methods: {

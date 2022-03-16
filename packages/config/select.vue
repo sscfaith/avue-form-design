@@ -58,12 +58,14 @@
                        name="remote">
             网址
             <el-input v-model="data.dicUrl"
+                      size="small"
                       placeholder="远端数据字典网址"></el-input>
             远程搜索
             <el-switch v-model="data.remote"></el-switch><br>
             请求方法
             <el-select v-model="data.dicMethod"
                        placeholder="请求方法"
+                       size="small"
                        style="width: 100%;">
               <el-option label="POST"
                          value="post"></el-option>
@@ -74,6 +76,13 @@
               请求参数
               <avue-dynamic v-model="data.dicQueryConfig"
                             :children="option"></avue-dynamic>
+            </p>
+            <p v-if="data.dicUrl">
+              返回结构
+              <monaco-editor v-model="dicFormatter"
+                             height="80"
+                             :keyIndex="`dict-formatter-${data.prop}`"
+                             :options="options"></monaco-editor>
             </p>
           </el-tab-pane>
         </el-tabs>
@@ -203,11 +212,12 @@
 
 <script>
 import Draggable from 'vuedraggable'
+import MonacoEditor from '@utils/monaco-editor'
 
 export default {
   name: "config-select",
   props: ['data'],
-  components: { Draggable },
+  components: { Draggable, MonacoEditor },
   data() {
     return {
       option: {
@@ -221,6 +231,13 @@ export default {
           label: 'value'
         }]
       },
+      options: {
+        fullScreen: true,
+        minimap: {
+          enabled: false,
+        },
+      },
+      dicFormatter: '',
     }
   },
   watch: {
@@ -230,8 +247,19 @@ export default {
           this.$set(this.data, 'cascader', this.data.cascaderItem)
           this.$delete(this.data, 'cascaderItem')
         }
+        const { dicFormatter } = this.data
+        this.dicFormatter = dicFormatter ? dicFormatter + '' : '(res) => {\r\n  return res.data\r\n}'
       },
       immediate: true
+    },
+    dicFormatter: {
+      handler(val) {
+        try {
+          this.data.dicFormatter = eval(val)
+        } catch (e) {
+          // console.error(e)
+        }
+      }
     }
   },
   methods: {

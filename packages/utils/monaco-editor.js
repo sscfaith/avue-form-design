@@ -74,7 +74,8 @@ export default {
     style() {
       return {
         width: !/^\d+$/.test(this.width) ? this.width : `${this.width}px`,
-        height: !/^\d+$/.test(this.height) ? this.height : `${this.height}px`
+        height: !/^\d+$/.test(this.height) ? this.height : `${this.height}px`,
+        position: 'relative'
       }
     }
   },
