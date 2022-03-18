@@ -288,6 +288,7 @@
 
 <script>
 import fields from './fieldsConfig.js'
+import { validatenull } from './utils/index'
 import beautifier from './utils/json-beautifier'
 import MonacoEditor from './utils/monaco-editor'
 import widgetEmpty from './assets/widget-empty.png'
@@ -601,6 +602,9 @@ export default {
       return new Promise((resolve, reject) => {
         try {
           const data = _this.deepClone(obj)
+          for (let key in data) {
+            if (validatenull(data[key])) delete data[key]
+          }
           for (let i = 0; i < data.column.length; i++) {
             const col = data.column[i]
 
@@ -673,6 +677,9 @@ export default {
                 col.data = data
               } else delete col.data
               delete col.dataConfig
+            }
+            for (let key in col) {
+              if (validatenull(col[key])) delete col[key]
             }
           }
           resolve(data)

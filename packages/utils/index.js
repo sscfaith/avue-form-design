@@ -1,26 +1,3 @@
-export const stringify = (json) => {
-  let count = 0;
-  let list = [];
-  let str = JSON.stringify(json, function (key, val) {
-    if (typeof val === 'function') {
-      list.push(val + '');
-      const result = '$code{' + count + '}$code'
-      count = count + 1;
-      return result
-    }
-    return val;
-  }, 2);
-  let startCode = '$code{';
-  let endCode = '}$code';
-  list.forEach((ele, index) => {
-    str = str.replace(startCode + index + endCode, startCode + ele + endCode)
-  })
-  for (let i = 0; i < count; i++) {
-    str = str.replace('"' + startCode, '').replace(endCode + '"', '')
-  }
-  return str
-}
-
 export function getAsVal(obj, bind = '') {
   let result = deepClone(obj)
   if (validatenull(bind)) return result
@@ -35,9 +12,12 @@ export function getAsVal(obj, bind = '') {
 }
 
 export function validatenull(val) {
-  if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number') return false;
-  if (val instanceof Array) {
-    if (val.length === 0) return true;
+  if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number' || val instanceof Array) return false;
+  else if (val instanceof Function) {
+    const fun = val.toString().replace(/\s+/g,'')
+    const arr = ['({value})=>{}', '(res,cb)=>{}', '(res)=>{}', '()=>{}']
+    if (arr.includes(fun)) return true
+    else return false
   } else if (val instanceof Object) {
     for (var o in val) {
       return false;
@@ -55,7 +35,6 @@ export function validatenull(val) {
     }
     return false;
   }
-  return false;
 }
 
 export const deepClone = data => {
