@@ -10,7 +10,6 @@
                v-bind="vBind"
                :multiple="false"
                :placeholder="item.placeholder || getPlaceholder(item)"
-               :dic="item.dicData"
                :value="['time', 'timerange', 'checkbox'].includes(item.type) ? item.dicData: undefined">
       <span v-if="params.html"
             v-html="params.html"></span>
@@ -36,7 +35,19 @@ export default {
   },
   computed: {
     vBind() {
-      const vBind = Object.assign(this.deepClone(this.item), this.params, { size: this.item.size || 'small' })
+      const vBind = Object.assign(this.deepClone(this.item), this.params, {
+        size: this.item.size || 'small',
+        dic: this.item.dicData ? this.item.dicData.map(d => {
+          if (!this.item.props) return d
+          const { label, value, desc } = this.item.props
+          if (!label || !value) return d
+          return {
+            [label]: d.label,
+            [value]: d.value,
+            [desc]: d.desc
+          }
+        }) : undefined
+      })
       let event = ['change', 'blur', 'click', 'focus']
       event.forEach(e => delete vBind[e])
       if (vBind.event) delete vBind.event
