@@ -634,12 +634,6 @@ $primary-background-color: #ecf8ff;
 }
 
 .afd-preview-form {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 83vh;
-}
-
-.el-drawer__wrapper {
-  :focus {
-    outline: 0;
-  }
 }

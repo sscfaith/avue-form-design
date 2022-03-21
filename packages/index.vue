@@ -268,7 +268,8 @@
                  size="60%"
                  append-to-body
                  :before-close="handleBeforeClose">
-        <avue-form ref="form"
+        <avue-form v-if="previewVisible"
+                   ref="form"
                    class="afd-preview-form"
                    :option="option"
                    v-model="form"
