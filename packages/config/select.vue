@@ -275,8 +275,12 @@ export default {
       else this.data.cascader.splice(index, 1)
     },
     handleAddCascaderItemFields() {
-      if (this.avueVersion('2.9.0')) this.data.cascaderItem.push('')
-      else {
+      if (this.avueVersion('2.9.0')) {
+        if (!this.data.cascaderItem) {
+          this.$set(this.data, 'cascaderItem', [])
+        }
+        this.data.cascaderItem.push('')
+      } else {
         if (!this.data.cascader) {
           this.$set(this.data, 'cascader', [])
           delete this.data.cascaderItem
