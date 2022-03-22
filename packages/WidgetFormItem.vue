@@ -46,7 +46,11 @@ export default {
             [value]: d.value,
             [desc]: d.desc
           }
-        }) : undefined
+        }) : undefined,
+        rules: this.item.pattern ? this.item.rules.map(r => {
+          if (r.pattern) r.pattern = new RegExp(this.item.pattern)
+          return r
+        }) : this.item.rules
       })
       let event = ['change', 'blur', 'click', 'focus']
       event.forEach(e => delete vBind[e])
