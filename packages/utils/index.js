@@ -11,10 +11,13 @@ export function getAsVal(obj, bind = '') {
   return result
 }
 
-export function validatenull (val) {
-  if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number') return false;
-  if (val instanceof Array) {
-    if (val.length === 0) return true;
+export function validatenull(val) {
+  if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number' || val instanceof Array) return false;
+  else if (val instanceof Function) {
+    const fun = val.toString().replace(/\s+/g,'')
+    const arr = ['({value})=>{}', '(res,cb)=>{}', '(res)=>{}', '()=>{}']
+    if (arr.includes(fun)) return true
+    else return false
   } else if (val instanceof Object) {
     for (var o in val) {
       return false;
@@ -32,7 +35,6 @@ export function validatenull (val) {
     }
     return false;
   }
-  return false;
 }
 
 export const deepClone = data => {

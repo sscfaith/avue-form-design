@@ -1,4 +1,5 @@
 import { getCurrentInstance } from 'vue'
+import { validatenull } from '../../utils/index.js'
 
 export default function () {
   const { proxy } = getCurrentInstance()
@@ -9,6 +10,9 @@ export default function () {
       return new Promise((resolve, reject) => {
         try {
           const data = deepClone(obj)
+          for (let key in data) {
+            if (validatenull(data[key])) delete data[key]
+          }
           for (let i = 0; i < data.column.length; i++) {
             const col = data.column[i]
 
@@ -81,6 +85,9 @@ export default function () {
                 col.data = data
               } else delete col.data
               delete col.dataConfig
+            }
+            for (let key in col) {
+              if (validatenull(col[key])) delete col[key]
             }
           }
           resolve(data)
