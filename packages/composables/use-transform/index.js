@@ -55,6 +55,24 @@ export default function () {
                 delete col.dicMethod
                 delete col.dicQuery
                 delete col.dicQueryConfig
+                const { label, value, desc } = col.props
+                col.dicData.forEach(d => {
+                  if (d.label) {
+                    const val = d.label
+                    delete d.label
+                    d[label] = val
+                  }
+                  if (d.value) {
+                    const val = d.value
+                    delete d.value
+                    d[value] = val
+                  }
+                  if (d.desc) {
+                    const val = d.desc
+                    delete d.desc
+                    d[desc] = val
+                  }
+                })
               } else if (col.dicOption == 'remote') {
                 delete col.dicData
                 if (col.dicQueryConfig && col.dicQueryConfig.length > 0) {
@@ -127,6 +145,27 @@ export default function () {
                 if (col.dicUrl) col.dicOption = 'remote'
                 else col.dicOption = 'static'
                 if (!col.dicData) col.dicData = []
+                else if (col.props) {
+                  col.dicData.forEach(d => {
+                    const { label, value, desc } = col.props
+                    if (label) {
+                      const val = d[label]
+                      delete d[label]
+                      d.label = val
+                    }
+                    if (value) {
+                      const val = d[value]
+                      delete d[value]
+                      d.value = val
+                    }
+                    if (desc) {
+                      const val = d[desc]
+                      delete d[desc]
+                      d.desc = val
+                    }
+                  })
+                }
+
               } else if (['upload'].includes(col.type)) {
                 if (col.headers && typeof col.headers == 'object') {
                   const arr = []
