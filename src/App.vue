@@ -102,7 +102,7 @@ export default {
                 value: '3'
               }
             ],
-            cascaderItem: [],
+            cascader: [],
             span: 24,
             display: true,
             props: {

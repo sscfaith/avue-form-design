@@ -131,18 +131,18 @@
         <div class="el-form-item__content">
           <draggable
             tag="ul"
-            :list="data.cascaderItem"
-            :group="{ name: 'cascaderItem' }"
+            :list="data.cascader"
+            :group="{ name: 'cascader' }"
             ghost-class="ghost"
             item-key="label"
             handle=".drag-item"
           >
-            <template #item="{ element, index }">
+            <template #item="{ index }">
               <li style="margin-bottom: 5px;">
                 <el-icon :size="30">
                   <operation class="drag-item" style=" margin: 0 5px; cursor: move;"></operation>
                 </el-icon>
-                <el-input v-model="data.cascaderItem[index]" clearable placeholder="级联属性值"></el-input>
+                <el-input v-model="data.cascader[index]" clearable placeholder="级联属性值"></el-input>
                 <el-button
                   style="margin-left: 5px;"
                   @click="handleRemoveCascaderItemFields(index)"
@@ -163,7 +163,7 @@
     </div>
 
     <el-form-item
-      v-if="data.cascaderItem && data.cascaderItem.length > 0"
+      v-if="data.cascader && data.cascader.length > 0"
       label="级联默认选中"
       label-width="110px"
     >
@@ -231,10 +231,10 @@ export default {
       this.data.dicData.push({ label: `字段${i}`, value: `col_${i}` })
     },
     handleRemoveCascaderItemFields(index) {
-      this.data.cascaderItem.splice(index, 1)
+      this.data.cascader.splice(index, 1)
     },
     handleAddCascaderItemFields() {
-      this.data.cascaderItem.push('')
+      this.data.cascader.push('')
     },
     handleTabClick({ name }) {
       if (name == 'remote' && !this.data.dicQueryConfig) this.data.dicQueryConfig = []

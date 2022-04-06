@@ -139,7 +139,7 @@ export default [
         { label: '选项三', value: '2' },
       ],
       // 用于做级联配置
-      cascaderItem: [],
+      cascader: [],
       span: 24,
       display: true,
       dicOption: 'static',
@@ -171,7 +171,7 @@ export default [
       ],
       cascaderIndex: 1,
       // 用于做级联配置
-      cascaderItem: [],
+      cascader: [],
       showAllLevels: true,
       dicOption: 'static',
       separator: "/",
@@ -204,7 +204,7 @@ export default [
       ],
       parent: true,
       // 用于做级联配置
-      cascaderItem: [],
+      cascader: [],
       props: {
         label: 'label',
         value: 'value',
