@@ -76,6 +76,15 @@
               请求参数
               <avue-dynamic v-model="data.dicQueryConfig" :children="option"></avue-dynamic>
             </p>
+            <p v-if="data.dicUrl">
+              返回结构
+              <monaco-editor
+                v-model="dicFormatter"
+                height="80"
+                :keyIndex="`dict-formatter-${data.prop}`"
+                :options="options"
+              ></monaco-editor>
+            </p>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -201,6 +210,7 @@
 <script setup>
 import { Operation, Minus, QuestionFilled } from '@element-plus/icons-vue'
 import Draggable from 'vuedraggable'
+import MonacoEditor from '../../../utils/monaco-editor'
 </script>
 
 <script>
@@ -220,6 +230,31 @@ export default {
           label: 'value'
         }]
       },
+      options: {
+        fullScreen: true,
+        minimap: {
+          enabled: false,
+        },
+      },
+      dicFormatter: '',
+    }
+  },
+  watch: {
+    'data.prop': {
+      handler() {
+        const { dicFormatter } = this.data
+        this.dicFormatter = dicFormatter ? dicFormatter + '' : '(res) => {\r\n  return res.data\r\n}'
+      },
+      immediate: true
+    },
+    dicFormatter: {
+      handler(val) {
+        try {
+          this.data.dicFormatter = eval(val)
+        } catch (e) {
+          // console.error(e)
+        }
+      }
     }
   },
   methods: {
