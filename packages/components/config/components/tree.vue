@@ -144,6 +144,9 @@
   <el-form-item label="是否多选">
     <el-switch v-model="data.multiple"></el-switch>
   </el-form-item>
+  <el-form-item v-if="data.type == 'tree' && data.multiple" label="勾选时，父子不关联" label-width="160px">
+    <el-switch v-model="data.checkStrictly"></el-switch>
+  </el-form-item>
 
   <el-dialog v-model="dialogVisible" :before-close="beforeClose">
     <el-form ref="dialogForm" :model="dialogForm" label-width="80px" :rules="dialogRules">
