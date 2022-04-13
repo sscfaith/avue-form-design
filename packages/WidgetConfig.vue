@@ -209,9 +209,14 @@
         </el-collapse-item>
       </el-collapse>
     </el-form>
-    <avue-empty v-else
-                desc="拖拽字段进行配置"
-                style="margin-top: 100%;"></avue-empty>
+    <template v-else>
+      <avue-empty v-if="avueVersion('2.9.4')"
+                  desc="拖拽字段进行配置"
+                  style="margin-top: 100%;"></avue-empty>
+      <el-empty v-else
+                description="拖拽字段进行配置"
+                style="margin-top: 100%;"></el-empty>
+    </template>
   </div>
 </template>
 

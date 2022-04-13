@@ -37,9 +37,9 @@ export default {
             type: 'success'
           },
           event: {
-            close: () => {
-              console.log('alert关闭事件')
-            }
+            close: eval(`() => {
+    console.log('alert关闭事件')
+  }`)
           }
         },
       ],

@@ -50,9 +50,14 @@
         </div>
       </template>
       <template v-else>
-        <avue-empty size="50"
-                    style="width: 100%;"
-                    desc="拖拽字段至此"></avue-empty>
+        <avue-empty v-if="avueVersion('2.9.4')"
+                    size="50"
+                    description="拖拽字段至此"
+                    style="width: 100%;"></avue-empty>
+        <el-empty v-else
+                  :image-size="50"
+                  description="拖拽字段至此"
+                  style="width: 100%;"></el-empty>
       </template>
     </draggable>
     <el-button title="删除"
@@ -95,21 +100,21 @@ export default {
   name: 'widget-form-table',
   props: ['data', 'column', 'select', 'index'],
   components: { WidgetFormItem, draggable },
-  data () {
+  data() {
     return {
       selectWidget: this.select,
     }
   },
   methods: {
-    handleSelectWidget (index) {
+    handleSelectWidget(index) {
       this.selectWidget = this.data.column[index]
     },
-    handleWidgetClear (index) {
+    handleWidgetClear(index) {
       this.data.column[index].children.column = []
       this.selectWidget = this.data.column[index]
       this.$emit("change")
     },
-    handleWidgetDelete (index) {
+    handleWidgetDelete(index) {
       if (this.data.column.length - 1 === index) {
         if (index === 0) this.selectWidget = {}
         else this.handleSelectWidget(index - 1)
@@ -120,7 +125,7 @@ export default {
         this.$emit("change")
       })
     },
-    handleWidgetCloneTable (index) {
+    handleWidgetCloneTable(index) {
       let cloneData = this.deepClone(this.data.column[index])
       cloneData.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       cloneData.children.column.forEach(t => {
@@ -132,7 +137,7 @@ export default {
         this.$emit("change")
       })
     },
-    handleWidgetTableAdd (evt, column) {
+    handleWidgetTableAdd(evt, column) {
       let newIndex = evt.newIndex;
       const item = evt.item;
 
@@ -151,10 +156,10 @@ export default {
 
       this.$emit("change")
     },
-    handleWidgetTableSelect (data) {
+    handleWidgetTableSelect(data) {
       this.selectWidget = data
     },
-    handleWidgetTableClone (column, item) {
+    handleWidgetTableClone(column, item) {
       const data = this.deepClone(item);
       data.prop = 'a' + Date.now() + Math.ceil(Math.random() * 99999)
       this.$set(column.children.column, column.children.column.length, { ...data })
@@ -163,7 +168,7 @@ export default {
         this.$emit("change")
       })
     },
-    handleWidgetTableDelete (column, index) {
+    handleWidgetTableDelete(column, index) {
       if (column.children.column.length - 1 == index) {
         if (index == 0) this.selectWidget = column
         else this.selectWidget = column.children.column[index - 1]
@@ -175,11 +180,11 @@ export default {
     },
   },
   watch: {
-    select (val) {
+    select(val) {
       this.selectWidget = val
     },
     selectWidget: {
-      handler (val) {
+      handler(val) {
         this.$emit('update:select', val)
       },
       deep: true
