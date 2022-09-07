@@ -274,7 +274,11 @@ export default {
   methods: {
     handleChangeType(type) {
       if (!type) return
-      const config = this.fields.find(f => f.list.find(l => l.type == type))
+      let config
+      for(let f of this.fields) {
+        config = f.list.find(l => l.type == type)
+        if (config) break
+      }
       if (!config) return
       for (let key in config) {
         if (config && Object.prototype.hasOwnProperty.call(config, key) && !['icon', 'label', 'span'].includes(key)) this.data[key] = config[key]
