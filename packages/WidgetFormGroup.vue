@@ -34,7 +34,7 @@
                         :class="{ active: selectWidget.prop == item.prop, 'required': item.required }"
                         @click.native.stop="handleWidgetTableSelect(item)">
             <widget-form-item :item="item"
-                              :params="column.params"></widget-form-item>
+                              :params="item.params"></widget-form-item>
             <el-button title="删除"
                        @click.stop="handleWidgetTableDelete(column, groupIndex)"
                        class="widget-form-group__item--delete"
