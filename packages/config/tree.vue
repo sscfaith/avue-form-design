@@ -85,7 +85,7 @@
         <ul>
           <li v-for="(value, key) in data.props"
               :key="key">
-            <span style="width: 50px">{{ key }}</span>
+            <span style="width: 80px">{{ key }}</span>
             <el-input size="mini"
                       v-model="data.props[key]"
                       placeholder="key配置"></el-input>

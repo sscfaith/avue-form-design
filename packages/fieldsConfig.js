@@ -176,7 +176,8 @@ export default [
       props: {
         label: 'label',
         value: 'value',
-        desc: 'desc'
+        children: 'children',
+        desc: 'desc',
       }
     }, {
       type: 'tree',
@@ -206,7 +207,8 @@ export default [
       props: {
         label: 'label',
         value: 'value',
-        desc: 'desc'
+        children: 'children',
+        desc: 'desc',
       }
     }, {
       type: 'table',
@@ -231,9 +233,6 @@ export default [
           resKey: 'data.data',
           auto: true
         }
-      },
-      formatter: (row) => {
-        return row.name
       },
       props: {
         label: 'name',

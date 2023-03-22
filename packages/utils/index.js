@@ -14,7 +14,7 @@ export function getAsVal(obj, bind = '') {
 export function validatenull(val) {
   if (val instanceof Date || typeof val === 'boolean' || typeof val === 'number' || val instanceof Array) return false;
   else if (val instanceof Function) {
-    const fun = val.toString().replace(/\s+/g,'')
+    const fun = val.toString().replace(/\s+/g, '')
     const arr = ['({value})=>{}', '(res,cb)=>{}', '(res)=>{}', '()=>{}']
     if (arr.includes(fun)) return true
     else return false
@@ -119,4 +119,36 @@ export const avueVersion = (v2) => {
   }
 
   return true
+}
+
+export const filterCommonDicProps = (dic, props) => {
+  if (!props) return []
+  const { label, value, desc, children = 'children' } = props
+  if (!label || !value || !dic) return dic
+  dic = dic.map(d => {
+    const data = {
+      label: d[label],
+      value: d[value],
+      desc: d[desc]
+    }
+    if (d[children]) data.children = filterCommonDicProps(d[children], props)
+    return data
+  })
+  return dic
+}
+
+export const filterDicProps = (dic, props) => {
+  if (!props) return []
+  const { label, value, desc, children = 'children' } = props
+  if (!label || !value || !dic) return dic
+  dic = dic.map(d => {
+    const data = {
+      [label]: d.label,
+      [value]: d.value,
+      [desc]: d.desc
+    }
+    if (d.children) data[children] = filterDicProps(d.children, props)
+    return data
+  })
+  return dic
 }

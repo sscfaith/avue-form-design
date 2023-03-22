@@ -119,6 +119,15 @@ export default {
           console.error(e)
         }
       }
+    },
+    formatter: {
+      handler(val) {
+        try {
+          this.data.formatter = eval(val)
+        } catch (e) {
+          console.error(e)
+        }
+      }
     }
   },
   data() {

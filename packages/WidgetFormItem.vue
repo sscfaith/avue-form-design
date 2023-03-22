@@ -17,6 +17,8 @@
   </div>
 </template>
 <script>
+import { filterDicProps } from './utils/index'
+
 export default {
   name: 'widget-form-item',
   props: {
@@ -37,16 +39,7 @@ export default {
     vBind() {
       const vBind = Object.assign(this.deepClone(this.item), this.params, {
         size: this.item.size || 'small',
-        dic: this.item.dicData ? this.item.dicData.map(d => {
-          if (!this.item.props) return d
-          const { label, value, desc } = this.item.props
-          if (!label || !value) return d
-          return {
-            [label]: d.label,
-            [value]: d.value,
-            [desc]: d.desc
-          }
-        }) : undefined,
+        dic: this.item.dicData ? filterDicProps(this.item.dicData, this.item.props) : undefined,
         rules: this.item.pattern ? this.item.rules.map(r => {
           if (r.pattern) r.pattern = new RegExp(this.item.pattern)
           return r

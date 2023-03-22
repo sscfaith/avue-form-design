@@ -289,7 +289,7 @@
 
 <script>
 import fields from './fieldsConfig.js'
-import { validatenull } from './utils/index'
+import { validatenull, filterDicProps, filterCommonDicProps } from './utils/index'
 import beautifier from './utils/json-beautifier'
 import MonacoEditor from './utils/monaco-editor'
 import widgetEmpty from './assets/widget-empty.png'
@@ -648,24 +648,7 @@ export default {
                 delete col.dicMethod
                 delete col.dicQuery
                 delete col.dicQueryConfig
-                const { label, value, desc } = col.props
-                col.dicData.forEach(d => {
-                  if (d.label) {
-                    const val = d.label
-                    delete d.label
-                    d[label] = val
-                  }
-                  if (d.value) {
-                    const val = d.value
-                    delete d.value
-                    d[value] = val
-                  }
-                  if (d.desc) {
-                    const val = d.desc
-                    delete d.desc
-                    d[desc] = val
-                  }
-                })
+                col.dicData = filterDicProps(col.dicData, col.props)
               } else if (col.dicOption == 'remote') {
                 delete col.dicData
                 if (col.dicQueryConfig && col.dicQueryConfig.length > 0) {
@@ -739,24 +722,7 @@ export default {
                 else col.dicOption = 'static'
                 if (!col.dicData) col.dicData = []
                 else if (col.props) {
-                  col.dicData.forEach(d => {
-                    const { label, value, desc } = col.props
-                    if (label) {
-                      const val = d[label]
-                      delete d[label]
-                      d.label = val
-                    }
-                    if (value) {
-                      const val = d[value]
-                      delete d[value]
-                      d.value = val
-                    }
-                    if (desc) {
-                      const val = d[desc]
-                      delete d[desc]
-                      d.desc = val
-                    }
-                  })
+                  col.dicData = filterCommonDicProps(col.dicData, col.props)
                 }
               } else if (['upload'].includes(col.type)) {
                 if (col.headers && typeof col.headers == 'object') {
