@@ -22,7 +22,12 @@
 					@generate="handleGenerateJson"
 					@preview="handlePreview"
 					@clear="handleClear"
-				></afd-toolbar>
+				>
+					<template #toolbar-left><slot name="toolbar-left"></slot> </template>
+					<template v-slot:toolbar-right
+						><slot name="toolbar-right"></slot
+					></template>
+				</afd-toolbar>
 				<!-- 主设计区 -->
 				<afd-widget
 					ref="widgetForm"
@@ -101,7 +106,7 @@ export default {
 		},
 		showGithubStar: {
 			type: Boolean,
-			default: true,
+			default: false,
 		},
 		toolbar: {
 			type: Array,
