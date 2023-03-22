@@ -41,6 +41,13 @@
         <el-switch v-model="data.tabs"
                    active-color="#409EFF"></el-switch>
       </el-form-item>
+      <el-form-item label="默认tab" v-if="data.tabs">
+        <el-input-number v-model="data.tabsActive"
+                         :min="1"
+                         controls-position="right"
+                         placeholder="默认tab"
+                         style="width: 100%"></el-input-number>
+      </el-form-item>
       <el-form-item label="详情模式">
         <el-switch v-model="data.detail"></el-switch>
       </el-form-item>
