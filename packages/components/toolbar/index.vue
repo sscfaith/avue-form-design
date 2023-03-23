@@ -2,14 +2,14 @@
 	<el-header class="toolbar">
 		<div v-if="undoRedo">
 			<el-button
-				type="text"
+				link
 				:icon="RefreshLeft"
 				:disabled="historySteps.index == 0"
 				@click="$emit('undo')"
 				>撤销</el-button
 			>
 			<el-button
-				type="text"
+				link
 				:icon="RefreshRight"
 				:disabled="historySteps.index == historySteps.steps.length - 1"
 				@click="$emit('redo')"
@@ -30,28 +30,28 @@
 			<slot name="toolbar-left"></slot>
 			<el-button
 				v-if="toolbar.includes('avue-doc')"
-				type="text"
+				link
 				:icon="Document"
 				@click="handleAvueDoc"
 				>Avue文档</el-button
 			>
 			<el-button
 				v-if="toolbar.includes('import')"
-				type="text"
+				link
 				:icon="Upload"
 				@click="$emit('import')"
 				>导入JSON</el-button
 			>
 			<el-button
 				v-if="toolbar.includes('generate')"
-				type="text"
+				link
 				:icon="Download"
 				@click="$emit('generate')"
 				>生成JSON</el-button
 			>
 			<el-button
 				v-if="toolbar.includes('preview')"
-				type="text"
+				link
 				:icon="View"
 				@click="$emit('preview')"
 				>预览</el-button
@@ -59,7 +59,7 @@
 			<el-button
 				v-if="toolbar.includes('clear')"
 				class="danger"
-				type="text"
+				link
 				:icon="Delete"
 				@click="$emit('clear')"
 				>清空</el-button
