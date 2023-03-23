@@ -1,18 +1,14 @@
 {
-  "name": "@sscfaith/avue-form-design",
-  "author": {
-    "name": "SSC",
-    "url": "https://github.com/sscfaith",
-    "email": "273702440@qq.com"
-  },
-  "version": "3.0.0-beta.3",
+  "name": "zilue-avue-form-design",
+  "author": "SSC <273702440@qq.com> (https://github.com/sscfaith)",
+  "version": "3.0.6",
   "main": "lib/index.umd.js",
   "files": [
     "lib"
   ],
   "repository": {
     "type": "github",
-    "url": "https://github.com/sscfaith/avue-form-design"
+    "url": "git+https://github.com/sscfaith/avue-form-design.git"
   },
   "keywords": [
     "vue3",
@@ -32,12 +28,21 @@
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@smallwei/avue": "^3.0.4",
-    "@vitejs/plugin-vue": "^2.3.1",
-    "element-plus": "^2.1.8",
+    "@smallwei/avue": "^3.2.12",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "element-plus": "^2.3.1",
     "sass": "^1.49.11",
-    "vite": "^2.9.1",
-    "vue": "^3.2.31"
+    "vite": "^4.1.4",
+    "vue": "^3.2.47"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "description": "Vue3.0版本，因Avue还存在一些bug，请慎重使用。",
+  "bugs": {
+    "url": "https://github.com/sscfaith/avue-form-design/issues"
+  },
+  "homepage": "https://github.com/sscfaith/avue-form-design#readme",
+  "directories": {
+    "example": "examples",
+    "lib": "lib"
+  }
 }

@@ -1,86 +1,80 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Avue表单设计器@Vue3</title>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/element-plus/dist/index.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@smallwei/avue@3.2.12/lib/index.css"
+		/>
+		<style>
+			body {
+				margin: 0;
+			}
+		</style>
+	</head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Avue表单设计器@Vue3</title>
-  <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css" />
-  <link rel="stylesheet" href="https://unpkg.com/@smallwei/avue@3.0.1/lib/index.css" />
-  <style>
-    body {
-      margin: 0;
-    }
-  </style>
-</head>
+	<body>
+		<div id="app">
+			<p>
+				<el-button icon="el-icon-download" @click="handleSubmit"
+					>获取JSON</el-button
+				>
+			</p>
 
-<body>
-  <div id="app">
-    <avue-form-design style="height: 100vh;" :options="options" @submit="handleSubmit" :custom-fields="customFields">
-    </avue-form-design>
-  </div>
+			<avue-form-design
+				style="height: 100vh"
+				ref="formDesign"
+				:show-github-star="false"
+				:options="options"
+			>
+				<template #toolbar-left
+					><el-button type="info" icon="el-icon-link" link>设置 </el-button>
+				</template>
+				<template v-slot:toolbar-right
+					><el-button type="info" icon="el-icon-link" link
+						>保存数据
+					</el-button></template
+				>
+			</avue-form-design>
+		</div>
 
-  <script src="https://unpkg.com/vue@3"></script>
-  <script src="https://unpkg.com/element-plus"></script>
-  <script src="https://unpkg.com/element-plus/dist/locale/zh-cn"></script>
-  <script src="https://unpkg.com/@smallwei/avue@3.0.1"></script>
-  <script src="../lib//index.umd.js"></script>
-  <script>
-    Vue.createApp({
-      mounted() {
-        console.log(window)
-      },
-      data() {
-        return {
-          customFields: [
-            {
-              title: '分割线',
-              component: 'el-divider',//ele分割线
-              span: 24,
-              icon: 'el-icon-eleme',
-              tips: '看我：自定义属性怎么用？',
-              labelWidth: '0px',
-              params: {
-                html: '<h3 style="color:red">分割线标题</h3>',
-                contentPosition: "left",
-              }
-            },
-            {
-              title: '警告',
-              component: 'el-alert',
-              labelWidth: '0px',
-              span: 24,
-              icon: 'el-icon-warning',
-              tips: '看我：自定义事件怎么用？',
-              params: {
-                title: '警告警告警告警告',
-                type: 'success'
-              },
-              event: {
-                close: () => {
-                  console.log('alert关闭事件')
-                }
-              }
-            },
-          ],
-          options: {},
-        }
-      },
-      methods: {
-        handleSubmit(val) {
-          this.$message.success("查看控制台")
-          console.log(val);
-        },
-      }
-    })
-      .use(window.ElementPlus, {
-        locale: ElementPlusLocaleZhCn,
-      })
-      .use(window.AVUE)
-      .use(window.AvueFormDesign)
-      .mount('#app')
-  </script>
-</body>
-
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="https://unpkg.com/element-plus"></script>
+		<script src="https://unpkg.com/element-plus/dist/locale/zh-cn"></script>
+		<script src="https://unpkg.com/@smallwei/avue@3.2.12"></script>
+		<script src="../lib/index.umd.js"></script>
+		<script>
+			Vue.createApp({
+				mounted() {
+					console.log(window);
+				},
+				data() {
+					return {
+						options: {},
+					};
+				},
+				methods: {
+					handleSubmit(val) {
+						this.$message.success("查看控制台");
+						this.$refs.formDesign.getData("string").then((data) => {
+							console.log(data);
+						});
+					},
+				},
+			})
+				.use(window.ElementPlus, {
+					locale: ElementPlusLocaleZhCn,
+				})
+				.use(window.AVUE)
+				.use(window.AvueFormDesign)
+				.mount("#app");
+		</script>
+	</body>
 </html>
