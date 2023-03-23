@@ -1,7 +1,7 @@
 {
   "name": "zilue-avue-form-design",
   "author": "SSC <273702440@qq.com> (https://github.com/sscfaith)",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "main": "lib/index.umd.js",
   "files": [
     "lib"
