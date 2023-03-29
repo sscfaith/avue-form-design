@@ -5,15 +5,29 @@
                 clearable
                 placeholder="占位内容"></el-input>
     </el-form-item>
-    <el-form-item label="最小值">
-      <el-input-number v-model="data.minRows"
-                       controls-position="right"
-                       placeholder="最小值"></el-input-number>
+     <el-form-item label="最小值">
+      <template v-if="avueVersion('2.9.5')">
+        <el-input-number v-model="data.minRows"
+                         controls-position="right"
+                         placeholder="最小值"></el-input-number>
+      </template>
+      <template v-else>
+        <el-input-number v-model="data.min"
+                         controls-position="right"
+                         placeholder="最小值"></el-input-number>
+      </template>
     </el-form-item>
     <el-form-item label="最大值">
-      <el-input-number v-model="data.maxRows"
-                       controls-position="right"
-                       placeholder="最大值"></el-input-number>
+      <template v-if="avueVersion('2.9.5')">
+        <el-input-number v-model="data.maxRows"
+                         controls-position="right"
+                         placeholder="最大值"></el-input-number>
+      </template>
+      <template v-else>
+        <el-input-number v-model="data.max"
+                         controls-position="right"
+                         placeholder="最大值"></el-input-number>
+      </template>
     </el-form-item>
     <el-form-item label="步长">
       <el-input-number v-model="data.step"
