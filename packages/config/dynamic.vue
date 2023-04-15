@@ -35,8 +35,7 @@
                    value="form"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="序号"
-                  v-if="data.children.type == 'form'">
+    <el-form-item label="序号">
       <el-switch v-model="data.children.index"></el-switch>
     </el-form-item>
     <el-form-item label="添加按钮">
