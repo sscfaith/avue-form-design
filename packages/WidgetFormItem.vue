@@ -40,7 +40,7 @@ export default {
       const vBind = Object.assign(this.deepClone(this.item), this.params, {
         size: this.item.size || 'small',
         dic: this.item.dicData ? filterDicProps(this.item.dicData, this.item.props) : undefined,
-        rules: this.item.pattern ? this.item.rules.map(r => {
+        rules: this.item.pattern ? this.deepClone(this.item.rules).map(r => {
           if (r.pattern) r.pattern = new RegExp(this.item.pattern)
           return r
         }) : this.item.rules

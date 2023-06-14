@@ -20,7 +20,6 @@ export default [
       children: {
         align: 'center',
         headerAlign: 'center',
-        index: true,
         addBtn: true,
         delBtn: true,
         column: []
