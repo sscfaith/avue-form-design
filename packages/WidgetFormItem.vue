@@ -9,8 +9,7 @@
                :is="getComponent(item.type, item.component)"
                v-bind="vBind"
                :multiple="false"
-               :placeholder="item.placeholder || getPlaceholder(item)"
-               :value="['time', 'timerange', 'checkbox'].includes(item.type) ? item.dicData: undefined">
+               :placeholder="item.placeholder || getPlaceholder(item)">
       <span v-if="params.html"
             v-html="params.html"></span>
     </component>
