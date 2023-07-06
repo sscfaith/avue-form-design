@@ -90,6 +90,8 @@
                          value="number"></el-option>
               <el-option label="Array"
                          value="array"></el-option>
+              <el-option label="Object"
+                         value="object"></el-option>
             </el-select>
           </el-form-item>
           <!-- <el-form-item label="深结构"
